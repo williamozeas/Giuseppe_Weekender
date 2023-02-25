@@ -347,12 +347,12 @@ public abstract class RewindAbstract : MonoBehaviour
     {
         IsTracking = val;
     }
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         RewindManager.RewindTimeCall += Rewind;
         RewindManager.TrackingStateCall += OnTrackingChange;        
     }
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         RewindManager.RewindTimeCall -= Rewind;
         RewindManager.TrackingStateCall -= OnTrackingChange;            

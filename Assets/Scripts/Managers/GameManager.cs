@@ -39,6 +39,8 @@ public class GameManager : Singleton<GameManager>
     //References (Should set themselves in their Awake() functions)
     private Player _player;
     public Player Player => _player;
+    private RewindManager _rewindManager;
+    public RewindManager RewindManager;
     
     //events - these can be recieved and trigger things all throughout the game
     public static event Action GameStart;
@@ -46,10 +48,9 @@ public class GameManager : Singleton<GameManager>
     public static event Action GameOver;
     public static event Action GoToMenu;
     
-    // Start is called before the first frame update
-    void Start()
+    public override void Awake()
     {
-        
+        _rewindManager = GetComponent<RewindManager>();
     }
 
     // Update is called once per frame
