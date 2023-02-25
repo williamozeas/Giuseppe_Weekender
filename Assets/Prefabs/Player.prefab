@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 7091475896383879923}
   - component: {fileID: 7669353293043605680}
   - component: {fileID: 7091475896383879924}
-  - component: {fileID: 4200527479701231575}
+  - component: {fileID: 7928887588278847936}
+  - component: {fileID: 3918721025421726243}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -153,7 +154,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &4200527479701231575
+--- !u!114 &7928887588278847936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,9 +163,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1741376681157417396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f82cb207276429e934dc36cc1e0a20, type: 3}
+  m_Script: {fileID: 11500000, guid: ddc7b21e0c979453f8a1b70add4539aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3918721025421726243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741376681157417396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac73ff5d3e0d6485f84c207495cc50ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewindManager: {fileID: 7928887588278847936}
   trackPositionRotation: 1
   trackVelocity: 1
   trackAnimator: 0

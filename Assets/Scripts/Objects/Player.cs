@@ -12,19 +12,20 @@ public class Player : MonoBehaviour
     
     //private vars
     private float rewindValue;
-    private float rewindIntensity;
+    private float rewindIntensity = 0.02f;
     private bool isRewinding = false;
     
     //references
     private KCharacterController controller;
-    private PlayerRewind rewinder;
+    private InstancedRewindManager playerRewindManager;
+    public InstancedRewindManager PlayerRewinder => playerRewindManager;
     
     //Awake is called before Start
     private void Awake()
     {
         GameManager.Instance.SetPlayer(this);
         controller = gameObject.GetComponent<KCharacterController>();
-        rewinder = GetComponent<PlayerRewind>();
+        playerRewindManager = GetComponent<InstancedRewindManager>();
     }
 
     // Start is called before the first frame update
@@ -51,12 +52,12 @@ public class Player : MonoBehaviour
 
             if (!isRewinding)
             {
-                rewinder.RewindTo(rewindValue);
+                playerRewindManager.StartRewindTimeBySeconds(rewindValue);
             }
             else
             {
-                // if(rewindManager.HowManySecondsAvailableForRewind>rewindValue)      //Safety check so it is not grabbing values out of the bounds
-                //     rewindManager.SetTimeSecondsInRewind(rewindValue);
+                if(playerRewindManager.HowManySecondsAvailableForRewind>rewindValue)      //Safety check so it is not grabbing values out of the bounds
+                    playerRewindManager.SetTimeSecondsInRewind(rewindValue);
             }
             isRewinding = true;
         }
@@ -64,7 +65,7 @@ public class Player : MonoBehaviour
         {
             if(isRewinding)
             {
-                // rewindManager.StopRewindTimeBySeconds();
+                playerRewindManager.StopRewindTimeBySeconds();
                 rewindValue = 0;
                 isRewinding = false;
             }
