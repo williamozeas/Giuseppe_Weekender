@@ -9,13 +9,10 @@ using UnityEngine.XR;
 public class Player : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private float playerSpeed = 2.0f;
-    [SerializeField] private float jumpHeight = 1.0f;
     
     private KCharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private float gravityValue = -9.81f;
     
     //Awake is called before Start
     private void Awake()
