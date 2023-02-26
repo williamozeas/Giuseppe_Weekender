@@ -40,7 +40,7 @@ public class GameManager : Singleton<GameManager>
     private Player _player;
     public Player Player => _player;
     private RewindManager _rewindManager;
-    public RewindManager RewindManager;
+    public RewindManager RewindManager => _rewindManager;
     
     //events - these can be recieved and trigger things all throughout the game
     public static event Action GameStart;

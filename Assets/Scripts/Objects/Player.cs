@@ -20,12 +20,16 @@ public class Player : MonoBehaviour
     private InstancedRewindManager playerRewindManager;
     public InstancedRewindManager PlayerRewinder => playerRewindManager;
     
+    private RewindManager worldRewindManager;
+    public RewindManager WorldRewindManager => worldRewindManager;
+    
     //Awake is called before Start
     private void Awake()
     {
         GameManager.Instance.SetPlayer(this);
         controller = gameObject.GetComponent<KCharacterController>();
         playerRewindManager = GetComponent<InstancedRewindManager>();
+        worldRewindManager = GameManager.Instance.RewindManager;
     }
 
     // Start is called before the first frame update
@@ -66,6 +70,32 @@ public class Player : MonoBehaviour
             if(isRewinding)
             {
                 playerRewindManager.StopRewindTimeBySeconds();
+                rewindValue = 0;
+                isRewinding = false;
+            }
+        }
+        
+        //Rewind World
+        if(Input.GetButton("Rewind World"))                     //Change keycode for your own custom key if you want
+        {
+            rewindValue += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
+
+            if (!isRewinding)
+            {
+                worldRewindManager.StartRewindTimeBySeconds(rewindValue);
+            }
+            else
+            {
+                if(worldRewindManager.HowManySecondsAvailableForRewind>rewindValue)      //Safety check so it is not grabbing values out of the bounds
+                    worldRewindManager.SetTimeSecondsInRewind(rewindValue);
+            }
+            isRewinding = true;
+        }
+        else
+        {
+            if(isRewinding)
+            {
+                worldRewindManager.StopRewindTimeBySeconds();
                 rewindValue = 0;
                 isRewinding = false;
             }

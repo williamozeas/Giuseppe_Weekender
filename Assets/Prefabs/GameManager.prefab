@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DontDestroy: 1
+  RewindManager: {fileID: 4038257424777614780}
 --- !u!114 &4038257424777614780
 MonoBehaviour:
   m_ObjectHideFlags: 0
