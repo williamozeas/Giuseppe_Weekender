@@ -25,6 +25,21 @@ public class CircularBuffer <T>
         }        
     }
     
+    public CircularBuffer(InstancedRewindManager manager)
+    {
+        try
+        {
+            howManyRecordsPerSecond = Time.timeScale / Time.fixedDeltaTime;
+            bufferCapacity = (int)(manager.howManySecondsToTrack *howManyRecordsPerSecond);
+            dataArray = new T[bufferCapacity];
+            manager.RestoreBuffers += OnBuffersRestore;
+        }
+        catch
+        {
+            Debug.LogError("Circular buffer cannot use field initialization (Time.fixedDeltaTime is unknown yet). Initialize Circular buffer in Start() method!");
+        }        
+    }
+    
     /// <summary>
     /// Write value to the last position of the buffer
     /// </summary>

@@ -30,13 +30,13 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
             Debug.LogError("TimeManager script cannot be found in scene. Time tracking cannot be started. Did you forget to put it into the scene?");
         }
 
-        trackedPositionsAndRotation = new CircularBuffer<PositionAndRotationValues>();
-        trackedVelocities = new CircularBuffer<Vector3>();
+        trackedPositionsAndRotation = new CircularBuffer<PositionAndRotationValues>(rewindManager);
+        trackedVelocities = new CircularBuffer<Vector3>(rewindManager);
         trackedAnimationTimes = new List<CircularBuffer<AnimationValues>>();
         if (animator != null)
             for (int i = 0; i < animator.layerCount; i++)
-                trackedAnimationTimes.Add(new CircularBuffer<AnimationValues>());
-        trackedAudioTimes = new CircularBuffer<AudioTrackedData>();
+                trackedAnimationTimes.Add(new CircularBuffer<AnimationValues>(rewindManager));
+        trackedAudioTimes = new CircularBuffer<AudioTrackedData>(rewindManager);
     }
 
     protected void FixedUpdate()
@@ -71,6 +71,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
     {
         PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
         transform.SetPositionAndRotation(valuesToRead.position, valuesToRead.rotation);
+        Debug.Log("Restoring ball to " + valuesToRead.position + " at time " + seconds);
     }
     #endregion
 

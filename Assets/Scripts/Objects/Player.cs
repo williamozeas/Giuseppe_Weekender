@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
     // [Header("Stats")] 
     
     //private vars
-    private float rewindValue;
+    private float rewindValuePlayer;
+    private float rewindValueWorld;
     private float rewindIntensity = 0.02f;
-    private bool isRewinding = false;
+    private bool isRewindingPlayer = false;
+    private bool isRewindingWorld = false;
     
     //references
     private KCharacterController controller;
@@ -52,52 +54,52 @@ public class Player : MonoBehaviour
     {
         if(Input.GetButton("Rewind Self"))                     //Change keycode for your own custom key if you want
         {
-            rewindValue += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
+            rewindValuePlayer += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
 
-            if (!isRewinding)
+            if (!isRewindingPlayer)
             {
-                playerRewindManager.StartRewindTimeBySeconds(rewindValue);
+                playerRewindManager.StartRewindTimeBySeconds(rewindValuePlayer);
             }
             else
             {
-                if(playerRewindManager.HowManySecondsAvailableForRewind>rewindValue)      //Safety check so it is not grabbing values out of the bounds
-                    playerRewindManager.SetTimeSecondsInRewind(rewindValue);
+                if(playerRewindManager.HowManySecondsAvailableForRewind>rewindValuePlayer)      //Safety check so it is not grabbing values out of the bounds
+                    playerRewindManager.SetTimeSecondsInRewind(rewindValuePlayer);
             }
-            isRewinding = true;
+            isRewindingPlayer = true;
         }
         else
         {
-            if(isRewinding)
+            if(isRewindingPlayer)
             {
                 playerRewindManager.StopRewindTimeBySeconds();
-                rewindValue = 0;
-                isRewinding = false;
+                rewindValuePlayer = 0;
+                isRewindingPlayer = false;
             }
         }
         
         //Rewind World
         if(Input.GetButton("Rewind World"))                     //Change keycode for your own custom key if you want
         {
-            rewindValue += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
+            rewindValueWorld += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
 
-            if (!isRewinding)
+            if (!isRewindingWorld)
             {
-                worldRewindManager.StartRewindTimeBySeconds(rewindValue);
+                worldRewindManager.StartRewindTimeBySeconds(rewindValueWorld);
             }
             else
             {
-                if(worldRewindManager.HowManySecondsAvailableForRewind>rewindValue)      //Safety check so it is not grabbing values out of the bounds
-                    worldRewindManager.SetTimeSecondsInRewind(rewindValue);
+                if(worldRewindManager.HowManySecondsAvailableForRewind>rewindValueWorld)      //Safety check so it is not grabbing values out of the bounds
+                    worldRewindManager.SetTimeSecondsInRewind(rewindValueWorld);
             }
-            isRewinding = true;
+            isRewindingWorld = true;
         }
         else
         {
-            if(isRewinding)
+            if(isRewindingWorld)
             {
                 worldRewindManager.StopRewindTimeBySeconds();
-                rewindValue = 0;
-                isRewinding = false;
+                rewindValueWorld = 0;
+                isRewindingWorld = false;
             }
         }
     }
