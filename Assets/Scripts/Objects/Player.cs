@@ -108,13 +108,17 @@ public class Player : MonoBehaviour
     {
         PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
-        // Build the CharacterInputs struct
-        characterInputs.MoveAxisRight = Input.GetAxisRaw("Horizontal");
-        characterInputs.JumpDown = Input.GetButtonDown("Jump");
-        // characterInputs.CrouchDown = Input.GetButtonDown("Crouch");
-        // characterInputs.CrouchUp = Input.GetButtonUp("Crouch");
 
-        // Apply inputs to character
-        controller.SetInputs(ref characterInputs);
+        if (!isRewindingPlayer)
+        {
+            // Build the CharacterInputs struct
+            characterInputs.MoveAxisRight = Input.GetAxisRaw("Horizontal");
+            characterInputs.JumpDown = Input.GetButtonDown("Jump");
+            // characterInputs.CrouchDown = Input.GetButtonDown("Crouch");
+            // characterInputs.CrouchUp = Input.GetButtonUp("Crouch");
+
+            // Apply inputs to character
+            controller.SetInputs(ref characterInputs);
+        }
     }
 }

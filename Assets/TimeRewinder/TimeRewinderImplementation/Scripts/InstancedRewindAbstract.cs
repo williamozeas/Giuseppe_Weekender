@@ -8,13 +8,13 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
     public InstancedRewindManager rewindManager;
     public bool IsTracking { get; set; } = false;
 
-    Rigidbody body;
-    Rigidbody2D body2;
-    Animator animator;
-    AudioSource audioSource;
+    protected Rigidbody body;
+    protected Rigidbody2D body2;
+    protected Animator animator;
+    protected AudioSource audioSource;
 
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         if (rewindManager != null)
         {
@@ -47,7 +47,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
 
     #region PositionRotation
 
-    CircularBuffer<PositionAndRotationValues> trackedPositionsAndRotation;
+    protected CircularBuffer<PositionAndRotationValues> trackedPositionsAndRotation;
     public struct PositionAndRotationValues
     {
         public Vector3 position;
@@ -71,16 +71,15 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
     {
         PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
         transform.SetPositionAndRotation(valuesToRead.position, valuesToRead.rotation);
-        Debug.Log("Restoring ball to " + valuesToRead.position + " at time " + seconds);
     }
     #endregion
 
     #region Velocity
-    CircularBuffer<Vector3> trackedVelocities;
+    protected CircularBuffer<Vector3> trackedVelocities;
     /// <summary>
     /// Call this method in Track() if you want to track velocity of Rigidbody
     /// </summary>
-    protected void TrackVelocity()
+    protected virtual void TrackVelocity()
     {
 
         if (body != null)
