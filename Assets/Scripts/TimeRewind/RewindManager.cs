@@ -49,7 +49,7 @@ public class RewindManager : MonoBehaviour
     /// <summary>
     /// Variable defining how much into the past should be tracked, after set limit is hit, old values will be overwritten in circular buffer
     /// </summary>
-    public static readonly float howManySecondsToTrack = 12;
+    public static readonly float howManySecondsToTrack = 30;
 
 
     /// <summary>

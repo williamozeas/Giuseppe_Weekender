@@ -42,6 +42,10 @@ public class GameManager : Singleton<GameManager>
     private RewindManager _rewindManager;
     public RewindManager RewindManager => _rewindManager;
     
+    private WorldTimer _timer;
+    public WorldTimer Timer => _timer;
+    public float Time => _timer.Time;
+    
     //events - these can be recieved and trigger things all throughout the game
     public static event Action GameStart;
     public static event Action WaveStart;
@@ -51,12 +55,12 @@ public class GameManager : Singleton<GameManager>
     public override void Awake()
     {
         _rewindManager = GetComponent<RewindManager>();
+        _timer = GetComponent<WorldTimer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
     
     public void SetGameState(GameState newGameState)

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4173639413895388911}
   - component: {fileID: 2177524633919074827}
   - component: {fileID: 4038257424777614780}
+  - component: {fileID: 4116088286909055814}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DontDestroy: 1
-  RewindManager: {fileID: 4038257424777614780}
 --- !u!114 &4038257424777614780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,3 +59,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64d270227f9e234d98e01d146ee25a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4116088286909055814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707440061656712884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77256470e83154da087ca26b32632903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleTimer: {fileID: 0}
+  particleSettings:
+    particleLimiter: 0
+    particleResetTo: 0
+    particlesData: []

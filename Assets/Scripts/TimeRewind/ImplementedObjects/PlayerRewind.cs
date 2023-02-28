@@ -4,12 +4,11 @@ using UnityEngine;
 public class PlayerRewind : InstancedGenericRewind
 {
     private KinematicCharacterMotor motor;
-    private KCharacterController controller;
+    private Player player;
     protected override void Awake()
     {
         base.Awake();
         motor = GetComponent<KinematicCharacterMotor>();
-        controller = GetComponent<KCharacterController>();
     }
     
     protected override void RestorePositionAndRotation(float seconds)
