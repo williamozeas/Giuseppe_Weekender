@@ -20,7 +20,7 @@ public class Clock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int time = ((int)Time.time);
+        int time = ((int)GameManager.Instance.Time);
 
         //TEMPORARY FOR TEXTBOX, FIX WHEN UI GRAPHIC ADDED
         clockText.text = time.ToString();
