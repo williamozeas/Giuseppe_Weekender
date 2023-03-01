@@ -2,15 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Comparers;
 
+[System.Serializable]
 public class ScriptedForce : ScriptedEventAbstract
 {
     public bool isTorque;
     public Vector3 force;
 }
 
-public class ScriptedForces<T> : ScriptedAbstract<T> where T : ScriptedForce
+public class ScriptedForceTrigger : ScriptedAbstract<ScriptedForce>
 {
     private Rigidbody rb;
     protected override bool IsInFixedUpdate => true;
@@ -21,7 +21,7 @@ public class ScriptedForces<T> : ScriptedAbstract<T> where T : ScriptedForce
         rb = GetComponent<Rigidbody>();
     }
 
-    protected override void TriggerEvent(T force)
+    protected override void TriggerEvent(ScriptedForce force)
     {
         if (!force.isTorque)
         {

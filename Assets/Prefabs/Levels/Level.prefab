@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 3882637474407693979}
   - component: {fileID: 2825375073914742252}
   - component: {fileID: 4577032921033528892}
+  - component: {fileID: 6113114125397521570}
   - component: {fileID: 989359862025366739}
   - component: {fileID: 8163918065913342768}
+  - component: {fileID: 100800625419160082}
   m_Layer: 0
   m_Name: TestCube
   m_TagString: Untagged
@@ -85,6 +87,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6113114125397521570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401930451243046676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e38658e36d444f3ebb5261dc643bec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events:
+  - time: 5
+    isTorque: 0
+    force: {x: 0, y: 10, z: 0}
 --- !u!65 &989359862025366739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114,6 +132,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &100800625419160082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401930451243046676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1853014c10a6eb46a8363fdc11758e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackPositionRotation: 1
+  trackVelocity: 1
+  trackAnimator: 0
+  trackAudio: 0
+  trackParticles: 0
+  particleSettings:
+    particleLimiter: 0
+    particleResetTo: 0
+    particlesData: []
 --- !u!1 &6094045212058522984
 GameObject:
   m_ObjectHideFlags: 0
