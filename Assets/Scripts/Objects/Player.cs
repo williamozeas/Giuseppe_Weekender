@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     
     //references
     private KCharacterController controller;
+    private Collider[] colliders;
     private InstancedRewindManager playerRewindManager;
     public InstancedRewindManager PlayerRewinder => playerRewindManager;
     
@@ -30,13 +31,14 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.SetPlayer(this);
         controller = gameObject.GetComponent<KCharacterController>();
+        colliders = GetComponentsInChildren<Collider>(); //may need to be more fine-grained if we have temp. colliders
         playerRewindManager = GetComponent<InstancedRewindManager>();
-        worldRewindManager = GameManager.Instance.RewindManager;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        worldRewindManager = GameManager.Instance.RewindManager;
     }
 
     // Update is called once per frame
@@ -59,6 +61,7 @@ public class Player : MonoBehaviour
             if (!isRewindingPlayer)
             {
                 playerRewindManager.StartRewindTimeBySeconds(rewindValuePlayer);
+                DeactivateColliders();
             }
             else
             {
@@ -72,6 +75,7 @@ public class Player : MonoBehaviour
             if(isRewindingPlayer)
             {
                 playerRewindManager.StopRewindTimeBySeconds();
+                ActivateColliders();
                 rewindValuePlayer = 0;
                 isRewindingPlayer = false;
             }
@@ -119,6 +123,22 @@ public class Player : MonoBehaviour
 
             // Apply inputs to character
             controller.SetInputs(ref characterInputs);
+        }
+    }
+
+    public void DeactivateColliders()
+    {
+        foreach (Collider coll in colliders)
+        {
+            coll.enabled = false;
+        }
+    }
+    
+    public void ActivateColliders()
+    {
+        foreach (Collider coll in colliders)
+        {
+            coll.enabled = false;
         }
     }
 }

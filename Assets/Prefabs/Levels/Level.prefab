@@ -102,7 +102,7 @@ MonoBehaviour:
   events:
   - time: 5
     isTorque: 0
-    force: {x: 0, y: 10, z: 0}
+    force: {x: 0, y: 100, z: 0}
 --- !u!65 &989359862025366739
 BoxCollider:
   m_ObjectHideFlags: 0
