@@ -60,7 +60,7 @@ public abstract class ScriptedAbstract<T> : MonoBehaviour where T : ScriptedEven
             T previousEvent = events[index - 1];
             if (GameManager.Instance.Time < previousEvent.time)
             {
-                TriggerEvent(previousEvent);
+                // TriggerEvent(previousEvent);
                 index--;
             }
         }
