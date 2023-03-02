@@ -71,8 +71,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77256470e83154da087ca26b32632903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleTimer: {fileID: 0}
-  particleSettings:
-    particleLimiter: 0
-    particleResetTo: 0
-    particlesData: []
