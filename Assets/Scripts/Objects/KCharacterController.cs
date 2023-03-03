@@ -271,7 +271,7 @@ public class KCharacterController : MonoBehaviour, ICharacterController
 
                         if (_moveInputVector.magnitude > 0)
                         {
-                            Debug.Log(_moveInputVector);
+                            //Debug.Log(_moveInputVector);
                         }
 
                         Vector3 effectiveGroundNormal = Motor.GroundingStatus.GroundNormal;
