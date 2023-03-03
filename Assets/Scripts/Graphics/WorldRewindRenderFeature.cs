@@ -25,14 +25,13 @@ public class WorldRewindRenderFeature : ScriptableRendererFeature
             ref RenderingData renderingData)
         {
             CommandBuffer cmd = CommandBufferPool.Get(name: "WorldRewindPass");
-        
-        
-            var glowSystem = CustomGlowSystem.instance;
+
             Camera camera = renderingData.cameraData.camera;
 
             // create render texture for glow map
-            cmd.GetTemporaryRT(tempID, camera.pixelWidth, camera.pixelHeight);
-            cmd.SetRenderTarget(tempID);
+            cmd.GetTemporaryRT(tempID, renderingData.cameraData.cameraTargetDescriptor, FilterMode.Bilinear);
+            cmd.SetRenderTarget(tempID, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
+            
             cmd.ClearRenderTarget(true, true, Color.black); // clear before drawing to it each frame!!
             
             //https://forum.unity.com/threads/urp-how-to-add-layer-mask-to-custom-render-feature.849283/
@@ -40,7 +39,7 @@ public class WorldRewindRenderFeature : ScriptableRendererFeature
             // DrawingSettings drawingSettings = new DrawingSettings(new ShaderTagId("UniversalForward"), new SortingSettings(camera));
             // context.DrawRenderers(renderingData.cullResults, ref drawingSettings, ref filteringSettings);
             RendererListDesc desc =
-                new RendererListDesc(new ShaderTagId("Universal2D"), renderingData.cullResults, camera);
+                new RendererListDesc(new ShaderTagId("UniversalForward"), renderingData.cullResults, camera);
             desc.layerMask = layerMask;
             desc.excludeObjectMotionVectors = false;
             desc.renderQueueRange = RenderQueueRange.all;
@@ -52,6 +51,7 @@ public class WorldRewindRenderFeature : ScriptableRendererFeature
 
             // set render texture as globally accessable 'glow map' texture
             cmd.SetGlobalTexture("_WorldRewindMap", tempID);
+            cmd.ReleaseTemporaryRT(tempID);
         
             context.ExecuteCommandBuffer(cmd);
             CommandBufferPool.Release(cmd);
