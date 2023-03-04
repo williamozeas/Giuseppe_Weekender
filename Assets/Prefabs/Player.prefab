@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7091475896383879924}
   - component: {fileID: 7928887588278847936}
   - component: {fileID: 2233835229595778344}
+  - component: {fileID: 6397762861714501480}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -166,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc7b21e0c979453f8a1b70add4539aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeFX: {fileID: 6397762861714501480}
 --- !u!114 &2233835229595778344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +190,24 @@ MonoBehaviour:
     particleLimiter: 0
     particleResetTo: 0
     particlesData: []
+--- !u!114 &6397762861714501480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741376681157417396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0695cd6cbb7564bf7b280c094757ab72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balancedRendererData: {fileID: 11400000, guid: e634585d5c4544dd297acaee93dc2beb,
+    type: 2}
+  highFidelityRendererData: {fileID: 11400000, guid: c40be3174f62c4acf8c1216858c64956,
+    type: 2}
+  featureName: PlayerDesaturateBlit
+  transitionTime: 0.5
 --- !u!1 &1741376682653689762
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +219,6 @@ GameObject:
   - component: {fileID: 1741376682653689763}
   - component: {fileID: 1741376682653689765}
   - component: {fileID: 1741376682653689764}
-  - component: {fileID: 6098877915365000788}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -272,16 +291,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6098877915365000788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1741376682653689762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017d1f613abee4fb1b3c82b9e70e8e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  glowMaterial: {fileID: 2100000, guid: 266c21138bdca45e5982f1bc3d8bac6e, type: 2}

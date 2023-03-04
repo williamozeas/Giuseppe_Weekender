@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class RewindManager : MonoBehaviour
 {
+    [SerializeField] private TimeFX timeFX;
     /// <summary>
     /// Action is not meant to be used by users. It shares data between classes. You probably want to use prepared methods like: RewindTimeBySeconds(), StartRewindTimeBySeconds(), SetTimeSecondsInRewind(), StopRewindTimeBySeconds()
     /// </summary>
@@ -91,6 +92,7 @@ public class RewindManager : MonoBehaviour
             return;
         }
 
+        timeFX.StartRewind();
         rewindSeconds = seconds;
         TrackingStateCall?.Invoke(false);
         IsBeingRewinded = true;
@@ -134,6 +136,7 @@ public class RewindManager : MonoBehaviour
     /// </summary>
     public void StopRewindTimeBySeconds()
     {
+        timeFX.StopRewind();
         HowManySecondsAvailableForRewind -= rewindSeconds;
         IsBeingRewinded = false;
         RestoreBuffers?.Invoke(rewindSeconds);
