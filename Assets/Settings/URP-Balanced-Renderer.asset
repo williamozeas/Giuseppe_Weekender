@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Active: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 8
 --- !u!114 &-5453259712953487230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: RenderObjects
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     passTag: RenderObjects
     Event: 300
@@ -44,7 +44,7 @@ MonoBehaviour:
     depthCompareFunction: 4
     enableWrite: 1
     stencilSettings:
-      overrideStencilState: 1
+      overrideStencilState: 0
       stencilReference: 0
       stencilCompareFunction: 8
       passOperation: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: RenderWorld
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     passTag: RenderWorld
     Event: 300
@@ -205,7 +205,7 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 119
+        m_Bits: 2147483647
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
