@@ -152,4 +152,10 @@ public class TimeFX : MonoBehaviour
         rewindFeature.SetActive(GameManager.Instance.Player.IsRewindingPlayer || GameManager.Instance.Player.IsRewindingPlayer);
         rendererData.SetDirty();
     }
+
+    public void OnApplicationQuit()
+    {
+        blitFeature.SetActive(false);
+        rewindFeature.SetActive(false);
+    }
 }
