@@ -20,7 +20,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
-
 public class TimeFX : MonoBehaviour
 {
 
@@ -31,11 +30,14 @@ public class TimeFX : MonoBehaviour
     [FormerlySerializedAs("transitionPeriod")] [SerializeField] private float transitionTime = 0.8f;
 
     private Cyan.Blit blitFeature;
+    private WorldRewindRenderFeature rewindFeature;
     private Material satMat;
     private int satPropID;
 
     private float startTime;
     private Coroutine currentTransition;
+
+    private static bool wor;
 
     private void Start() {
         Init();
@@ -57,9 +59,8 @@ public class TimeFX : MonoBehaviour
             rendererData = balancedRendererData;
         }
         rendererData = balancedRendererData;
-        
         satPropID = Shader.PropertyToID("_Saturation");
-        if (TryGetFeature(out var feature))
+        if (TryGetFeature(featureName, out var feature))
         {
             blitFeature = feature as Cyan.Blit;
             satMat = blitFeature.settings.blitMaterial;
@@ -68,17 +69,19 @@ public class TimeFX : MonoBehaviour
         {
             Debug.LogError("Feature " + featureName + " not found!");
         }
+        
+        if (TryGetFeature("WorldRewindRenderFeature", out feature))
+        {
+            rewindFeature = feature as WorldRewindRenderFeature;
+        }
+        else
+        {
+            Debug.LogError("Feature " + featureName + " not found!");
+        }
     }
-
-    // private void OnDisable() {
-    // }
-
-    private bool TryGetFeature(out ScriptableRendererFeature _feature) {
-        // foreach (var feat in rendererData.rendererFeatures)
-        // {
-            // Debug.Log(rendererData);
-        // }
-        _feature = rendererData.rendererFeatures.FirstOrDefault(f => f.name == featureName);
+    
+    private bool TryGetFeature(string name, out ScriptableRendererFeature _feature) {
+        _feature = rendererData.rendererFeatures.FirstOrDefault(f => f.name == name);
         return _feature != null;
     }
 
@@ -115,6 +118,7 @@ public class TimeFX : MonoBehaviour
 
     public IEnumerator RewindOn()
     {
+        rewindFeature.SetActive(true);
         blitFeature.SetActive(true);
         rendererData.SetDirty();
         
@@ -145,29 +149,7 @@ public class TimeFX : MonoBehaviour
         
         
         blitFeature.SetActive(false);
+        rewindFeature.SetActive(GameManager.Instance.Player.IsRewindingPlayer || GameManager.Instance.Player.IsRewindingPlayer);
         rendererData.SetDirty();
     }
-
-    // private void UpdateTransition() {
-    //     if(TryGetFeature(out feature)) {
-    //         float saturation = Mathf.Clamp01((Time.timeSinceLevelLoad - startTime) / transitionPeriod);
-    //
-    //         var blitFeature = feature as RewindFeature;
-    //         var material = blitFeature.Material;
-    //         material.SetFloat("_Saturation", saturation);
-    //     }
-    // }
-    //
-    // private void ResetTransition() {
-    //     if(TryGetFeature(out var feature)) {
-    //         feature.SetActive(true);
-    //         rendererData.SetDirty();
-    //
-    //         var blitFeature = feature as RewindFeature;
-    //         var material = blitFeature.Material;
-    //         material.SetFloat("_Saturation", 0);
-    //         
-    //         transitioning = false;
-    //     }
-    // }
 }

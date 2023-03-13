@@ -15,7 +15,9 @@ public class Player : MonoBehaviour
     private float rewindValueWorld;
     private float rewindIntensity = 0.02f;
     private bool isRewindingPlayer = false;
+    public bool IsRewindingPlayer => isRewindingPlayer;
     private bool isRewindingWorld = false;
+    public bool IsRewindingWorld => isRewindingWorld;
     
     //references
     private KCharacterController controller;
