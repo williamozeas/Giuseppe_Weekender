@@ -1139,16 +1139,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1960880850709229401, guid: 7faadd0f5c0e84e71a159acf7929dd18,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960880850709229401, guid: 7faadd0f5c0e84e71a159acf7929dd18,
-        type: 3}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2032452513494889070, guid: 7faadd0f5c0e84e71a159acf7929dd18,
         type: 3}
       propertyPath: m_Name
@@ -1209,8 +1199,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4434785184809667220, guid: 7faadd0f5c0e84e71a159acf7929dd18, type: 3}
+    - target: {fileID: 5729630276281864653, guid: 7faadd0f5c0e84e71a159acf7929dd18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697407647526004350, guid: 7faadd0f5c0e84e71a159acf7929dd18,
+        type: 3}
+      propertyPath: m_Height
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7faadd0f5c0e84e71a159acf7929dd18, type: 3}
 --- !u!1001 &1741376682825618808
 PrefabInstance:
@@ -1293,10 +1292,20 @@ PrefabInstance:
       propertyPath: rewindManager
       value: 
       objectReference: {fileID: 1030428604}
+    - target: {fileID: 1758393423327348495, guid: 62706fe7b4c594609999a51b4329c446,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3882637474407693979, guid: 62706fe7b4c594609999a51b4329c446,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131988222638054842, guid: 62706fe7b4c594609999a51b4329c446,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6094045212058522984, guid: 62706fe7b4c594609999a51b4329c446,
         type: 3}

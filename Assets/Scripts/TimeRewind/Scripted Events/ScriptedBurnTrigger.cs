@@ -12,6 +12,8 @@ public class ScriptedBurnTrigger : ScriptedAbstract<ScriptedBurn>
 {
     ParticleSystem ps;
 
+    public GameObject deathObj;
+
     protected override bool IsInFixedUpdate => true;
 
     protected override void Awake()
@@ -22,10 +24,12 @@ public class ScriptedBurnTrigger : ScriptedAbstract<ScriptedBurn>
     protected override void TriggerEvent(ScriptedBurn burn)
     {
         ps.Play();
+        deathObj.SetActive(true);
     }
 
     protected override void UnTriggerEvent(ScriptedBurn burn)
     {
         ps.Stop();
+        deathObj.SetActive(false);
     }
 }
