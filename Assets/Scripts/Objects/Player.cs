@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     public bool IsRewindingPlayer => isRewindingPlayer;
     private bool isRewindingWorld = false;
     public bool IsRewindingWorld => isRewindingWorld;
+
+    private bool hasDied = false;
     
     //references
     private KCharacterController controller;
@@ -61,9 +63,14 @@ public class Player : MonoBehaviour
 
     private void HandleRewindInput()
     {
-        if(Input.GetButton("Rewind Self"))                     //Change keycode for your own custom key if you want
+        //Rewind Self
+        if(hasDied || Input.GetButton("Rewind Self"))                     //Change keycode for your own custom key if you want
         {
-            rewindValuePlayer += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
+            //While holding the button, we will gradually rewind more and more time into the past
+            if (Input.GetButton("Rewind Self"))
+            {
+                rewindValuePlayer += rewindIntensity;
+            }
 
             if (!isRewindingPlayer)
             {
@@ -89,9 +96,12 @@ public class Player : MonoBehaviour
         }
         
         //Rewind World
-        if(Input.GetButton("Rewind World"))                     //Change keycode for your own custom key if you want
+        if(Input.GetButton("Rewind World") || hasDied)                     //Change keycode for your own custom key if you want
         {
-            rewindValueWorld += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
+            if (Input.GetButton("Rewind World") && !hasDied)
+            {
+                rewindValueWorld += rewindIntensity;
+            }           //While holding the button, we will gradually rewind more and more time into the past
 
             if (!isRewindingWorld)
             {
@@ -119,6 +129,12 @@ public class Player : MonoBehaviour
     {
         PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
+        
+        //Release from death state when stopping rewind after death
+        if (hasDied && Input.GetButtonUp("Rewind Self"))
+        {
+            hasDied = false;
+        }
 
         if (!isRewindingPlayer)
         {
@@ -145,8 +161,15 @@ public class Player : MonoBehaviour
     {
         foreach (Collider coll in colliders)
         {
-            coll.enabled = false;
+            coll.enabled = true;
         }
+    }
+
+    public void Die()
+    {
+        hasDied = true; //triggers rewind code in HandleRewindInput
+        rewindValueWorld = 0;
+        rewindValuePlayer = 0;
     }
 
     private void HandleGrabbing()

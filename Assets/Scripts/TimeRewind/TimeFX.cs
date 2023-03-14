@@ -124,7 +124,6 @@ public class TimeFX : MonoBehaviour
         
         float timeElapsed = 0;
         float start = satMat.GetFloat(satPropID);
-        //Debug.Log(start);
         while (timeElapsed < transitionTime)
         {
             timeElapsed += Time.deltaTime;
@@ -143,13 +142,12 @@ public class TimeFX : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float lerp = Mathf.Lerp(start, 1f, timeElapsed/transitionTime);
             satMat.SetFloat(satPropID, lerp);
-            //Debug.Log(satMat.GetFloat(satPropID));
             yield return null;
         }
         
         
         blitFeature.SetActive(false);
-        rewindFeature.SetActive(GameManager.Instance.Player.IsRewindingPlayer || GameManager.Instance.Player.IsRewindingPlayer);
+        rewindFeature.SetActive(GameManager.Instance.Player.IsRewindingPlayer || GameManager.Instance.Player.IsRewindingWorld);
         rendererData.SetDirty();
     }
 

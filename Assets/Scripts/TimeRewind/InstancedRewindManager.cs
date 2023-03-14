@@ -72,6 +72,11 @@ public class InstancedRewindManager : MonoBehaviour
     /// <returns></returns>
     public void StartRewindTimeBySeconds(float seconds)
     {
+        if (IsBeingRewinded)
+        {
+            Debug.Log("Rewind started while already rewinding!");
+            return;
+        }
         if (seconds > HowManySecondsAvailableForRewind)
         {
             Debug.LogError("Not enough stored tracked value!!! Reaching on wrong index. Called rewind should be less than HowManySecondsAvailableForRewind property");
@@ -127,6 +132,11 @@ public class InstancedRewindManager : MonoBehaviour
     /// </summary>
     public void StopRewindTimeBySeconds()
     {
+        if (!IsBeingRewinded)
+        {
+            Debug.LogWarning("Rewind stopped while not rewinding!");
+            return;
+        }
         timeFX.StopRewind();
         HowManySecondsAvailableForRewind -= rewindSeconds;
         IsBeingRewinded = false;
