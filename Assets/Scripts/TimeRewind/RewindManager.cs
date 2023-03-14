@@ -17,6 +17,8 @@ public class RewindManager : MonoBehaviour
     /// </summary>
     public static Action<float> RestoreBuffers { get; set; }
     
+    public static event Action StartRewind;
+    public static event Action StopRewind;
     
     /// <summary>
     /// This property returns how many seconds are available for rewind
@@ -96,6 +98,7 @@ public class RewindManager : MonoBehaviour
         rewindSeconds = seconds;
         TrackingStateCall?.Invoke(false);
         IsBeingRewinded = true;
+        StartRewind?.Invoke();
     }
     private void FixedUpdate()
     {
@@ -141,5 +144,6 @@ public class RewindManager : MonoBehaviour
         IsBeingRewinded = false;
         RestoreBuffers?.Invoke(rewindSeconds);
         TrackingStateCall?.Invoke(true);
+        StopRewind?.Invoke();
     }
 }

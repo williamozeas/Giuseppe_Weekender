@@ -16,6 +16,9 @@ public class InstancedRewindManager : MonoBehaviour
     /// Action is not meant to be used by users. It shares data between classes. You probably want to use prepared methods like: RewindTimeBySeconds(), StartRewindTimeBySeconds(), SetTimeSecondsInRewind(), StopRewindTimeBySeconds()
     /// </summary>
     public Action<float> RestoreBuffers { get; set; }
+
+    public event Action StartRewind;
+    public event Action StopRewind;
     
     
     /// <summary>
@@ -92,6 +95,7 @@ public class InstancedRewindManager : MonoBehaviour
         rewindSeconds = seconds;
         TrackingStateCall?.Invoke(false);
         IsBeingRewinded = true;
+        StartRewind?.Invoke();
     }
     private void FixedUpdate()
     {
@@ -142,5 +146,6 @@ public class InstancedRewindManager : MonoBehaviour
         IsBeingRewinded = false;
         RestoreBuffers?.Invoke(rewindSeconds);
         TrackingStateCall?.Invoke(true);
+        StopRewind?.Invoke();
     }
 }

@@ -19,7 +19,7 @@ public class ScriptedBurnTrigger : ScriptedAbstract<ScriptedBurn>
 
     protected override void Awake()
     {
-        ps = GetComponent<ParticleSystem>();
+        ps = GetComponentInChildren<ParticleSystem>();
     }
 
     protected override void TriggerEvent(ScriptedBurn burn)
@@ -48,6 +48,7 @@ public class ScriptedBurnTrigger : ScriptedAbstract<ScriptedBurn>
 
     protected void BurnOn()
     {
+        ps.gameObject.SetActive(true);
         ps.Play();
         deathObj.SetActive(true);
     }
@@ -55,6 +56,7 @@ public class ScriptedBurnTrigger : ScriptedAbstract<ScriptedBurn>
     protected void BurnOff()
     {
         ps.Stop();
+        ps.gameObject.SetActive(false);
         deathObj.SetActive(false);
     }
 }

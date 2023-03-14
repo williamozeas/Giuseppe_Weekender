@@ -342,6 +342,7 @@ public abstract class RewindAbstract : MonoBehaviour
 
                 ParticleTrackedData particleData;
                 particleData.isActive = particleSystemsData[i].particleSystemEnabler.activeInHierarchy;
+                // particleData.isActive = particleSystemsData[i].particleSystem.isStopped;
 
                 if ((!lastValue.isActive) && (particleData.isActive))
                     particleData.particleTime = 0;

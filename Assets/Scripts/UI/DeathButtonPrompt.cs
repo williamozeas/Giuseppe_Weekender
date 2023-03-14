@@ -23,16 +23,23 @@ public class DeathButtonPrompt : MonoBehaviour
     private void OnEnable()
     {
         GameManager.OnDie += OnDie;
+        GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
     }
     
     private void OnDisable()
     {
         GameManager.OnDie -= OnDie;
+        GameManager.Instance.Player.PlayerRewinder.StartRewind -= OnStartRewind;
     }
 
     private void OnDie()
     {
         //Activate canvas/elements here
         RewindPlayerPrompt.gameObject.SetActive(true);
+    }
+
+    private void OnStartRewind()
+    {
+        
     }
 }

@@ -22,16 +22,23 @@ public class RunOutOfTimeButtonPrompt : MonoBehaviour
     private void OnEnable()
     {
         GameManager.OnRunOutOfTime += OnRunOutOfTime;
+        RewindManager.StartRewind += OnStartRewind;
     }
     
     private void OnDisable()
     {
         GameManager.OnRunOutOfTime -= OnRunOutOfTime;
+        RewindManager.StartRewind -= OnStartRewind;
     }
 
     private void OnRunOutOfTime()
     {
         //Activate canvas/elements here
         RewindTimePrompt.gameObject.SetActive(true);
+    }
+
+    private void OnStartRewind()
+    {
+        
     }
 }
