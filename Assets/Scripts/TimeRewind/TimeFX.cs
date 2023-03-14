@@ -124,7 +124,7 @@ public class TimeFX : MonoBehaviour
         
         float timeElapsed = 0;
         float start = satMat.GetFloat(satPropID);
-        Debug.Log(start);
+        //Debug.Log(start);
         while (timeElapsed < transitionTime)
         {
             timeElapsed += Time.deltaTime;
@@ -143,7 +143,7 @@ public class TimeFX : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float lerp = Mathf.Lerp(start, 1f, timeElapsed/transitionTime);
             satMat.SetFloat(satPropID, lerp);
-            Debug.Log(satMat.GetFloat(satPropID));
+            //Debug.Log(satMat.GetFloat(satPropID));
             yield return null;
         }
         
