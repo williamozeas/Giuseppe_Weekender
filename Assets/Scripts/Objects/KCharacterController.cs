@@ -375,7 +375,7 @@ public class KCharacterController : MonoBehaviour, ICharacterController
                     }
                     
                     //set animator speed
-                    animator.SetFloat("Speed", currentVelocity.x/MaxStableMoveSpeed);
+                    animator.SetFloat("Speed", Math.Abs(currentVelocity.x/MaxStableMoveSpeed));
 
                     break;
                 }
