@@ -19,6 +19,10 @@ public class WorldTimer : RewindAbstract
     {
         time += UnityEngine.Time.fixedDeltaTime;
         TrackTimer();
+        if (time > GameManager.Instance.MaxTime)
+        {
+            GameManager.RunOutOfTime();
+        }
     }
 
     //In this method define, what will be restored on time rewinding. In our case we want to restore custom implemented Timer

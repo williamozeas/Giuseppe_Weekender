@@ -9,7 +9,7 @@ public class DeathCollider : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.Player.Die();
+            GameManager.Die();
         }
     }
     
@@ -17,7 +17,7 @@ public class DeathCollider : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.Player.Die();
+            GameManager.Die();
         }
     }
 }

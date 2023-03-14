@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public bool IsRewindingWorld => isRewindingWorld;
 
     private bool hasDied = false;
+    private bool hasRunOutOfTime = false;
     
     //references
     private KCharacterController controller;
@@ -39,6 +40,18 @@ public class Player : MonoBehaviour
         controller = gameObject.GetComponent<KCharacterController>();
         colliders = GetComponentsInChildren<Collider>(); //may need to be more fine-grained if we have temp. colliders
         playerRewindManager = GetComponent<InstancedRewindManager>();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnDie += OnDie;
+        GameManager.OnRunOutOfTime += OnRunOutOfTime;
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.OnDie -= OnDie;
+        GameManager.OnRunOutOfTime -= OnRunOutOfTime;
     }
 
     // Start is called before the first frame update
@@ -64,10 +77,10 @@ public class Player : MonoBehaviour
     private void HandleRewindInput()
     {
         //Rewind Self
-        if(hasDied || Input.GetButton("Rewind Self"))                     //Change keycode for your own custom key if you want
+        if(hasDied || hasRunOutOfTime || Input.GetButton("Rewind Self"))                     //Change keycode for your own custom key if you want
         {
             //While holding the button, we will gradually rewind more and more time into the past
-            if (Input.GetButton("Rewind Self"))
+            if (Input.GetButton("Rewind Self") && !hasRunOutOfTime)
             {
                 rewindValuePlayer += rewindIntensity;
             }
@@ -96,12 +109,12 @@ public class Player : MonoBehaviour
         }
         
         //Rewind World
-        if(Input.GetButton("Rewind World") || hasDied)                     //Change keycode for your own custom key if you want
+        if(hasRunOutOfTime || hasDied || Input.GetButton("Rewind World"))                     //Change keycode for your own custom key if you want
         {
             if (Input.GetButton("Rewind World") && !hasDied)
-            {
+            { //While holding the button, we will gradually rewind more and more time into the past
                 rewindValueWorld += rewindIntensity;
-            }           //While holding the button, we will gradually rewind more and more time into the past
+            }           
 
             if (!isRewindingWorld)
             {
@@ -129,11 +142,16 @@ public class Player : MonoBehaviour
     {
         PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
-        
         //Release from death state when stopping rewind after death
         if (hasDied && Input.GetButtonUp("Rewind Self"))
         {
             hasDied = false;
+        }
+        
+        //Release from out of time state when stopping rewind after time runs out
+        if (hasRunOutOfTime && Input.GetButtonUp("Rewind World"))
+        {
+            hasRunOutOfTime = false;
         }
 
         if (!isRewindingPlayer)
@@ -165,11 +183,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Die()
+    private void OnDie()
     {
         hasDied = true; //triggers rewind code in HandleRewindInput
-        rewindValueWorld = 0;
-        rewindValuePlayer = 0;
+    }
+
+    private void OnRunOutOfTime()
+    {
+        hasRunOutOfTime = true; //triggers rewind code in HandleRewindInput
     }
 
     private void HandleGrabbing()
