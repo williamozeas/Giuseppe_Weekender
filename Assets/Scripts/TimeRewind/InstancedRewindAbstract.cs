@@ -112,7 +112,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
     #endregion
 
     #region Animator
-    List<CircularBuffer<AnimationValues>> trackedAnimationTimes;         //All animator layers are tracked
+    protected List<CircularBuffer<AnimationValues>> trackedAnimationTimes;         //All animator layers are tracked
     public struct AnimationValues
     {
         public float animationStateTime;
