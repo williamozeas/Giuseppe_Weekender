@@ -8,12 +8,14 @@ using UnityEngine.XR;
 
 public class Player : MonoBehaviour
 {
-    // [Header("Stats")] 
+    [Header("Stats")] public float rewindRampIncrease = 0.005f;
     
     //private vars
     private float rewindValuePlayer;
     private float rewindValueWorld;
     private float rewindIntensity = 0.02f;
+    private float rewindRampPlayer = 1;
+    private float rewindRampWorld = 1;
     private bool isRewindingPlayer = false;
     public bool IsRewindingPlayer => isRewindingPlayer;
     private bool isRewindingWorld = false;
@@ -82,7 +84,8 @@ public class Player : MonoBehaviour
             //While holding the button, we will gradually rewind more and more time into the past
             if (Input.GetButton("Rewind Self") && !hasRunOutOfTime)
             {
-                rewindValuePlayer += rewindIntensity;
+                rewindValuePlayer += rewindIntensity * Mathf.Pow(rewindRampPlayer, 2);
+                rewindRampPlayer += rewindRampIncrease;
             }
 
             if (!isRewindingPlayer)
@@ -104,6 +107,7 @@ public class Player : MonoBehaviour
                 playerRewindManager.StopRewindTimeBySeconds();
                 ActivateColliders();
                 rewindValuePlayer = 0;
+                rewindRampPlayer = 1;
                 isRewindingPlayer = false;
             }
         }
@@ -113,7 +117,8 @@ public class Player : MonoBehaviour
         {
             if (Input.GetButton("Rewind World") && !hasDied)
             { //While holding the button, we will gradually rewind more and more time into the past
-                rewindValueWorld += rewindIntensity;
+                rewindValueWorld += rewindIntensity * Mathf.Pow(rewindRampWorld, 2);
+                rewindRampWorld += rewindRampIncrease;
             }           
 
             if (!isRewindingWorld)
@@ -133,6 +138,7 @@ public class Player : MonoBehaviour
             {
                 worldRewindManager.StopRewindTimeBySeconds();
                 rewindValueWorld = 0;
+                rewindRampWorld = 1;
                 isRewindingWorld = false;
             }
         }
