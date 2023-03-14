@@ -205,6 +205,7 @@ public class Player : MonoBehaviour
                         grabbedObject = grabbableObject;
                     }
                 }
+                controller.Grab();
             } else {
                 grabbedObject.Dropped();
                 grabbedObject = null;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
+using UnityEditor.Animations;
 
 namespace KinematicCharacterController
 {
@@ -42,6 +43,7 @@ namespace KinematicCharacterController
 public class KCharacterController : MonoBehaviour, ICharacterController
 {
     public KinematicCharacterMotor Motor;
+    [SerializeField] Animator animator;
 
     [Header("Stable Movement")]
     public float MaxStableMoveSpeed = 10f;
@@ -359,6 +361,9 @@ public class KCharacterController : MonoBehaviour, ICharacterController
                             _jumpRequested = false;
                             _jumpConsumed = true;
                             _jumpedThisFrame = true;
+                            
+                            //animation
+                            animator.SetTrigger("Jump");
                         }
                     }
 
@@ -368,6 +373,10 @@ public class KCharacterController : MonoBehaviour, ICharacterController
                         currentVelocity += _internalVelocityAdd;
                         _internalVelocityAdd = Vector3.zero;
                     }
+                    
+                    //set animator speed
+                    animator.SetFloat("Speed", currentVelocity.x/MaxStableMoveSpeed);
+
                     break;
                 }
         }
@@ -496,5 +505,10 @@ public class KCharacterController : MonoBehaviour, ICharacterController
 
     public void OnDiscreteCollisionDetected(Collider hitCollider)
     {
+    }
+
+    public void Grab()
+    {
+        animator.SetTrigger("Grab");
     }
 }
