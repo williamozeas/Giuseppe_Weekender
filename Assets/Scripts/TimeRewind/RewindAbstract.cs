@@ -81,6 +81,11 @@ public abstract class RewindAbstract : MonoBehaviour
             trackedPositionsAndRotation.dataArray[i].position += offset;
         }
     }
+
+    protected void TrackGrabbedPositionAndRotation()
+    {
+        trackedPositionsAndRotation.WriteValueBefore(trackedPositionsAndRotation.dataArray[0]);
+    }
     #endregion
 
     #region Velocity
@@ -117,6 +122,11 @@ public abstract class RewindAbstract : MonoBehaviour
         {
             body2.velocity = trackedVelocities.ReadFromBuffer(seconds);
         }
+    }
+
+    protected void TrackGrabbedVelocity()
+    {
+        trackedVelocities.WriteValueBefore(trackedVelocities.dataArray[0]);
     }
     #endregion
 
@@ -161,6 +171,22 @@ public abstract class RewindAbstract : MonoBehaviour
         {
             AnimationValues readValues = trackedAnimationTimes[i].ReadFromBuffer(seconds);
             animator.Play(readValues.animationHash,i, readValues.animationStateTime);
+        }         
+    }
+
+    protected void TrackGrabbedAnimator()
+    {
+        if(animator == null)
+        {
+            Debug.LogError("Cannot find Animator on the object, while TrackAnimator() is being called!!!");
+            return;
+        }
+
+        animator.speed = 1;
+
+        for (int i = 0; i < animator.layerCount; i++)
+        {
+            trackedAnimationTimes[i].WriteValueBefore(trackedAnimationTimes[i].dataArray[0]);
         }         
     }
     #endregion
@@ -213,6 +239,19 @@ public abstract class RewindAbstract : MonoBehaviour
         {
             audioSource.Stop();
         }
+    }
+
+    protected void TrackGrabbedAudio()
+    {
+        if(audioSource==null)
+        {
+            Debug.LogError("Cannot find AudioSource on the object, while TrackAudio() is being called!!!");
+            return;
+        }
+
+        audioSource.volume = 1;
+
+        trackedAudioTimes.WriteValueBefore(trackedAudioTimes.dataArray[0]);      
     }
     #endregion
 
@@ -346,6 +385,30 @@ public abstract class RewindAbstract : MonoBehaviour
                     particleEnabler.SetActive(false);
             }
         }
+    }
+
+    protected void TrackGrabbedParticles()
+    {
+        if(particleSystemsData==null)
+        {
+            Debug.LogError("Particles not initialized!!! Call InitializeParticles() before the tracking starts");
+            return;
+        }
+        if(particleSystemsData.Count==0)
+            Debug.LogError("Particles Data not filled!!! Fill Particles Data in the Unity Editor");
+
+        try
+        {
+            for (int i = 0; i < particleSystemsData.Count; i++)
+            {
+                trackedParticleTimes[i].WriteValueBefore(trackedParticleTimes[i].dataArray[0]);
+            }
+        }
+        catch
+        {
+            Debug.LogError("Particles Data not filled properly!!! Fill both the Particle System and Particle System Enabler fields for each element");
+        }
+
     }
     #endregion
 

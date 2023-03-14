@@ -7,6 +7,8 @@ public class CircularBuffer <T>
     int bufferCapacity;
     float howManyRecordsPerSecond;
 
+    int bufferBeforePosition = -1;
+
     /// <summary>
     /// Use circular buffer structure for time rewinding
     /// </summary>
@@ -18,6 +20,7 @@ public class CircularBuffer <T>
             bufferCapacity = (int)(RewindManager.howManySecondsToTrack *howManyRecordsPerSecond);
             dataArray = new T[bufferCapacity];
             RewindManager.RestoreBuffers += OnBuffersRestore;
+            bufferBeforePosition = bufferCapacity;
         }
         catch
         {
@@ -55,6 +58,20 @@ public class CircularBuffer <T>
         else
         {
             dataArray[bufferCurrentPosition] = val;
+        }
+    }
+
+    public void WriteValueBefore(T val)
+    {
+        bufferBeforePosition--;
+        if (bufferBeforePosition < 0)
+        {
+            bufferBeforePosition = bufferCapacity - 1;
+            dataArray[bufferBeforePosition] = val;
+        }
+        else
+        {
+            dataArray[bufferBeforePosition] = val;
         }
     }
     /// <summary>

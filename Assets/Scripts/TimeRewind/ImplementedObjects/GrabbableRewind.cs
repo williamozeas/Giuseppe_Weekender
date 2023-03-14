@@ -65,6 +65,17 @@ public class GrabbableRewind : RewindAbstract
                 TrackParticles();
             if (trackAudio)
                 TrackAudio();
+        } else {
+            if (trackPositionRotation)
+                TrackGrabbedPositionAndRotation();
+            if (trackVelocity)
+                TrackGrabbedVelocity();
+            if (trackAnimator)
+                TrackGrabbedAnimator();
+            if (trackParticles)
+                TrackGrabbedParticles();
+            if (trackAudio)
+                TrackGrabbedAudio();
         }
 
     }
