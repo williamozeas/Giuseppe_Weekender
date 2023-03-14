@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class ScriptedBurn : ScriptedEventAbstract
 {
+    public bool on;
 }
 
 public class ScriptedBurnTrigger : ScriptedAbstract<ScriptedBurn>
@@ -23,11 +24,35 @@ public class ScriptedBurnTrigger : ScriptedAbstract<ScriptedBurn>
 
     protected override void TriggerEvent(ScriptedBurn burn)
     {
+        if (burn.on)
+        {
+            BurnOn();
+        }
+        else
+        {
+            BurnOff();
+        }
+    }
+
+    protected override void UnTriggerEvent(ScriptedBurn burn)
+    {
+        if (burn.on)
+        {
+            BurnOff();
+        }
+        else
+        {
+            BurnOn();
+        }
+    }
+
+    protected void BurnOn()
+    {
         ps.Play();
         deathObj.SetActive(true);
     }
 
-    protected override void UnTriggerEvent(ScriptedBurn burn)
+    protected void BurnOff()
     {
         ps.Stop();
         deathObj.SetActive(false);

@@ -4881,6 +4881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events:
   - time: 5
+    on: 1
   deathObj: {fileID: 5729630276281864653}
 --- !u!64 &9165065117385820637
 MeshCollider:
