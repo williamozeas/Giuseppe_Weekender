@@ -498,13 +498,11 @@ public class KCharacterController : MonoBehaviour, ICharacterController
     protected void OnLanded()
     {
         animator.SetBool("Grounded", true);
-        Debug.Log("true");
     }
 
     protected void OnLeaveStableGround()
     {
         animator.SetBool("Grounded", false);
-        Debug.Log("false");
     }
 
     public void OnDiscreteCollisionDetected(Collider hitCollider)
