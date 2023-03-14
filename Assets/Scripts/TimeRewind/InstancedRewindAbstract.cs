@@ -39,7 +39,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
         trackedAudioTimes = new CircularBuffer<AudioTrackedData>(rewindManager);
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (IsTracking)
             Track();

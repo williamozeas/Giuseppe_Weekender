@@ -7,10 +7,13 @@ public class GrabbableGear : MonoBehaviour, IGrabbable
 
     Rigidbody rb;
 
+    GrabbableRewind rewindScript;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rewindScript = GetComponent<GrabbableRewind>();
     }
 
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class GrabbableGear : MonoBehaviour, IGrabbable
 
     public void Grabbed(GameObject grabber)
     {
+        rewindScript.Grabbed(transform.position);
         rb.isKinematic = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -34,8 +38,11 @@ public class GrabbableGear : MonoBehaviour, IGrabbable
     {
         rb.isKinematic = false;
         gameObject.layer = 0;
-        rb.velocity = new Vector3(0.2f, 0f, 0f);
+        transform.localPosition = new Vector3(0f, -0.5f, 1f);
+        transform.localEulerAngles = Vector3.zero;
+        rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         transform.parent = null;
+        rewindScript.Dropped(transform.position);
     }
 }

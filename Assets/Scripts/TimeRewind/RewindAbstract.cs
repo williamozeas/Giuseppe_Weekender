@@ -41,7 +41,7 @@ public abstract class RewindAbstract : MonoBehaviour
         trackedAudioTimes = new CircularBuffer<AudioTrackedData>();
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (IsTracking)
             Track();
@@ -73,6 +73,13 @@ public abstract class RewindAbstract : MonoBehaviour
     {
         PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
         transform.SetPositionAndRotation(valuesToRead.position, valuesToRead.rotation);
+    }
+
+    protected void OffsetPositionAndRotation(Vector3 offset)
+    {
+        for (int i = 0; i <  trackedPositionsAndRotation.dataArray.Length; i++) {
+            trackedPositionsAndRotation.dataArray[i].position += offset;
+        }
     }
     #endregion
 

@@ -2,7 +2,7 @@
 
 public class CircularBuffer <T>
 { 
-    T[] dataArray;
+    public T[] dataArray;
     int bufferCurrentPosition = -1;
     int bufferCapacity;
     float howManyRecordsPerSecond;
