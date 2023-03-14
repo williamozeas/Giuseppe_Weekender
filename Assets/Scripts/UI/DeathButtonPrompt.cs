@@ -12,6 +12,7 @@ public class DeathButtonPrompt : MonoBehaviour
     void Start()
     {
         RewindPlayerPrompt.gameObject.SetActive(false);
+        GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
     }
 
     // Update is called once per frame
@@ -23,13 +24,15 @@ public class DeathButtonPrompt : MonoBehaviour
     private void OnEnable()
     {
         GameManager.OnDie += OnDie;
-        GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
+        if(GameManager.Instance.Player)
+            GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
     }
     
     private void OnDisable()
     {
         GameManager.OnDie -= OnDie;
-        GameManager.Instance.Player.PlayerRewinder.StartRewind -= OnStartRewind;
+        if(GameManager.Instance.Player)
+            GameManager.Instance.Player.PlayerRewinder.StartRewind -= OnStartRewind;
     }
 
     private void OnDie()
