@@ -33,12 +33,13 @@ public class RunOutOfTimeButtonPrompt : MonoBehaviour
 
     private void OnRunOutOfTime()
     {
-        //Activate canvas/elements here
+        //Activate canvas/elements 
         RewindTimePrompt.gameObject.SetActive(true);
     }
 
     private void OnStartRewind()
     {
-        
+        //Deactivate canvas/elements here
+        RewindTimePrompt.gameObject.SetActive(false);
     }
 }
