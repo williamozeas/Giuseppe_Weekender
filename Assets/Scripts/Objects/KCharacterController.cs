@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
-using UnityEditor.Animations;
 
 namespace KinematicCharacterController
 {
