@@ -1174,6 +1174,7 @@ namespace KinematicCharacterController
             {
                 if (_solveMovementCollisions)
                 {
+                    Debug.Log(BaseVelocity);
                     InternalCharacterMove(ref BaseVelocity, deltaTime);
                 }
                 else
