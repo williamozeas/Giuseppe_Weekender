@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class DeathButtonPrompt : MonoBehaviour
 {
     public Image RewindPlayerPrompt;
+    private Coroutine waitingCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
         RewindPlayerPrompt.gameObject.SetActive(false);
-        GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
     }
 
     // Update is called once per frame
@@ -24,26 +24,37 @@ public class DeathButtonPrompt : MonoBehaviour
     private void OnEnable()
     {
         GameManager.OnDie += OnDie;
-        if(GameManager.Instance.Player)
-            GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
     }
     
     private void OnDisable()
     {
         GameManager.OnDie -= OnDie;
-        if(GameManager.Instance.Player)
-            GameManager.Instance.Player.PlayerRewinder.StartRewind -= OnStartRewind;
     }
 
     private void OnDie()
     {
         //Activate canvas/elements here
         RewindPlayerPrompt.gameObject.SetActive(true);
+        if(waitingCoroutine != null) StopCoroutine(waitingCoroutine);
+        waitingCoroutine = StartCoroutine(WaitForRewind());
     }
 
     private void OnStartRewind()
     {
         //Deactivate canvas/elements here
         RewindPlayerPrompt.gameObject.SetActive(false);
+    }
+
+    private IEnumerator WaitForRewind()
+    {
+        while (true)
+        {
+            if (Input.GetButtonDown("Rewind Self"))
+            {
+                break;
+            }
+            yield return null;
+        }
+        OnStartRewind();
     }
 }
