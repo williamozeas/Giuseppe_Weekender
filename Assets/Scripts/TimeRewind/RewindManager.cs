@@ -29,7 +29,7 @@ public class RewindManager : MonoBehaviour
     /// <summary>
     /// Tells you if scene is currently being rewinded
     /// </summary>
-    public bool IsBeingRewinded { get; private set; } = false;
+    public static bool IsBeingRewinded { get; private set; } = false;
 
 
     float rewindSeconds = 0;
