@@ -39,7 +39,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
         trackedAudioTimes = new CircularBuffer<AudioTrackedData>(rewindManager);
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (IsTracking)
             Track();
@@ -112,7 +112,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
     #endregion
 
     #region Animator
-    List<CircularBuffer<AnimationValues>> trackedAnimationTimes;         //All animator layers are tracked
+    protected List<CircularBuffer<AnimationValues>> trackedAnimationTimes;         //All animator layers are tracked
     public struct AnimationValues
     {
         public float animationStateTime;

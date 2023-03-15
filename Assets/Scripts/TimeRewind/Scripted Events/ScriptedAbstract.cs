@@ -18,6 +18,7 @@ public abstract class ScriptedAbstract<T> : MonoBehaviour where T : ScriptedEven
     
     //Implements the actual event - screen shake or force application etc.
     protected abstract void TriggerEvent(T eventToTrigger);
+    protected abstract void UnTriggerEvent(T eventToTrigger);
 
     // Awake called before the first frame update
     protected virtual void Awake()
@@ -60,7 +61,7 @@ public abstract class ScriptedAbstract<T> : MonoBehaviour where T : ScriptedEven
             T previousEvent = events[index - 1];
             if (GameManager.Instance.Time < previousEvent.time)
             {
-                // TriggerEvent(previousEvent);
+                UnTriggerEvent(previousEvent);
                 index--;
             }
         }

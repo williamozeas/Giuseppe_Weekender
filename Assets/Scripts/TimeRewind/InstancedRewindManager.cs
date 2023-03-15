@@ -16,6 +16,9 @@ public class InstancedRewindManager : MonoBehaviour
     /// Action is not meant to be used by users. It shares data between classes. You probably want to use prepared methods like: RewindTimeBySeconds(), StartRewindTimeBySeconds(), SetTimeSecondsInRewind(), StopRewindTimeBySeconds()
     /// </summary>
     public Action<float> RestoreBuffers { get; set; }
+
+    public event Action StartRewind;
+    public event Action StopRewind;
     
     
     /// <summary>
@@ -72,6 +75,11 @@ public class InstancedRewindManager : MonoBehaviour
     /// <returns></returns>
     public void StartRewindTimeBySeconds(float seconds)
     {
+        if (IsBeingRewinded)
+        {
+            Debug.Log("Rewind started while already rewinding!");
+            return;
+        }
         if (seconds > HowManySecondsAvailableForRewind)
         {
             Debug.LogError("Not enough stored tracked value!!! Reaching on wrong index. Called rewind should be less than HowManySecondsAvailableForRewind property");
@@ -87,6 +95,7 @@ public class InstancedRewindManager : MonoBehaviour
         rewindSeconds = seconds;
         TrackingStateCall?.Invoke(false);
         IsBeingRewinded = true;
+        StartRewind?.Invoke();
     }
     private void FixedUpdate()
     {
@@ -127,10 +136,16 @@ public class InstancedRewindManager : MonoBehaviour
     /// </summary>
     public void StopRewindTimeBySeconds()
     {
+        if (!IsBeingRewinded)
+        {
+            Debug.LogWarning("Rewind stopped while not rewinding!");
+            return;
+        }
         timeFX.StopRewind();
         HowManySecondsAvailableForRewind -= rewindSeconds;
         IsBeingRewinded = false;
         RestoreBuffers?.Invoke(rewindSeconds);
         TrackingStateCall?.Invoke(true);
+        StopRewind?.Invoke();
     }
 }
