@@ -968,24 +968,31 @@ namespace KinematicCharacterController
                     GetVelocityFromRigidbodyMovement(_attachedRigidbody, _transientPosition, deltaTime, out tmpVelocityFromCurrentAttachedRigidbody, out tmpAngularVelocityFromCurrentAttachedRigidbody);
                 }
 
+                if (RewindManager.IsBeingRewinded)
+                {
+                    tmpVelocityFromCurrentAttachedRigidbody *= -1;
+                    tmpAngularVelocityFromCurrentAttachedRigidbody *= -1;
+                }
+
                 // Conserve momentum when de-stabilized from an attached rigidbody
                 if (PreserveAttachedRigidbodyMomentum && _lastAttachedRigidbody != null && _attachedRigidbody != _lastAttachedRigidbody)
                 {
-                    BaseVelocity += _attachedRigidbodyVelocity;
-                    BaseVelocity -= tmpVelocityFromCurrentAttachedRigidbody;
+                    //TODO: after merge uncomment and set PreserveAttachedRigidbodyMomentum to false
+                    // BaseVelocity += _attachedRigidbodyVelocity;
+                    // BaseVelocity -= tmpVelocityFromCurrentAttachedRigidbody;
                 }
-
+                
                 // Process additionnal Velocity from attached rigidbody
                 _attachedRigidbodyVelocity = _cachedZeroVector;
                 if (_attachedRigidbody)
                 {
                     _attachedRigidbodyVelocity = tmpVelocityFromCurrentAttachedRigidbody;
-
+                
                     // Rotation from attached rigidbody
                     Vector3 newForward = Vector3.ProjectOnPlane(Quaternion.Euler(Mathf.Rad2Deg * tmpAngularVelocityFromCurrentAttachedRigidbody * deltaTime) * _characterForward, _characterUp).normalized;
                     TransientRotation = Quaternion.LookRotation(newForward, _characterUp);
                 }
-
+                
                 // Cancel out horizontal velocity upon landing on an attached rigidbody
                 if (GroundingStatus.GroundCollider &&
                     GroundingStatus.GroundCollider.attachedRigidbody &&
@@ -995,12 +1002,12 @@ namespace KinematicCharacterController
                 {
                     BaseVelocity -= Vector3.ProjectOnPlane(_attachedRigidbodyVelocity, _characterUp);
                 }
-
+                
                 // Movement from Attached Rigidbody
                 if (_attachedRigidbodyVelocity.sqrMagnitude > 0f)
                 {
                     _isMovingFromAttachedRigidbody = true;
-
+                
                     if (_solveMovementCollisions)
                     {
                         // Perform the move from rgdbdy velocity
@@ -1010,7 +1017,7 @@ namespace KinematicCharacterController
                     {
                         _transientPosition += _attachedRigidbodyVelocity * deltaTime;
                     }
-
+                
                     _isMovingFromAttachedRigidbody = false;
                 }
                 #endregion

@@ -15,7 +15,7 @@ public class ParticleTimer : MonoBehaviour
     }
     void Update()                               
     {
-        if(rewindManager.IsBeingRewinded)                       //Simple solution how to solve Update fighting with FixedUpdate in rewind
+        if(RewindManager.IsBeingRewinded)                       //Simple solution how to solve Update fighting with FixedUpdate in rewind
             return;
         
 
