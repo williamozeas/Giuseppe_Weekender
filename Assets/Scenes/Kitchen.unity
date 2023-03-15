@@ -1223,6 +1223,11 @@ PrefabInstance:
       propertyPath: rewindManager
       value: 
       objectReference: {fileID: 1030428604}
+    - target: {fileID: 1591330473229125360, guid: 62706fe7b4c594609999a51b4329c446,
+        type: 3}
+      propertyPath: trackPositionRotation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3648031906051991052, guid: 62706fe7b4c594609999a51b4329c446,
         type: 3}
       propertyPath: m_RootOrder
