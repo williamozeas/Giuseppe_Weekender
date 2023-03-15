@@ -102,10 +102,10 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 6
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.174
+    m_Value: 0.104
   response:
     m_OverrideState: 0
     m_Value: 0.8
@@ -158,13 +158,13 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 15.1
+    m_Value: 16.7
   aperture:
     m_OverrideState: 1
     m_Value: 3
   focalLength:
     m_OverrideState: 1
-    m_Value: 125
+    m_Value: 130
   bladeCount:
     m_OverrideState: 0
     m_Value: 8
