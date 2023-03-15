@@ -375,7 +375,7 @@ public class KCharacterController : MonoBehaviour, ICharacterController
                     }
                     
                     //set animator speed
-                    animator.SetFloat("Speed", currentVelocity.x/MaxStableMoveSpeed);
+                    animator.SetFloat("Speed", Math.Abs(currentVelocity.x/MaxStableMoveSpeed));
 
                     break;
                 }
@@ -497,10 +497,12 @@ public class KCharacterController : MonoBehaviour, ICharacterController
 
     protected void OnLanded()
     {
+        animator.SetBool("Grounded", true);
     }
 
     protected void OnLeaveStableGround()
     {
+        animator.SetBool("Grounded", false);
     }
 
     public void OnDiscreteCollisionDetected(Collider hitCollider)

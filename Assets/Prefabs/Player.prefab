@@ -186,13 +186,14 @@ MonoBehaviour:
   rewindManager: {fileID: 7928887588278847936}
   trackPositionRotation: 1
   trackVelocity: 1
-  trackAnimator: 0
+  trackAnimator: 1
   trackAudio: 0
   trackParticles: 0
   particleSettings:
     particleLimiter: 0
     particleResetTo: 0
     particlesData: []
+  animatorRef: {fileID: 4065005628667096815}
 --- !u!114 &6397762861714501480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +573,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbd84542a2fc94814b5823ffd7b8b2fd, type: 3}
+--- !u!95 &4065005628667096815 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: cbd84542a2fc94814b5823ffd7b8b2fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 7566989367708406654}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7965145632876246165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cbd84542a2fc94814b5823ffd7b8b2fd,
