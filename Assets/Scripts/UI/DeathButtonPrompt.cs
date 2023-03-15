@@ -25,14 +25,14 @@ public class DeathButtonPrompt : MonoBehaviour
     {
         GameManager.OnDie += OnDie;
         if(GameManager.Instance.Player)
-            GameManager.Instance.Player.PlayerRewinder.StartRewind -= OnStartRewind;
+            GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
     }
     
     private void OnDisable()
     {
         GameManager.OnDie -= OnDie;
         if(GameManager.Instance.Player)
-            GameManager.Instance.Player.PlayerRewinder.StartRewind += OnStartRewind;
+            GameManager.Instance.Player.PlayerRewinder.StartRewind -= OnStartRewind;
     }
 
     private void OnDie()
