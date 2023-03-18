@@ -143,7 +143,7 @@ MonoBehaviour:
   trackPositionRotation: 0
   trackVelocity: 0
   trackAnimator: 0
-  trackAudio: 1
+  trackAudio: 0
   trackParticles: 0
   particleSettings:
     particleLimiter: 0

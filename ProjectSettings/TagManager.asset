@@ -14,8 +14,8 @@ TagManager:
   - Background
   - Grabbed
   - PlayerTimeObjects
-  - 
-  - 
+  - MovingObject
+  - Interaction Colliders
   - 
   - 
   - 

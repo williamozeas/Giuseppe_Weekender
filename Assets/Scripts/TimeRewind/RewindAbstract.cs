@@ -76,6 +76,13 @@ public abstract class RewindAbstract : MonoBehaviour
         PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
         transform.SetPositionAndRotation(valuesToRead.position, valuesToRead.rotation);
     }
+    
+    protected void RestorePositionAndRotationRigidbody(float seconds)
+    {
+        PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
+        transform.rotation = valuesToRead.rotation;
+        body.MovePosition(valuesToRead.position);
+    }
 
     protected void OffsetPositionAndRotation(Vector3 offset)
     {
@@ -120,9 +127,9 @@ public abstract class RewindAbstract : MonoBehaviour
     {   
         if(body!=null)
         {
-            if(gameObject.name == "CAN")
-            Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
-            body.velocity = trackedVelocities.ReadFromBuffer(seconds);
+            if(gameObject.name == "CAN" && trackedVelocities.ReadFromBuffer(seconds).magnitude > 0.01f)
+                Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
+            body.velocity = trackedVelocities.ReadFromBuffer(seconds) * -1;
             body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds);
             // body.velocity *= -1;
             // body.angularVelocity *= -1;
