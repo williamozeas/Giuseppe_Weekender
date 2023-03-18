@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private float rewindIntensity = 0.02f;
     private float rewindRampPlayer = 1;
     private float rewindRampWorld = 1;
+    public float RewindRampWorld => rewindRampWorld;
     private bool isRewindingPlayer = false;
     public bool IsRewindingPlayer => isRewindingPlayer;
     private bool isRewindingWorld = false;
@@ -119,6 +120,12 @@ public class Player : MonoBehaviour
             { //While holding the button, we will gradually rewind more and more time into the past
                 rewindValueWorld += rewindIntensity * Mathf.Pow(rewindRampWorld, 2);
                 rewindRampWorld += rewindRampIncrease;
+                
+                if (rewindValueWorld < 0)
+                {
+                    rewindValueWorld = 0;
+                    rewindRampWorld = 0;
+                }
             }           
 
             if (!isRewindingWorld)
