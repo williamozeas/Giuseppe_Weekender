@@ -83,6 +83,11 @@ public abstract class RewindAbstract : MonoBehaviour
         transform.rotation = valuesToRead.rotation;
         body.MovePosition(valuesToRead.position);
     }
+    
+    public PositionAndRotationValues GetPositionAndRotationAtSeconds(float seconds)
+    {
+        return trackedPositionsAndRotation.ReadFromBuffer(seconds);
+    }
 
     protected void OffsetPositionAndRotation(Vector3 offset)
     {
@@ -128,7 +133,7 @@ public abstract class RewindAbstract : MonoBehaviour
         if(body!=null)
         {
             // if(gameObject.name == "CAN" && trackedVelocities.ReadFromBuffer(seconds).magnitude > 0.01f)
-                // Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
+            //     Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
             body.velocity = trackedVelocities.ReadFromBuffer(seconds) * -1;
             body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds) * -1;
             // body.velocity *= -1;
@@ -138,6 +143,10 @@ public abstract class RewindAbstract : MonoBehaviour
         {
             body2.velocity = trackedVelocities.ReadFromBuffer(seconds);
         }
+    }
+    public (Vector3, Vector3) GetVelocityAtSeconds(float seconds)
+    {
+        return (trackedVelocities.ReadFromBuffer(seconds), trackedAngularVelocities.ReadFromBuffer(seconds));
     }
 
     protected void TrackGrabbedVelocity()

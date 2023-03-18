@@ -41,13 +41,11 @@ public class MusicReverser : MonoBehaviour
 
     private void OnStopTime()
     {
-        Debug.Log("Stopped time");
         source.pitch = 0;
     }
 
     private void OnStartRewind()
     {
-        Debug.Log("Started Rewind");
         source.pitch = -1;
     }
 

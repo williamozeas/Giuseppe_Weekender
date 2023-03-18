@@ -949,11 +949,23 @@ namespace KinematicCharacterController
                     // Detect interactive rigidbodies from grounding
                     if (GroundingStatus.IsStableOnGround && GroundingStatus.GroundCollider.attachedRigidbody)
                     {
-                        Rigidbody interactiveRigidbody = GetInteractiveRigidbody(GroundingStatus.GroundCollider);
+                        Rigidbody interactiveRigidbody;
+                        if (GroundingStatus.GroundCollider.attachedRigidbody.gameObject.CompareTag(
+                                "Interaction Collider"))
+                        {
+                            interactiveRigidbody = GetInteractiveRigidbody(
+                                GroundingStatus.GroundCollider.transform.parent.GetComponent<Collider>());
+                        }
+                        else
+                        {
+                            interactiveRigidbody = GetInteractiveRigidbody(GroundingStatus.GroundCollider);
+                        }
+
                         if (interactiveRigidbody)
                         {
                             _attachedRigidbody = interactiveRigidbody;
                         }
+                        Debug.Log(_attachedRigidbody.gameObject.name);
                     }
                     else
                     {
@@ -966,72 +978,98 @@ namespace KinematicCharacterController
                 Vector3 tmpAngularVelocityFromCurrentAttachedRigidbody = Vector3.zero;
                 if (_attachedRigidbody)
                 {
-                    Debug.Log(_attachedRigidbody.gameObject.name);
-                    transform.parent = _attachedRigidbody.transform;
-                    // GetVelocityFromRigidbodyMovement(_attachedRigidbody, _transientPosition, deltaTime, out tmpVelocityFromCurrentAttachedRigidbody, out tmpAngularVelocityFromCurrentAttachedRigidbody);
+                    if (RewindManager.IsBeingRewinded)
+                    {
+                        _attachedRigidbody.TryGetComponent<GenericRewind>(out GenericRewind rewind);
+                        if (rewind)
+                        {
+                            (Vector3, Vector3) velocities = rewind.GetVelocityAtSeconds(RewindManager.RewindSeconds);
+                            //Yes, I'm magic numbering this because it's almost 2 AM
+                            // tmpVelocityFromCurrentAttachedRigidbody = velocities.Item1 * -1.35f;
+                            tmpAngularVelocityFromCurrentAttachedRigidbody = velocities.Item2;
+                            RewindAbstract.PositionAndRotationValues currentValues =
+                                rewind.GetPositionAndRotationAtSeconds(RewindManager.RewindSeconds);
+                            RewindAbstract.PositionAndRotationValues prevValues =
+                                rewind.GetPositionAndRotationAtSeconds(RewindManager.RewindSeconds - Time.fixedDeltaTime);
+                            tmpVelocityFromCurrentAttachedRigidbody =
+                                (currentValues.position - prevValues.position) / Time.fixedDeltaTime;
+                            tmpVelocityFromCurrentAttachedRigidbody *= 1.37f;
+                            // Vector2 objectToCenter = transform.position - _attachedRigidbody.centerOfMass;
+                            // float distanceFromCenter =objectToCenter.magnitude;
+                            // Vector3 additionalVelocity =
+                            //      distanceFromCenter * 0.5f * tmpAngularVelocityFromCurrentAttachedRigidbody;
+                            // Vector3 rotDir = Vector3.Cross(Vector3.forward, objectToCenter);
+                            // tmpVelocityFromCurrentAttachedRigidbody += rotDir.normalized * additionalVelocity.z;
+                            // Debug.Log(rotDir.normalized * additionalVelocity.z);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Rigidbody without rewinder!");
+                        }
+                    }
+                    else
+                    {
+                        GetVelocityFromRigidbodyMovement(_attachedRigidbody, _transientPosition, deltaTime,
+                            out tmpVelocityFromCurrentAttachedRigidbody,
+                            out tmpAngularVelocityFromCurrentAttachedRigidbody);
+                    }
                 }
-                else
+                // else
+                // {
+                //     transform.parent = null;
+                // }
+                
+                // Conserve momentum when de-stabilized from an attached rigidbody
+                if (PreserveAttachedRigidbodyMomentum && _lastAttachedRigidbody != null && _attachedRigidbody != _lastAttachedRigidbody)
                 {
-                    transform.parent = null;
+                    //TODO: after merge uncomment and set PreserveAttachedRigidbodyMomentum to false
+                    Debug.Log("DETACHED");
+                    // BaseVelocity += _attachedRigidbodyVelocity;
+                    // BaseVelocity -= tmpVelocityFromCurrentAttachedRigidbody;
                 }
-
-                // if (RewindManager.IsBeingRewinded)
-                // {
-                //     tmpVelocityFromCurrentAttachedRigidbody *= -1f;
-                //     tmpAngularVelocityFromCurrentAttachedRigidbody *= -1f;
-                // }
-                //
-                // // Conserve momentum when de-stabilized from an attached rigidbody
-                // if (PreserveAttachedRigidbodyMomentum && _lastAttachedRigidbody != null && _attachedRigidbody != _lastAttachedRigidbody)
-                // {
-                //     //TODO: after merge uncomment and set PreserveAttachedRigidbodyMomentum to false
-                //     Debug.Log("DETACHED");
-                //     // BaseVelocity += _attachedRigidbodyVelocity;
-                //     // BaseVelocity -= tmpVelocityFromCurrentAttachedRigidbody;
-                // }
-                //
-                // // Process additionnal Velocity from attached rigidbody
-                // _attachedRigidbodyVelocity = _cachedZeroVector;
-                // if (_attachedRigidbody)
-                // {
-                //     _attachedRigidbodyVelocity = tmpVelocityFromCurrentAttachedRigidbody;
-                //     // _attachedRigidbodyVelocity = _attachedRigidbody.velocity * -1;
-                //     
-                //     // Rotation from attached rigidbody
-                //     Vector3 newForward = Vector3.ProjectOnPlane(Quaternion.Euler(Mathf.Rad2Deg * deltaTime * tmpAngularVelocityFromCurrentAttachedRigidbody) * _characterForward, _characterUp).normalized;
-                //     TransientRotation = Quaternion.LookRotation(newForward, _characterUp);
-                // }
-                //
-                // // Cancel out horizontal velocity upon landing on an attached rigidbody
-                // if (GroundingStatus.GroundCollider &&
-                //     GroundingStatus.GroundCollider.attachedRigidbody &&
-                //     GroundingStatus.GroundCollider.attachedRigidbody == _attachedRigidbody &&
-                //     _attachedRigidbody != null &&
-                //     _lastAttachedRigidbody == null)
-                // {
-                //     BaseVelocity -= Vector3.ProjectOnPlane(_attachedRigidbodyVelocity, _characterUp);
-                // }
-                //
-                // // Movement from Attached Rigidbody
-                // if (_attachedRigidbodyVelocity.sqrMagnitude > 0f)
-                // {
-                //     _isMovingFromAttachedRigidbody = true;
-                //
-                //     if (_solveMovementCollisions)
-                //     {
-                //         // Perform the move from rgdbdy velocity
-                //         
-                //         if(((Vector2)_attachedRigidbodyVelocity).magnitude > 0.01f)
-                //             Debug.Log(_attachedRigidbodyVelocity + " at " + Time.time);
-                //         InternalCharacterMove(ref _attachedRigidbodyVelocity, deltaTime);
-                //     }
-                //     else
-                //     {
-                //         _transientPosition += _attachedRigidbodyVelocity * deltaTime;
-                //     }
-                //
-                //     _isMovingFromAttachedRigidbody = false;
-                // }
+                
+                // Process additionnal Velocity from attached rigidbody
+                _attachedRigidbodyVelocity = _cachedZeroVector;
+                if (_attachedRigidbody)
+                {
+                    _attachedRigidbodyVelocity = tmpVelocityFromCurrentAttachedRigidbody;
+                    // _attachedRigidbodyVelocity = _attachedRigidbody.velocity * -1;
+                    
+                    // Rotation from attached rigidbody
+                    // Vector3 newForward = Vector3.ProjectOnPlane(Quaternion.Euler(Mathf.Rad2Deg * deltaTime * tmpAngularVelocityFromCurrentAttachedRigidbody) * _characterForward, _characterUp).normalized;
+                    // TransientRotation = Quaternion.LookRotation(newForward, _characterUp);
+                }
+                
+                // Cancel out horizontal velocity upon landing on an attached rigidbody
+                if (GroundingStatus.GroundCollider &&
+                    GroundingStatus.GroundCollider.attachedRigidbody &&
+                    GroundingStatus.GroundCollider.attachedRigidbody == _attachedRigidbody &&
+                    _attachedRigidbody != null &&
+                    _lastAttachedRigidbody == null)
+                {
+                    BaseVelocity -= Vector3.ProjectOnPlane(_attachedRigidbodyVelocity, _characterUp);
+                }
+                
+                // Movement from Attached Rigidbody
+                if (_attachedRigidbodyVelocity.sqrMagnitude > 0f)
+                {
+                    _isMovingFromAttachedRigidbody = true;
+                
+                    // if (_solveMovementCollisions)
+                    // {
+                    //     // Perform the move from rgdbdy velocity
+                    //     
+                    //     InternalCharacterMove(ref _attachedRigidbodyVelocity, deltaTime);
+                    // }
+                    // else
+                    {
+                        // if(((Vector2)_attachedRigidbodyVelocity).magnitude > 0.5f)
+                        //     Debug.Log(_attachedRigidbodyVelocity + " at " + Time.time);
+                        _transientPosition += _attachedRigidbodyVelocity * deltaTime;
+                    }
+                
+                    _isMovingFromAttachedRigidbody = false;
+                }
                 #endregion
             }
         }

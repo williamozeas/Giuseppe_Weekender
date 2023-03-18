@@ -37,7 +37,8 @@ public class RewindManager : MonoBehaviour
     public static bool IsBeingRewinded { get; private set; } = false;
 
 
-    float rewindSeconds = 0;
+    static float rewindSeconds = 0;
+    public static float RewindSeconds => rewindSeconds;
 
     private void OnEnable()
     {

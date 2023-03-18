@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3673490895411338090}
   - component: {fileID: 4707426320096591764}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Interaction Collider
-  m_TagString: Untagged
+  m_TagString: Interaction Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
