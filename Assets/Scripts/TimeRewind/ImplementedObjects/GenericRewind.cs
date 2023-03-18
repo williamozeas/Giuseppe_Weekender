@@ -54,14 +54,25 @@ public class GenericRewind : RewindAbstract
         InitializeParticles(particleSettings);
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        RewindManager.StopRewind += OnStopRewind;
+    }
+    
+    protected override void OnDisable()
+    {
+        base.OnEnable();
         RewindManager.StopRewind += OnStopRewind;
     }
 
     private void OnStopRewind()
     {
-        // if(S)
+        if (trackVelocity)
+        {
+            body.velocity *= -1;
+            body.angularVelocity *= -1;
+        }
     }
 }
 

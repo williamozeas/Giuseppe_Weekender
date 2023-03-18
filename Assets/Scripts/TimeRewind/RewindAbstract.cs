@@ -9,10 +9,10 @@ public abstract class RewindAbstract : MonoBehaviour
     RewindManager rewindManager;
     public bool IsTracking { get; set; } = false;
 
-    Rigidbody body;
-    Rigidbody2D body2;
-    Animator animator;
-    StudioEventEmitter audioSource;
+    protected Rigidbody body;
+    protected Rigidbody2D body2;
+    protected Animator animator;
+    protected StudioEventEmitter audioSource;
 
 
     protected void Awake()
@@ -127,10 +127,10 @@ public abstract class RewindAbstract : MonoBehaviour
     {   
         if(body!=null)
         {
-            if(gameObject.name == "CAN" && trackedVelocities.ReadFromBuffer(seconds).magnitude > 0.01f)
-                Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
+            // if(gameObject.name == "CAN" && trackedVelocities.ReadFromBuffer(seconds).magnitude > 0.01f)
+                // Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
             body.velocity = trackedVelocities.ReadFromBuffer(seconds) * -1;
-            body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds);
+            body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds) * -1;
             // body.velocity *= -1;
             // body.angularVelocity *= -1;
         }
