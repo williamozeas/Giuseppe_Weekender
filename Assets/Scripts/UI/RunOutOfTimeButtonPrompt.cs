@@ -6,36 +6,30 @@ using UnityEngine.UI;
 public class RunOutOfTimeButtonPrompt : MonoBehaviour
 {
     public Image RewindTimePrompt;
-    private Coroutine waitingCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
         RewindTimePrompt.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        RewindManager.StartRewind += OnStartRewind;
     }
     
     private void OnEnable()
     {
         GameManager.OnRunOutOfTime += OnRunOutOfTime;
+        RewindManager.StartRewind += OnStartRewind;
     }
     
     private void OnDisable()
     {
         GameManager.OnRunOutOfTime -= OnRunOutOfTime;
+        RewindManager.StartRewind -= OnStartRewind;
     }
 
     private void OnRunOutOfTime()
     {
         //Activate canvas/elements 
         RewindTimePrompt.gameObject.SetActive(true);
-        if(waitingCoroutine != null) StopCoroutine(waitingCoroutine);
-        waitingCoroutine = StartCoroutine(WaitForRewind());
     }
 
     private void OnStartRewind()
@@ -43,17 +37,5 @@ public class RunOutOfTimeButtonPrompt : MonoBehaviour
         //Deactivate canvas/elements here
         RewindTimePrompt.gameObject.SetActive(false);
     }
-
-    private IEnumerator WaitForRewind()
-    {
-        while (true)
-        {
-            if (Input.GetButtonDown("Rewind World"))
-            {
-                break;
-            }
-            yield return null;
-        }
-        OnStartRewind();
-    }
+    
 }

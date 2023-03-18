@@ -957,6 +957,7 @@ namespace KinematicCharacterController
                     }
                     else
                     {
+                        Debug.Log("NONE");
                         _attachedRigidbody = null;
                     }
                 }
@@ -965,19 +966,21 @@ namespace KinematicCharacterController
                 Vector3 tmpAngularVelocityFromCurrentAttachedRigidbody = Vector3.zero;
                 if (_attachedRigidbody)
                 {
+                    Debug.Log(_attachedRigidbody.gameObject.name);
                     GetVelocityFromRigidbodyMovement(_attachedRigidbody, _transientPosition, deltaTime, out tmpVelocityFromCurrentAttachedRigidbody, out tmpAngularVelocityFromCurrentAttachedRigidbody);
                 }
 
                 if (RewindManager.IsBeingRewinded)
                 {
-                    tmpVelocityFromCurrentAttachedRigidbody *= -1;
-                    tmpAngularVelocityFromCurrentAttachedRigidbody *= -1;
+                    tmpVelocityFromCurrentAttachedRigidbody *= -1.1f;
+                    tmpAngularVelocityFromCurrentAttachedRigidbody *= -1.1f;
                 }
 
                 // Conserve momentum when de-stabilized from an attached rigidbody
                 if (PreserveAttachedRigidbodyMomentum && _lastAttachedRigidbody != null && _attachedRigidbody != _lastAttachedRigidbody)
                 {
                     //TODO: after merge uncomment and set PreserveAttachedRigidbodyMomentum to false
+                    Debug.Log("DETACHED");
                     // BaseVelocity += _attachedRigidbodyVelocity;
                     // BaseVelocity -= tmpVelocityFromCurrentAttachedRigidbody;
                 }
@@ -989,7 +992,7 @@ namespace KinematicCharacterController
                     _attachedRigidbodyVelocity = tmpVelocityFromCurrentAttachedRigidbody;
                 
                     // Rotation from attached rigidbody
-                    Vector3 newForward = Vector3.ProjectOnPlane(Quaternion.Euler(Mathf.Rad2Deg * tmpAngularVelocityFromCurrentAttachedRigidbody * deltaTime) * _characterForward, _characterUp).normalized;
+                    Vector3 newForward = Vector3.ProjectOnPlane(Quaternion.Euler(Mathf.Rad2Deg * deltaTime * tmpAngularVelocityFromCurrentAttachedRigidbody) * _characterForward, _characterUp).normalized;
                     TransientRotation = Quaternion.LookRotation(newForward, _characterUp);
                 }
                 
@@ -1011,6 +1014,9 @@ namespace KinematicCharacterController
                     if (_solveMovementCollisions)
                     {
                         // Perform the move from rgdbdy velocity
+                        
+                        if(((Vector2)_attachedRigidbodyVelocity).magnitude > 0f)
+                            Debug.Log(_attachedRigidbodyVelocity+ " at " + Time.time);
                         InternalCharacterMove(ref _attachedRigidbodyVelocity, deltaTime);
                     }
                     else
@@ -1372,6 +1378,8 @@ namespace KinematicCharacterController
         /// <returns> Returns false if movement could not be solved until the end </returns>
         private bool InternalCharacterMove(ref Vector3 transientVelocity, float deltaTime)
         {
+            // if(((Vector2)transientVelocity).magnitude > 0.1f)
+            //     Debug.Log(transientVelocity);
             if (deltaTime <= 0f)
                 return false;
 

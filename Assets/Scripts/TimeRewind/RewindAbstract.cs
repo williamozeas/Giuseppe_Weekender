@@ -120,6 +120,8 @@ public abstract class RewindAbstract : MonoBehaviour
     {   
         if(body!=null)
         {
+            if(gameObject.name == "CAN")
+            Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
             body.velocity = trackedVelocities.ReadFromBuffer(seconds);
             body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds);
             // body.velocity *= -1;
@@ -236,7 +238,7 @@ public abstract class RewindAbstract : MonoBehaviour
         audioSource.enabled = readValues.isEnabled;
         if(readValues.isPlaying)
         {
-            audioSource.EventInstance.setTimelinePosition(readValues.time);
+            audioSource.EventInstance.setTimelinePosition((int)(GameManager.Instance.Time * 1000));
             audioSource.EventInstance.setVolume(0);
 
             if (!audioSource.IsPlaying())

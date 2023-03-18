@@ -97,8 +97,8 @@ MonoBehaviour:
   BonusOrientationMethod: 0
   BonusOrientationSharpness: 10
   Gravity: {x: 0, y: -30, z: 0}
-  MeshRoot: {fileID: 1741376682653689763}
-  CameraFollowPoint: {fileID: 1741376682653689763}
+  MeshRoot: {fileID: 7965145632876246165}
+  CameraFollowPoint: {fileID: 7965145632876246165}
   CrouchedCapsuleHeight: 1
 --- !u!114 &7669353293043605680
 MonoBehaviour:
@@ -134,7 +134,7 @@ MonoBehaviour:
   InteractiveRigidbodyHandling: 1
   RigidbodyInteractionType: 2
   SimulatedCharacterMass: 0
-  PreserveAttachedRigidbodyMomentum: 1
+  PreserveAttachedRigidbodyMomentum: 0
   HasPlanarConstraint: 1
   PlanarConstraintAxis: {x: 0, y: 0, z: 1}
   MaxMovementIterations: 5

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class InstancedRewindManager : MonoBehaviour
@@ -17,8 +18,12 @@ public class InstancedRewindManager : MonoBehaviour
     /// </summary>
     public Action<float> RestoreBuffers { get; set; }
 
+    public event Action StopTime;
     public event Action StartRewind;
     public event Action StopRewind;
+
+    //wait for player input after stopping time
+    private Coroutine waitingCoroutine;
     
     
     /// <summary>
@@ -96,6 +101,9 @@ public class InstancedRewindManager : MonoBehaviour
         TrackingStateCall?.Invoke(false);
         IsBeingRewinded = true;
         StartRewind?.Invoke();
+        StopTime?.Invoke();
+        if(waitingCoroutine != null) StopCoroutine(waitingCoroutine);
+        waitingCoroutine = StartCoroutine(WaitForRewind());
     }
     private void FixedUpdate()
     {
@@ -147,5 +155,18 @@ public class InstancedRewindManager : MonoBehaviour
         RestoreBuffers?.Invoke(rewindSeconds);
         TrackingStateCall?.Invoke(true);
         StopRewind?.Invoke();
+    }
+    
+    private IEnumerator WaitForRewind()
+    {
+        while (true)
+        {
+            if (Input.GetButtonDown("Rewind Self"))
+            {
+                break;
+            }
+            yield return null;
+        }
+        StartRewind?.Invoke();
     }
 }
