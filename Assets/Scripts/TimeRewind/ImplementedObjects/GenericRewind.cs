@@ -59,9 +59,9 @@ public class GenericRewind : RewindAbstract
         RewindManager.StopRewind += OnStopRewind;
     }
 
-    // private void OnStopRewind()
-    // {
-    //     if(S)
-    // }
+    private void OnStopRewind()
+    {
+        // if(S)
+    }
 }
 
