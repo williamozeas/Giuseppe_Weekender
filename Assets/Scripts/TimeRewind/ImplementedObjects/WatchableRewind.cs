@@ -3,24 +3,8 @@ using System.Collections.Generic;
 using System;
 
 
-public class GrabbableRewind : RewindAbstract
+public class WatchableRewind : RewindAbstract
 {
-
-    public class TimeTuple
-    {
-        public float startTime;
-        public float endTime;
-
-        public TimeTuple(float sT, float eT) {
-            startTime = sT;
-            endTime = eT;
-        }
-
-        public override string ToString()
-        {
-            return "(" + startTime + ", " + endTime + ")";
-        }
-    }
 
     [SerializeField] bool trackPositionRotation;
     [SerializeField] bool trackVelocity;
@@ -28,17 +12,14 @@ public class GrabbableRewind : RewindAbstract
     [SerializeField] bool trackAudio;
     [SerializeField] bool trackParticles;
 
-    public bool grabbed;
-
-    Vector3 grabbedTravelOffset;
-    Vector3 posBeforeLatestGrab;
+    public bool watched;
 
     [Tooltip("Fill particle settings only if you check Track Particles")]
     [SerializeField] ParticlesSetting particleSettings;
 
     protected override void Rewind(float seconds)
     {
-        if (!grabbed){
+        if (!watched){
             if (trackPositionRotation)
                 RestorePositionAndRotation(seconds);
             if (trackVelocity)
@@ -54,7 +35,7 @@ public class GrabbableRewind : RewindAbstract
 
     protected override void Track()
     {
-        if (!grabbed){
+        if (!watched){
             if (trackPositionRotation)
                 TrackPositionAndRotation();
             if (trackVelocity)
@@ -82,20 +63,17 @@ public class GrabbableRewind : RewindAbstract
     private void Start()
     {
         InitializeParticles(particleSettings);
-        grabbed = false;
+        watched = false;
     }
 
-    public void Grabbed(Vector3 preGrabPos)
+    public void Watched()
     {
-        grabbed = true;
-        posBeforeLatestGrab = preGrabPos;
+        watched = true;
     }
 
-    public void Dropped(Vector3 postGrabPos)
+    public void Unwatched()
     {
-        grabbed = false;
-        grabbedTravelOffset = postGrabPos - posBeforeLatestGrab;
-        OffsetPositionAndRotation(grabbedTravelOffset);
+        watched = false;
     }
 
 }

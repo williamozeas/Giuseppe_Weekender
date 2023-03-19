@@ -969,7 +969,7 @@ namespace KinematicCharacterController
                     }
                     else
                     {
-                        Debug.Log("NONE");
+                        //Debug.Log("NONE");
                         _attachedRigidbody = null;
                     }
                 }

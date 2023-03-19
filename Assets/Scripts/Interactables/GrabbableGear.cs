@@ -9,17 +9,10 @@ public class GrabbableGear : MonoBehaviour, IGrabbable
 
     GrabbableRewind rewindScript;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rewindScript = GetComponent<GrabbableRewind>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Grabbed(GameObject grabber)

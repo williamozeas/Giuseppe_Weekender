@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public RewindManager WorldRewindManager => worldRewindManager;
 
     private IGrabbable grabbedObject;
+
+    private Watchable watchedObject;
     
     //Awake is called before Start
     private void Awake()
@@ -70,6 +72,8 @@ public class Player : MonoBehaviour
         HandleCharacterInput();
 
         HandleGrabbing();
+
+        HandleWatching();
     }
 
     void FixedUpdate()
@@ -222,6 +226,26 @@ public class Player : MonoBehaviour
             } else {
                 grabbedObject.Dropped();
                 grabbedObject = null;
+            }
+        }
+    }
+
+    private void HandleWatching()
+    {
+        if (Input.GetKeyDown("h")) {
+            //Grab pressed
+            if (watchedObject == null) {
+                var colliders = Physics.OverlapSphere(transform.position, 1.8f);
+                foreach(var collider in colliders) {
+                    if (collider.gameObject.TryGetComponent<Watchable>(out Watchable watchableObject )) {
+                        watchableObject.Watched();
+                        watchedObject = watchableObject;
+                    }
+                }
+                controller.Grab();
+            } else {
+                watchedObject.Unwatched();
+                watchedObject = null;
             }
         }
     }
