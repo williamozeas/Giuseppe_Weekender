@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,26 @@ public class SoundEffectTracker : MonoBehaviour
     public Timeline Timeline = Timeline.World;
     private Stack<ReversibleSoundEffect> _sfx = new Stack<ReversibleSoundEffect>();
     private List<ReversibleSoundEffect> _playingSFX = new List<ReversibleSoundEffect>();
+    private List<ReversibleSoundEffect> _reversedSfxToAdd = new List<ReversibleSoundEffect>();
 
     private bool _justRewinded = false;
-    
+
+    private void OnEnable()
+    {
+        if (Timeline == Timeline.World)
+        {
+            RewindManager.StopRewind += OnStopRewind;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (Timeline == Timeline.World)
+        {
+            RewindManager.StopRewind -= OnStopRewind;
+        }
+    }
+
     void FixedUpdate()
     //in FixedUpdate to match our FixedUpdate method of time tracking
     {
@@ -20,13 +38,14 @@ public class SoundEffectTracker : MonoBehaviour
              || (Timeline == Timeline.Player && GameManager.Instance.Player.PlayerRewinder.IsBeingRewinded)) //or player rewound
             && _sfx.TryPeek(out peek) && GameManager.Instance.Time < peek.times.Item2) //and we're at the correct time
         {
-            //TODO: right now if you start sfx, reverse it, let it fully play forwards again, then reverse, it will not play
-            ReversibleSoundEffect pop = _sfx.Pop();
+            //TODO: right now if you start to reverse, then go forwards, then reverse again it will not play
             if (!_justRewinded)
             {
-                pop.OnReverse();
+                _sfx.Pop();
+                peek.OnReverse();
+                _reversedSfxToAdd.Add(peek);
             }
-            _playingSFX.Add(pop);
+            _playingSFX.Add(peek);
         }
 
         for (int i = _playingSFX.Count - 1; i >= 0; i--)
@@ -57,6 +76,19 @@ public class SoundEffectTracker : MonoBehaviour
         {
             _justRewinded = true;
         }
+    }
+
+    private void OnStopRewind()
+    {
+        // _reversedSfxToAdd.RemoveAll(sfx =>
+        // {
+        //     return sfx.times.Item1 > GameManager.Instance.Time;
+        // });
+        // _reversedSfxToAdd.Sort((a,b) => ReversibleSoundEffect.Compare(a,b,RewindManager.IsBeingRewinded));
+        // _reversedSfxToAdd.ForEach(effect =>
+        // {
+        //     
+        // });
     }
 
     public void AddSfx(ReversibleSoundEffect newSfx)
