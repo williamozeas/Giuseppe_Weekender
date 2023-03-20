@@ -2,32 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+// using TMPro;
 
 public class Clock : MonoBehaviour
 {
-    //TEMPORARY FOR TEXTBOX
-    public TextMeshProUGUI clockText;
-    //public gameObject clock;
-
+    public GameObject hand;
+    string oldTime;
     public int hitTime = 5;
-
+    // public TextMeshProUGUI clockText;
+ 
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void Update() 
     {
-        int time = ((int)GameManager.Instance.Time);
+        string time = ((int)GameManager.Instance.Time).ToString();
+        int timeInt = ((int)GameManager.Instance.Time);
 
-        //TEMPORARY FOR TEXTBOX, FIX WHEN UI GRAPHIC ADDED
-        clockText.text = time.ToString();
+        if (time != oldTime)
+            UpdateTimer();
+        oldTime = time;
 
-        if (time == hitTime) {
+        // clockText.text = time.ToString();
+
+        if (timeInt == hitTime) {
             //Camera shake
         }
-
     }
+
+    void UpdateTimer() 
+    {
+        int time = ((int)GameManager.Instance.Time);
+        iTween.RotateTo(hand, iTween.Hash("z", time * 12 * - 1, "time", 1, 
+                        "easeType", "easeOutQuint"));
+    }
+
 }
