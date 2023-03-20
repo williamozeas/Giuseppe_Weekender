@@ -965,7 +965,6 @@ namespace KinematicCharacterController
                         {
                             _attachedRigidbody = interactiveRigidbody;
                         }
-                        Debug.Log(_attachedRigidbody.gameObject.name);
                     }
                     else
                     {
