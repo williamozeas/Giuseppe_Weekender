@@ -37,7 +37,7 @@ public class Clock : MonoBehaviour
     {
         int time = ((int)GameManager.Instance.Time);
         iTween.RotateTo(hand, iTween.Hash("z", time * 12 * - 1, "time", 1, 
-                        "easeType", "easeOutQuint"));
+                        "easeType", "easeOutElastic"));
     }
 
 }
