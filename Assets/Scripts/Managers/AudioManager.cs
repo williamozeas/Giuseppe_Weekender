@@ -5,6 +5,10 @@ using UnityEngine;
 public class AudioManager : Singleton<AudioManager>
 {
     private MusicReverser musicReverser;
+    [SerializeField] private SoundEffectTracker _worldSfxTracker;
+    public SoundEffectTracker WorldSfxTracker => _worldSfxTracker;
+    [SerializeField] private SoundEffectTracker _playerSfxTracker;
+    public SoundEffectTracker PlayerSfxTracker => _playerSfxTracker;
     
     public override void Awake()
     {

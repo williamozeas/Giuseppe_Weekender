@@ -19,9 +19,9 @@ TagManager:
   - PlayerTimeObjects
   - MovingObject
   - Interaction Colliders
-  - 
-  - 
-  - 
+  - PlayerTimeMovingObjects
+  - Player Squish Collider
+  - InteractionCollider
   - 
   - 
   - 

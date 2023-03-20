@@ -28,19 +28,19 @@ public abstract class ScriptedAbstract<T> : MonoBehaviour where T : ScriptedEven
 
     void Update()
     {
-        if (!IsInFixedUpdate)
-        {
-            CheckForEventTrigger();
-        }
+        // if (!IsInFixedUpdate)
+        // {
+        //     CheckForEventTrigger();
+        // }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (IsInFixedUpdate)
-        {
+        // if (IsInFixedUpdate)
+        // {
             CheckForEventTrigger();
-        }
+        // }
     }
 
     protected void CheckForEventTrigger()

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private float rewindValueWorld;
     private float rewindIntensity = 0.02f;
     private float rewindRampPlayer = 1;
+    public float RewindRampPlayer => rewindRampPlayer;
     private float rewindRampWorld = 1;
     public float RewindRampWorld => rewindRampWorld;
     private bool isRewindingPlayer = false;
