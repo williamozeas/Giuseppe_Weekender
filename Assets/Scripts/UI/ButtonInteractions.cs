@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Unity.UI;
 
 public class ButtonInteractions : MonoBehaviour
 {
@@ -16,10 +17,10 @@ public class ButtonInteractions : MonoBehaviour
         HowToPlayPage.gameObject.SetActive(false);
         PlayPage.gameObject.SetActive(true);
         // EndingPage.gameObject.SetActive(false);
-        MainBackground.SetActive(false);
+        MainBackground.gameObject.SetActive(false);
     }
 
-    public void clickHowToPlayFromMain() {
+    public void clickHowToPlayFromLanding() {
         LandingPage.gameObject.SetActive(false);
         HowToPlayPage.gameObject.SetActive(true);
         PlayPage.gameObject.SetActive(false);
@@ -31,7 +32,7 @@ public class ButtonInteractions : MonoBehaviour
         HowToPlayPage.gameObject.SetActive(false);
         PlayPage.gameObject.SetActive(true);
         // EndingPage.gameObject.SetActive(false);
-        MainBackground.SetActive(false);
+        MainBackground.gameObject.SetActive(false);
     }
 
     public void clickBackFromHowToPlay() {
@@ -39,7 +40,7 @@ public class ButtonInteractions : MonoBehaviour
         HowToPlayPage.gameObject.SetActive(false);
         PlayPage.gameObject.SetActive(false);
         // EndingPage.gameObject.SetActive(false);
-        MainBackground.SetActive(true);
+        MainBackground.gameObject.SetActive(true);
     }
 
     public void clickExitFromEnd() {
@@ -49,7 +50,7 @@ public class ButtonInteractions : MonoBehaviour
         HowToPlayPage.gameObject.SetActive(false);
         PlayPage.gameObject.SetActive(false);
         // EndingPage.gameObject.SetActive(false);
-        MainBackground.SetActive(true);
+        MainBackground.gameObject.SetActive(true);
     }
 
     public void clickPlayAgainFromEnd() {
@@ -60,7 +61,7 @@ public class ButtonInteractions : MonoBehaviour
         HowToPlayPage.gameObject.SetActive(false);
         PlayPage.gameObject.SetActive(true);
         // EndingPage.gameObject.SetActive(false);
-        MainBackground.SetActive(false);
+        MainBackground.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
