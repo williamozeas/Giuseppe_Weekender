@@ -24,8 +24,14 @@ public class ButtonInteractions : MonoBehaviour
     }
 
     public void clickStartFromInstructions() {
+        SceneManager.LoadScene("Kitchen"); 
         Background.gameObject.SetActive(false);
         LandingPage.gameObject.SetActive(false);
+        HowToPlayPage.gameObject.SetActive(false);
+    }
+
+    public void clickBackFromInstructions() {
+        LandingPage.gameObject.SetActive(true);
         HowToPlayPage.gameObject.SetActive(false);
     }
 
