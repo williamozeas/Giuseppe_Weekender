@@ -1305,10 +1305,20 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 6946333242609769732, guid: 7faadd0f5c0e84e71a159acf7929dd18,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: -0.57
+      objectReference: {fileID: 0}
     - target: {fileID: 8007338365205288631, guid: 7faadd0f5c0e84e71a159acf7929dd18,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165065117385820637, guid: 7faadd0f5c0e84e71a159acf7929dd18,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7faadd0f5c0e84e71a159acf7929dd18, type: 3}

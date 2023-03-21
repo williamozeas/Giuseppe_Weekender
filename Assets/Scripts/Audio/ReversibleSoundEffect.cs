@@ -56,7 +56,6 @@ public class ReversibleSoundEffect
 
     public void OnReverse()
     {
-        Debug.Log("Reverse play");
         _source.timeSamples = _source.clip.samples - 1;
         switch (_timeline)
         {
