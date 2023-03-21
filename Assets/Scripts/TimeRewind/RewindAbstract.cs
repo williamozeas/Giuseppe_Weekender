@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using FMODUnity;
 
 public abstract class RewindAbstract : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public abstract class RewindAbstract : MonoBehaviour
     protected Rigidbody body;
     protected Rigidbody2D body2;
     protected Animator animator;
-    protected StudioEventEmitter audioSource;
+    protected AudioSource audioSource;
 
 
     protected void Awake()
@@ -24,7 +23,7 @@ public abstract class RewindAbstract : MonoBehaviour
             body = GetComponent<Rigidbody>();
             body2 = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
-            audioSource = GetComponent<StudioEventEmitter>();
+            audioSource = GetComponent<AudioSource>();
 
             IsTracking = true;
         }
@@ -220,7 +219,7 @@ public abstract class RewindAbstract : MonoBehaviour
     CircularBuffer<AudioTrackedData> trackedAudioTimes;
     public struct AudioTrackedData
     {
-        public int time;
+        public float time;
         public bool isPlaying;
         public bool isEnabled;
     }
@@ -235,13 +234,12 @@ public abstract class RewindAbstract : MonoBehaviour
             return;
         }
         
-        audioSource.EventInstance.setVolume(1);
+        audioSource.volume = 1;
 
         AudioTrackedData dataToWrite;
-        audioSource.EventInstance.getTimelinePosition(out int time);
-        dataToWrite.time = time;
+        dataToWrite.time = audioSource.time;
         dataToWrite.isEnabled = audioSource.enabled;
-        dataToWrite.isPlaying = audioSource.IsPlaying();
+        dataToWrite.isPlaying = audioSource.isPlaying;
 
         trackedAudioTimes.WriteLastValue(dataToWrite);      
     }
@@ -254,15 +252,15 @@ public abstract class RewindAbstract : MonoBehaviour
         audioSource.enabled = readValues.isEnabled;
         if(readValues.isPlaying)
         {
-            audioSource.EventInstance.setTimelinePosition((int)(GameManager.Instance.Time * 1000));
-            audioSource.EventInstance.setVolume(0);
+            audioSource.time = readValues.time;
+            audioSource.volume = 0;
 
-            if (!audioSource.IsPlaying())
+            if (!audioSource.isPlaying)
             {  
                 audioSource.Play();
             }
         }
-        else if(audioSource.IsPlaying())
+        else if(audioSource.isPlaying)
         {
             audioSource.Stop();
         }
@@ -276,7 +274,7 @@ public abstract class RewindAbstract : MonoBehaviour
             return;
         }
 
-        audioSource.EventInstance.setVolume(1);
+        audioSource.volume = 1;
 
         trackedAudioTimes.WriteValueBefore(trackedAudioTimes.dataArray[0]);      
     }
