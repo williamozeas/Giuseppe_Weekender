@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -15,9 +16,9 @@ public enum GameState
 public enum SceneNum
 {
     MainMenu,
-    Level1,
-    Level2,
-    Level3
+    Kitchen,
+    Engine,
+    Captain
 }
 
 public class GameManager : Singleton<GameManager>
@@ -40,10 +41,17 @@ public class GameManager : Singleton<GameManager>
         set { LoadLevel(value); }
         get { return _currentScene; }
     }
+
+    [Header("Scenes")] 
+    [SerializeField] private Scene MainMenuScene;
+    [SerializeField] private Scene KitchenScene;
+    [SerializeField] private Scene EngineScene;
+    [SerializeField] private Scene CaptainScene;
     
     //Events
-    public static event Action OnGameStart;
+    public static event Action OnGamePlay;
     public static event Action OnGameOver;
+    public static event Action<SceneNum> OnLoadScene;
     public static event Action OnDie;
     public static event Action OnRunOutOfTime;
     
@@ -75,7 +83,7 @@ public class GameManager : Singleton<GameManager>
             }
             case (GameState.Playing):
             {
-                OnGameStart?.Invoke();
+                OnGamePlay?.Invoke();
                 break;
             }
             case (GameState.GameEnd):
@@ -93,26 +101,27 @@ public class GameManager : Singleton<GameManager>
         {
             case (SceneNum.MainMenu):
             {
-                //load scene level
+                SceneManager.LoadScene(MainMenuScene.buildIndex);
                 break;
             }
-            case (SceneNum.Level1):
+            case (SceneNum.Kitchen):
             {
-                //load level 1
+                SceneManager.LoadScene(KitchenScene.buildIndex);
                 break;
             }
-            case (SceneNum.Level2):
+            case (SceneNum.Engine):
             {
-                //load level 2
+                SceneManager.LoadScene(EngineScene.buildIndex);
                 break;
             }
-            case (SceneNum.Level3):
+            case (SceneNum.Captain):
             {
-                //load level 3
+                SceneManager.LoadScene(CaptainScene.buildIndex);
                 break;
             }
         }
         _currentScene = newScene;
+        OnLoadScene?.Invoke(newScene);
     }
 
     public void SetPlayer(Player newPlayer)

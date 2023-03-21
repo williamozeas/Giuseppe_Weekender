@@ -10,6 +10,8 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private SoundEffectTracker _playerSfxTracker;
     public SoundEffectTracker PlayerSfxTracker => _playerSfxTracker;
     
+    
+    
     public override void Awake()
     {
         base.Awake();

@@ -7,6 +7,11 @@ public class MusicReverser : MonoBehaviour
 {
     private AudioSource source;
 
+    [SerializeField] private AudioClip MenuMusic;
+    [SerializeField] private AudioClip KitchenMusic;
+    [SerializeField] private AudioClip EngineMusic;
+    [SerializeField] private AudioClip CaptainMusic;
+
     private void Awake()
     {
         source = GetComponent<AudioSource>();
@@ -14,6 +19,7 @@ public class MusicReverser : MonoBehaviour
 
     void Start()
     {
+        SetMusic(GetSceneMusic(GameManager.Instance.CurrentScene));
         source.Play();
     }
 
@@ -30,6 +36,7 @@ public class MusicReverser : MonoBehaviour
         RewindManager.StopTime += OnStopTime;
         RewindManager.StartRewind += OnStartRewind;
         RewindManager.StopRewind += OnStopRewind;
+        GameManager.OnLoadScene += OnLoadScene;
     }
 
     private void OnDisable()
@@ -37,6 +44,12 @@ public class MusicReverser : MonoBehaviour
         RewindManager.StopTime -= OnStopTime;
         RewindManager.StartRewind -= OnStartRewind;
         RewindManager.StopRewind -= OnStopRewind;
+        GameManager.OnLoadScene -= OnLoadScene;
+    }
+
+    private void OnLoadScene(SceneNum newScene)
+    {
+        SetMusic(GetSceneMusic(newScene));
     }
 
     private void OnStopTime()
@@ -56,6 +69,37 @@ public class MusicReverser : MonoBehaviour
         if (!source.isPlaying)
         {
             source.Play();
+        }
+    }
+
+    public void SetMusic(AudioClip clip)
+    {
+        source.Stop();
+        source.clip = clip;
+        source.Play();
+    }
+
+    public AudioClip GetSceneMusic(SceneNum scene)
+    {
+        switch (scene)
+        {
+            case (SceneNum.MainMenu):
+            {
+                return MenuMusic;
+            }
+            default:
+            case (SceneNum.Kitchen):
+            {
+                return KitchenMusic;
+            }
+            case (SceneNum.Engine):
+            {
+                return EngineMusic;
+            }
+            case (SceneNum.Captain):
+            {
+                return CaptainMusic;
+            }
         }
     }
 }
