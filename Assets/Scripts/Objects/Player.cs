@@ -15,7 +15,9 @@ public class Player : MonoBehaviour
     private float rewindValueWorld;
     private float rewindIntensity = 0.02f;
     private float rewindRampPlayer = 1;
+    public float RewindRampPlayer => rewindRampPlayer;
     private float rewindRampWorld = 1;
+    public float RewindRampWorld => rewindRampWorld;
     private bool isRewindingPlayer = false;
     public bool IsRewindingPlayer => isRewindingPlayer;
     private bool isRewindingWorld = false;
@@ -34,6 +36,8 @@ public class Player : MonoBehaviour
     public RewindManager WorldRewindManager => worldRewindManager;
 
     private IGrabbable grabbedObject;
+
+    private Watchable watchedObject;
     
     //Awake is called before Start
     private void Awake()
@@ -69,6 +73,8 @@ public class Player : MonoBehaviour
         HandleCharacterInput();
 
         HandleGrabbing();
+
+        HandleWatching();
     }
 
     void FixedUpdate()
@@ -119,6 +125,12 @@ public class Player : MonoBehaviour
             { //While holding the button, we will gradually rewind more and more time into the past
                 rewindValueWorld += rewindIntensity * Mathf.Pow(rewindRampWorld, 2);
                 rewindRampWorld += rewindRampIncrease;
+                
+                if (rewindValueWorld < 0)
+                {
+                    rewindValueWorld = 0;
+                    rewindRampWorld = 0;
+                }
             }           
 
             if (!isRewindingWorld)
@@ -215,6 +227,26 @@ public class Player : MonoBehaviour
             } else {
                 grabbedObject.Dropped();
                 grabbedObject = null;
+            }
+        }
+    }
+
+    private void HandleWatching()
+    {
+        if (Input.GetKeyDown("h")) {
+            //Grab pressed
+            if (watchedObject == null) {
+                var colliders = Physics.OverlapSphere(transform.position, 1.8f);
+                foreach(var collider in colliders) {
+                    if (collider.gameObject.TryGetComponent<Watchable>(out Watchable watchableObject )) {
+                        watchableObject.Watched();
+                        watchedObject = watchableObject;
+                    }
+                }
+                controller.Grab();
+            } else {
+                watchedObject.Unwatched();
+                watchedObject = null;
             }
         }
     }

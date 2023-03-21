@@ -2,72 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.UI;
+using UnityEngine.SceneManagement;  
 
 public class ButtonInteractions : MonoBehaviour
 {
-    public GameObject MainBackground;
+    public GameObject Background;
     public GameObject LandingPage;
     public GameObject HowToPlayPage;
-    public GameObject PlayPage;
-    // public GameObject EndingPage;
 
-    public void clickStartFromLanding() {
+    public void startGame() { // start from landing page
+        SceneManager.LoadScene("Kitchen"); 
+        Background.gameObject.SetActive(false);
         LandingPage.gameObject.SetActive(false);
         HowToPlayPage.gameObject.SetActive(false);
-        PlayPage.gameObject.SetActive(true);
-        // EndingPage.gameObject.SetActive(false);
-        MainBackground.gameObject.SetActive(false);
     }
 
-    public void clickHowToPlayFromLanding() {
+    public void seeHowToPlay() {
+        Background.gameObject.SetActive(true);
         LandingPage.gameObject.SetActive(false);
         HowToPlayPage.gameObject.SetActive(true);
-        PlayPage.gameObject.SetActive(false);
-        // EndingPage.gameObject.SetActive(false);
     }
 
-    public void clickStartFromHowToPlay() {
+    public void clickStartFromInstructions() {
+        Background.gameObject.SetActive(false);
         LandingPage.gameObject.SetActive(false);
         HowToPlayPage.gameObject.SetActive(false);
-        PlayPage.gameObject.SetActive(true);
-        // EndingPage.gameObject.SetActive(false);
-        MainBackground.gameObject.SetActive(false);
-    }
-
-    public void clickBackFromHowToPlay() {
-        LandingPage.gameObject.SetActive(true);
-        HowToPlayPage.gameObject.SetActive(false);
-        PlayPage.gameObject.SetActive(false);
-        // EndingPage.gameObject.SetActive(false);
-        MainBackground.gameObject.SetActive(true);
-    }
-
-    public void clickExitFromEnd() {
-        // GameManager.Instance.GameState = GameState.Menu;
-        
-        LandingPage.gameObject.SetActive(true);
-        HowToPlayPage.gameObject.SetActive(false);
-        PlayPage.gameObject.SetActive(false);
-        // EndingPage.gameObject.SetActive(false);
-        MainBackground.gameObject.SetActive(true);
-    }
-
-    public void clickPlayAgainFromEnd() {
-        // GameManager.Instance.GameState = GameState.Menu;
-        // GameManager.Instance.GameState = GameState.Playing;
-        
-        LandingPage.gameObject.SetActive(false);
-        HowToPlayPage.gameObject.SetActive(false);
-        PlayPage.gameObject.SetActive(true);
-        // EndingPage.gameObject.SetActive(false);
-        MainBackground.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        MainBackground.gameObject.SetActive(true);
+        Background.gameObject.SetActive(true);
+        LandingPage.gameObject.SetActive(true);
+        HowToPlayPage.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

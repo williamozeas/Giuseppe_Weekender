@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class RewindManager : MonoBehaviour
@@ -16,9 +17,13 @@ public class RewindManager : MonoBehaviour
     /// Action is not meant to be used by users. It shares data between classes. You probably want to use prepared methods like: RewindTimeBySeconds(), StartRewindTimeBySeconds(), SetTimeSecondsInRewind(), StopRewindTimeBySeconds()
     /// </summary>
     public static Action<float> RestoreBuffers { get; set; }
-    
+
+    public static event Action StopTime;
     public static event Action StartRewind;
     public static event Action StopRewind;
+
+    //wait for player input after stopping time
+    private Coroutine waitingCoroutine;
     
     /// <summary>
     /// This property returns how many seconds are available for rewind
@@ -29,10 +34,11 @@ public class RewindManager : MonoBehaviour
     /// <summary>
     /// Tells you if scene is currently being rewinded
     /// </summary>
-    public bool IsBeingRewinded { get; private set; } = false;
+    public static bool IsBeingRewinded { get; private set; } = false;
 
 
-    float rewindSeconds = 0;
+    static float rewindSeconds = 0;
+    public static float RewindSeconds => rewindSeconds;
 
     private void OnEnable()
     {
@@ -98,7 +104,9 @@ public class RewindManager : MonoBehaviour
         rewindSeconds = seconds;
         TrackingStateCall?.Invoke(false);
         IsBeingRewinded = true;
-        StartRewind?.Invoke();
+        StopTime?.Invoke();
+        if(waitingCoroutine != null) StopCoroutine(waitingCoroutine);
+        waitingCoroutine = StartCoroutine(WaitForRewind());
     }
     private void FixedUpdate()
     {
@@ -145,5 +153,18 @@ public class RewindManager : MonoBehaviour
         RestoreBuffers?.Invoke(rewindSeconds);
         TrackingStateCall?.Invoke(true);
         StopRewind?.Invoke();
+    }
+    
+    private IEnumerator WaitForRewind()
+    {
+        while (true)
+        {
+            if (Input.GetButtonDown("Rewind World"))
+            {
+                break;
+            }
+            yield return null;
+        }
+        StartRewind?.Invoke();
     }
 }

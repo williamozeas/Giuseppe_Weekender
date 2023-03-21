@@ -85,13 +85,6 @@ public class GrabbableRewind : RewindAbstract
         grabbed = false;
     }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-       
-    }
-
     public void Grabbed(Vector3 preGrabPos)
     {
         grabbed = true;

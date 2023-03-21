@@ -9,10 +9,10 @@ public abstract class RewindAbstract : MonoBehaviour
     RewindManager rewindManager;
     public bool IsTracking { get; set; } = false;
 
-    Rigidbody body;
-    Rigidbody2D body2;
-    Animator animator;
-    StudioEventEmitter audioSource;
+    protected Rigidbody body;
+    protected Rigidbody2D body2;
+    protected Animator animator;
+    protected StudioEventEmitter audioSource;
 
 
     protected void Awake()
@@ -35,6 +35,7 @@ public abstract class RewindAbstract : MonoBehaviour
 
         trackedPositionsAndRotation = new CircularBuffer<PositionAndRotationValues>();
         trackedVelocities = new CircularBuffer<Vector3>();
+        trackedAngularVelocities = new CircularBuffer<Vector3>();
         trackedAnimationTimes = new List<CircularBuffer<AnimationValues>>();
         if (animator != null)
             for (int i = 0; i < animator.layerCount; i++)
@@ -75,6 +76,18 @@ public abstract class RewindAbstract : MonoBehaviour
         PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
         transform.SetPositionAndRotation(valuesToRead.position, valuesToRead.rotation);
     }
+    
+    protected void RestorePositionAndRotationRigidbody(float seconds)
+    {
+        PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
+        transform.rotation = valuesToRead.rotation;
+        body.MovePosition(valuesToRead.position);
+    }
+    
+    public PositionAndRotationValues GetPositionAndRotationAtSeconds(float seconds)
+    {
+        return trackedPositionsAndRotation.ReadFromBuffer(seconds);
+    }
 
     protected void OffsetPositionAndRotation(Vector3 offset)
     {
@@ -91,6 +104,7 @@ public abstract class RewindAbstract : MonoBehaviour
 
     #region Velocity
     CircularBuffer<Vector3> trackedVelocities;
+    CircularBuffer<Vector3> trackedAngularVelocities;
     /// <summary>
     /// Call this method in Track() if you want to track velocity of Rigidbody
     /// </summary>
@@ -99,7 +113,8 @@ public abstract class RewindAbstract : MonoBehaviour
 
         if (body != null)
         {
-            trackedVelocities.WriteLastValue(body.velocity);            
+            trackedVelocities.WriteLastValue(body.velocity); 
+            trackedAngularVelocities.WriteLastValue(body.angularVelocity);               
         }
         else if (body2!=null)
         {
@@ -117,12 +132,21 @@ public abstract class RewindAbstract : MonoBehaviour
     {   
         if(body!=null)
         {
-            body.velocity = trackedVelocities.ReadFromBuffer(seconds);
+            // if(gameObject.name == "CAN" && trackedVelocities.ReadFromBuffer(seconds).magnitude > 0.01f)
+            //     Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
+            body.velocity = trackedVelocities.ReadFromBuffer(seconds) * -1;
+            body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds) * -1;
+            // body.velocity *= -1;
+            // body.angularVelocity *= -1;
         }
         else
         {
             body2.velocity = trackedVelocities.ReadFromBuffer(seconds);
         }
+    }
+    public (Vector3, Vector3) GetVelocityAtSeconds(float seconds)
+    {
+        return (trackedVelocities.ReadFromBuffer(seconds), trackedAngularVelocities.ReadFromBuffer(seconds));
     }
 
     protected void TrackGrabbedVelocity()
@@ -230,7 +254,7 @@ public abstract class RewindAbstract : MonoBehaviour
         audioSource.enabled = readValues.isEnabled;
         if(readValues.isPlaying)
         {
-            audioSource.EventInstance.setTimelinePosition(readValues.time);
+            audioSource.EventInstance.setTimelinePosition((int)(GameManager.Instance.Time * 1000));
             audioSource.EventInstance.setVolume(0);
 
             if (!audioSource.IsPlaying())

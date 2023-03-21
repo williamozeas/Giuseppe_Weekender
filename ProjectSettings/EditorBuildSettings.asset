@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Kitchen.unity
     guid: a8074a2e0b5c94689af3b04e8c6259e0
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 841d9fa56f7574d30ae9b23bc69f138a
   m_configObjects: {}
