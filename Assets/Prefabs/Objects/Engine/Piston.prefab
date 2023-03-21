@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3565327814071257770}
   - component: {fileID: 7474087755564065850}
   - component: {fileID: 4187907187372934849}
+  - component: {fileID: 4458144731152130580}
   m_Layer: 0
   m_Name: piston_button
   m_TagString: Untagged
@@ -114,6 +115,27 @@ MonoBehaviour:
   speed: 0
   force: 0
   player: {fileID: 0}
+--- !u!114 &4458144731152130580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2411804553891773325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1853014c10a6eb46a8363fdc11758e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackPositionRotation: 1
+  trackVelocity: 1
+  trackAnimator: 0
+  trackAudio: 0
+  trackParticles: 0
+  particleSettings:
+    particleLimiter: 0
+    particleResetTo: 0
+    particlesData: []
 --- !u!1 &3565041709661822638
 GameObject:
   m_ObjectHideFlags: 0
