@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Interaction Collider
+  - ButtonPusher
+  - Unmovable
   layers:
   - Default
   - TransparentFX
@@ -13,12 +16,12 @@ TagManager:
   - UI
   - Background
   - Grabbed
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerTimeObjects
+  - MovingObject
+  - Interaction Colliders
+  - PlayerTimeMovingObjects
+  - Player Squish Collider
+  - InteractionCollider
   - 
   - 
   - 

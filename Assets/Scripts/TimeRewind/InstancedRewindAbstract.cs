@@ -32,6 +32,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
 
         trackedPositionsAndRotation = new CircularBuffer<PositionAndRotationValues>(rewindManager);
         trackedVelocities = new CircularBuffer<Vector3>(rewindManager);
+        trackedAngularVelocities = new CircularBuffer<Vector3>();
         trackedAnimationTimes = new List<CircularBuffer<AnimationValues>>();
         if (animator != null)
             for (int i = 0; i < animator.layerCount; i++)
@@ -39,7 +40,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
         trackedAudioTimes = new CircularBuffer<AudioTrackedData>(rewindManager);
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (IsTracking)
             Track();
@@ -76,6 +77,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
 
     #region Velocity
     protected CircularBuffer<Vector3> trackedVelocities;
+    protected CircularBuffer<Vector3> trackedAngularVelocities;
     /// <summary>
     /// Call this method in Track() if you want to track velocity of Rigidbody
     /// </summary>
@@ -84,7 +86,8 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
 
         if (body != null)
         {
-            trackedVelocities.WriteLastValue(body.velocity);            
+            trackedVelocities.WriteLastValue(body.velocity);  
+            trackedAngularVelocities.WriteLastValue(body.angularVelocity);           
         }
         else if (body2!=null)
         {
@@ -103,6 +106,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
         if(body!=null)
         {
             body.velocity = trackedVelocities.ReadFromBuffer(seconds);
+            body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds);
         }
         else
         {
@@ -112,7 +116,7 @@ public abstract class InstancedRewindAbstract : MonoBehaviour
     #endregion
 
     #region Animator
-    List<CircularBuffer<AnimationValues>> trackedAnimationTimes;         //All animator layers are tracked
+    protected List<CircularBuffer<AnimationValues>> trackedAnimationTimes;         //All animator layers are tracked
     public struct AnimationValues
     {
         public float animationStateTime;

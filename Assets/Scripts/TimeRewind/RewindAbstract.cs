@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using FMODUnity;
 
 public abstract class RewindAbstract : MonoBehaviour
 {
     RewindManager rewindManager;
     public bool IsTracking { get; set; } = false;
 
-    Rigidbody body;
-    Rigidbody2D body2;
-    Animator animator;
-    AudioSource audioSource;
+    protected Rigidbody body;
+    protected Rigidbody2D body2;
+    protected Animator animator;
+    protected StudioEventEmitter audioSource;
 
 
     protected void Awake()
@@ -23,7 +24,7 @@ public abstract class RewindAbstract : MonoBehaviour
             body = GetComponent<Rigidbody>();
             body2 = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
-            audioSource = GetComponent<AudioSource>();
+            audioSource = GetComponent<StudioEventEmitter>();
 
             IsTracking = true;
         }
@@ -34,6 +35,7 @@ public abstract class RewindAbstract : MonoBehaviour
 
         trackedPositionsAndRotation = new CircularBuffer<PositionAndRotationValues>();
         trackedVelocities = new CircularBuffer<Vector3>();
+        trackedAngularVelocities = new CircularBuffer<Vector3>();
         trackedAnimationTimes = new List<CircularBuffer<AnimationValues>>();
         if (animator != null)
             for (int i = 0; i < animator.layerCount; i++)
@@ -41,7 +43,7 @@ public abstract class RewindAbstract : MonoBehaviour
         trackedAudioTimes = new CircularBuffer<AudioTrackedData>();
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (IsTracking)
             Track();
@@ -74,10 +76,35 @@ public abstract class RewindAbstract : MonoBehaviour
         PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
         transform.SetPositionAndRotation(valuesToRead.position, valuesToRead.rotation);
     }
+    
+    protected void RestorePositionAndRotationRigidbody(float seconds)
+    {
+        PositionAndRotationValues valuesToRead = trackedPositionsAndRotation.ReadFromBuffer(seconds);
+        transform.rotation = valuesToRead.rotation;
+        body.MovePosition(valuesToRead.position);
+    }
+    
+    public PositionAndRotationValues GetPositionAndRotationAtSeconds(float seconds)
+    {
+        return trackedPositionsAndRotation.ReadFromBuffer(seconds);
+    }
+
+    protected void OffsetPositionAndRotation(Vector3 offset)
+    {
+        for (int i = 0; i <  trackedPositionsAndRotation.dataArray.Length; i++) {
+            trackedPositionsAndRotation.dataArray[i].position += offset;
+        }
+    }
+
+    protected void TrackGrabbedPositionAndRotation()
+    {
+        trackedPositionsAndRotation.WriteValueBefore(trackedPositionsAndRotation.dataArray[0]);
+    }
     #endregion
 
     #region Velocity
     CircularBuffer<Vector3> trackedVelocities;
+    CircularBuffer<Vector3> trackedAngularVelocities;
     /// <summary>
     /// Call this method in Track() if you want to track velocity of Rigidbody
     /// </summary>
@@ -86,7 +113,8 @@ public abstract class RewindAbstract : MonoBehaviour
 
         if (body != null)
         {
-            trackedVelocities.WriteLastValue(body.velocity);            
+            trackedVelocities.WriteLastValue(body.velocity); 
+            trackedAngularVelocities.WriteLastValue(body.angularVelocity);               
         }
         else if (body2!=null)
         {
@@ -104,12 +132,26 @@ public abstract class RewindAbstract : MonoBehaviour
     {   
         if(body!=null)
         {
-            body.velocity = trackedVelocities.ReadFromBuffer(seconds);
+            // if(gameObject.name == "CAN" && trackedVelocities.ReadFromBuffer(seconds).magnitude > 0.01f)
+            //     Debug.Log("Restoring " + trackedVelocities.ReadFromBuffer(seconds) + " at " + Time.time);
+            body.velocity = trackedVelocities.ReadFromBuffer(seconds) * -1;
+            body.angularVelocity = trackedAngularVelocities.ReadFromBuffer(seconds) * -1;
+            // body.velocity *= -1;
+            // body.angularVelocity *= -1;
         }
         else
         {
             body2.velocity = trackedVelocities.ReadFromBuffer(seconds);
         }
+    }
+    public (Vector3, Vector3) GetVelocityAtSeconds(float seconds)
+    {
+        return (trackedVelocities.ReadFromBuffer(seconds), trackedAngularVelocities.ReadFromBuffer(seconds));
+    }
+
+    protected void TrackGrabbedVelocity()
+    {
+        trackedVelocities.WriteValueBefore(trackedVelocities.dataArray[0]);
     }
     #endregion
 
@@ -156,13 +198,29 @@ public abstract class RewindAbstract : MonoBehaviour
             animator.Play(readValues.animationHash,i, readValues.animationStateTime);
         }         
     }
+
+    protected void TrackGrabbedAnimator()
+    {
+        if(animator == null)
+        {
+            Debug.LogError("Cannot find Animator on the object, while TrackAnimator() is being called!!!");
+            return;
+        }
+
+        animator.speed = 1;
+
+        for (int i = 0; i < animator.layerCount; i++)
+        {
+            trackedAnimationTimes[i].WriteValueBefore(trackedAnimationTimes[i].dataArray[0]);
+        }         
+    }
     #endregion
 
     #region Audio
     CircularBuffer<AudioTrackedData> trackedAudioTimes;
     public struct AudioTrackedData
     {
-        public float time;
+        public int time;
         public bool isPlaying;
         public bool isEnabled;
     }
@@ -176,12 +234,14 @@ public abstract class RewindAbstract : MonoBehaviour
             Debug.LogError("Cannot find AudioSource on the object, while TrackAudio() is being called!!!");
             return;
         }
+        
+        audioSource.EventInstance.setVolume(1);
 
-        audioSource.volume = 1;
         AudioTrackedData dataToWrite;
-        dataToWrite.time = audioSource.time;
+        audioSource.EventInstance.getTimelinePosition(out int time);
+        dataToWrite.time = time;
         dataToWrite.isEnabled = audioSource.enabled;
-        dataToWrite.isPlaying = audioSource.isPlaying;
+        dataToWrite.isPlaying = audioSource.IsPlaying();
 
         trackedAudioTimes.WriteLastValue(dataToWrite);      
     }
@@ -194,18 +254,31 @@ public abstract class RewindAbstract : MonoBehaviour
         audioSource.enabled = readValues.isEnabled;
         if(readValues.isPlaying)
         {
-            audioSource.time = readValues.time;
-            audioSource.volume = 0;
+            audioSource.EventInstance.setTimelinePosition((int)(GameManager.Instance.Time * 1000));
+            audioSource.EventInstance.setVolume(0);
 
-            if (!audioSource.isPlaying)
+            if (!audioSource.IsPlaying())
             {  
                 audioSource.Play();
             }
         }
-        else if(audioSource.isPlaying)
+        else if(audioSource.IsPlaying())
         {
             audioSource.Stop();
         }
+    }
+
+    protected void TrackGrabbedAudio()
+    {
+        if(audioSource==null)
+        {
+            Debug.LogError("Cannot find AudioSource on the object, while TrackAudio() is being called!!!");
+            return;
+        }
+
+        audioSource.EventInstance.setVolume(1);
+
+        trackedAudioTimes.WriteValueBefore(trackedAudioTimes.dataArray[0]);      
     }
     #endregion
 
@@ -296,6 +369,7 @@ public abstract class RewindAbstract : MonoBehaviour
 
                 ParticleTrackedData particleData;
                 particleData.isActive = particleSystemsData[i].particleSystemEnabler.activeInHierarchy;
+                // particleData.isActive = particleSystemsData[i].particleSystem.isStopped;
 
                 if ((!lastValue.isActive) && (particleData.isActive))
                     particleData.particleTime = 0;
@@ -339,6 +413,30 @@ public abstract class RewindAbstract : MonoBehaviour
                     particleEnabler.SetActive(false);
             }
         }
+    }
+
+    protected void TrackGrabbedParticles()
+    {
+        if(particleSystemsData==null)
+        {
+            Debug.LogError("Particles not initialized!!! Call InitializeParticles() before the tracking starts");
+            return;
+        }
+        if(particleSystemsData.Count==0)
+            Debug.LogError("Particles Data not filled!!! Fill Particles Data in the Unity Editor");
+
+        try
+        {
+            for (int i = 0; i < particleSystemsData.Count; i++)
+            {
+                trackedParticleTimes[i].WriteValueBefore(trackedParticleTimes[i].dataArray[0]);
+            }
+        }
+        catch
+        {
+            Debug.LogError("Particles Data not filled properly!!! Fill both the Particle System and Particle System Enabler fields for each element");
+        }
+
     }
     #endregion
 

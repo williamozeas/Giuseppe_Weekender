@@ -8,14 +8,23 @@ using UnityEngine.XR;
 
 public class Player : MonoBehaviour
 {
-    // [Header("Stats")] 
+    [Header("Stats")] public float rewindRampIncrease = 0.005f;
     
     //private vars
     private float rewindValuePlayer;
     private float rewindValueWorld;
     private float rewindIntensity = 0.02f;
+    private float rewindRampPlayer = 1;
+    public float RewindRampPlayer => rewindRampPlayer;
+    private float rewindRampWorld = 1;
+    public float RewindRampWorld => rewindRampWorld;
     private bool isRewindingPlayer = false;
+    public bool IsRewindingPlayer => isRewindingPlayer;
     private bool isRewindingWorld = false;
+    public bool IsRewindingWorld => isRewindingWorld;
+
+    private bool hasDied = false;
+    private bool hasRunOutOfTime = false;
     
     //references
     private KCharacterController controller;
@@ -27,6 +36,8 @@ public class Player : MonoBehaviour
     public RewindManager WorldRewindManager => worldRewindManager;
 
     private IGrabbable grabbedObject;
+
+    private Watchable watchedObject;
     
     //Awake is called before Start
     private void Awake()
@@ -35,6 +46,18 @@ public class Player : MonoBehaviour
         controller = gameObject.GetComponent<KCharacterController>();
         colliders = GetComponentsInChildren<Collider>(); //may need to be more fine-grained if we have temp. colliders
         playerRewindManager = GetComponent<InstancedRewindManager>();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnDie += OnDie;
+        GameManager.OnRunOutOfTime += OnRunOutOfTime;
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.OnDie -= OnDie;
+        GameManager.OnRunOutOfTime -= OnRunOutOfTime;
     }
 
     // Start is called before the first frame update
@@ -50,6 +73,8 @@ public class Player : MonoBehaviour
         HandleCharacterInput();
 
         HandleGrabbing();
+
+        HandleWatching();
     }
 
     void FixedUpdate()
@@ -59,9 +84,15 @@ public class Player : MonoBehaviour
 
     private void HandleRewindInput()
     {
-        if(Input.GetButton("Rewind Self"))                     //Change keycode for your own custom key if you want
+        //Rewind Self
+        if(hasDied || hasRunOutOfTime || Input.GetButton("Rewind Self"))                     //Change keycode for your own custom key if you want
         {
-            rewindValuePlayer += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
+            //While holding the button, we will gradually rewind more and more time into the past
+            if (Input.GetButton("Rewind Self") && !hasRunOutOfTime)
+            {
+                rewindValuePlayer += rewindIntensity * Mathf.Pow(rewindRampPlayer, 2);
+                rewindRampPlayer += rewindRampIncrease;
+            }
 
             if (!isRewindingPlayer)
             {
@@ -82,14 +113,25 @@ public class Player : MonoBehaviour
                 playerRewindManager.StopRewindTimeBySeconds();
                 ActivateColliders();
                 rewindValuePlayer = 0;
+                rewindRampPlayer = 1;
                 isRewindingPlayer = false;
             }
         }
         
         //Rewind World
-        if(Input.GetButton("Rewind World"))                     //Change keycode for your own custom key if you want
+        if(hasRunOutOfTime || hasDied || Input.GetButton("Rewind World"))                     //Change keycode for your own custom key if you want
         {
-            rewindValueWorld += rewindIntensity;                 //While holding the button, we will gradually rewind more and more time into the past
+            if (Input.GetButton("Rewind World") && !hasDied)
+            { //While holding the button, we will gradually rewind more and more time into the past
+                rewindValueWorld += rewindIntensity * Mathf.Pow(rewindRampWorld, 2);
+                rewindRampWorld += rewindRampIncrease;
+                
+                if (rewindValueWorld < 0)
+                {
+                    rewindValueWorld = 0;
+                    rewindRampWorld = 0;
+                }
+            }           
 
             if (!isRewindingWorld)
             {
@@ -108,6 +150,7 @@ public class Player : MonoBehaviour
             {
                 worldRewindManager.StopRewindTimeBySeconds();
                 rewindValueWorld = 0;
+                rewindRampWorld = 1;
                 isRewindingWorld = false;
             }
         }
@@ -117,6 +160,17 @@ public class Player : MonoBehaviour
     {
         PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
+        //Release from death state when stopping rewind after death
+        if (hasDied && Input.GetButtonUp("Rewind Self"))
+        {
+            hasDied = false;
+        }
+        
+        //Release from out of time state when stopping rewind after time runs out
+        if (hasRunOutOfTime && Input.GetButtonUp("Rewind World"))
+        {
+            hasRunOutOfTime = false;
+        }
 
         if (!isRewindingPlayer)
         {
@@ -143,8 +197,18 @@ public class Player : MonoBehaviour
     {
         foreach (Collider coll in colliders)
         {
-            coll.enabled = false;
+            coll.enabled = true;
         }
+    }
+
+    private void OnDie()
+    {
+        hasDied = true; //triggers rewind code in HandleRewindInput
+    }
+
+    private void OnRunOutOfTime()
+    {
+        hasRunOutOfTime = true; //triggers rewind code in HandleRewindInput
     }
 
     private void HandleGrabbing()
@@ -159,9 +223,30 @@ public class Player : MonoBehaviour
                         grabbedObject = grabbableObject;
                     }
                 }
+                controller.Grab();
             } else {
                 grabbedObject.Dropped();
                 grabbedObject = null;
+            }
+        }
+    }
+
+    private void HandleWatching()
+    {
+        if (Input.GetKeyDown("h")) {
+            //Grab pressed
+            if (watchedObject == null) {
+                var colliders = Physics.OverlapSphere(transform.position, 1.8f);
+                foreach(var collider in colliders) {
+                    if (collider.gameObject.TryGetComponent<Watchable>(out Watchable watchableObject )) {
+                        watchableObject.Watched();
+                        watchedObject = watchableObject;
+                    }
+                }
+                controller.Grab();
+            } else {
+                watchedObject.Unwatched();
+                watchedObject = null;
             }
         }
     }

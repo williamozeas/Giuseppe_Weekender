@@ -15,7 +15,17 @@ public class GenericRewind : RewindAbstract
     {
 
         if (trackPositionRotation)
-            RestorePositionAndRotation(seconds);
+        {
+            if (trackVelocity)
+            {
+                RestorePositionAndRotationRigidbody(seconds);
+            }
+            else
+            {
+                RestorePositionAndRotation(seconds);
+            }
+        }
+
         if (trackVelocity)
             RestoreVelocity(seconds);
         if (trackAnimator)
@@ -42,6 +52,27 @@ public class GenericRewind : RewindAbstract
     private void Start()
     {
         InitializeParticles(particleSettings);
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        RewindManager.StopRewind += OnStopRewind;
+    }
+    
+    protected override void OnDisable()
+    {
+        base.OnEnable();
+        RewindManager.StopRewind += OnStopRewind;
+    }
+
+    private void OnStopRewind()
+    {
+        if (trackVelocity)
+        {
+            body.velocity *= -1;
+            body.angularVelocity *= -1;
+        }
     }
 
 }

@@ -42,6 +42,7 @@ namespace KinematicCharacterController
 public class KCharacterController : MonoBehaviour, ICharacterController
 {
     public KinematicCharacterMotor Motor;
+    [SerializeField] Animator animator;
 
     [Header("Stable Movement")]
     public float MaxStableMoveSpeed = 10f;
@@ -359,6 +360,9 @@ public class KCharacterController : MonoBehaviour, ICharacterController
                             _jumpRequested = false;
                             _jumpConsumed = true;
                             _jumpedThisFrame = true;
+                            
+                            //animation
+                            animator.SetTrigger("Jump");
                         }
                     }
 
@@ -368,6 +372,10 @@ public class KCharacterController : MonoBehaviour, ICharacterController
                         currentVelocity += _internalVelocityAdd;
                         _internalVelocityAdd = Vector3.zero;
                     }
+                    
+                    //set animator speed
+                    animator.SetFloat("Speed", Math.Abs(currentVelocity.x/MaxStableMoveSpeed));
+
                     break;
                 }
         }
@@ -488,13 +496,20 @@ public class KCharacterController : MonoBehaviour, ICharacterController
 
     protected void OnLanded()
     {
+        animator.SetBool("Grounded", true);
     }
 
     protected void OnLeaveStableGround()
     {
+        animator.SetBool("Grounded", false);
     }
 
     public void OnDiscreteCollisionDetected(Collider hitCollider)
     {
+    }
+
+    public void Grab()
+    {
+        animator.SetTrigger("Grab");
     }
 }

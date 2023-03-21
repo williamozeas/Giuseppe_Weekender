@@ -31,6 +31,9 @@ public class ScriptedForceTrigger : ScriptedAbstract<ScriptedForce>
         {
             rb.AddTorque(force.force, ForceMode.Impulse);
         }
-
+    }
+    
+    protected override void UnTriggerEvent(ScriptedForce force)
+    {
     }
 }
