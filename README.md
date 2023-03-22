@@ -6,10 +6,14 @@
 WebGL: Run the provided itch.io link.
 
 # RELEASE NOTES
-Version 1, Preliminary Build:
-1. Contained code for player& camera movement, player and world time reverse, and Extendable scripted event class that happen on a world timer & authoring system.
-2. Contained concept art of Giuseppe, the mouse, and a placeholder for the final ideas and art renderings.
+Beta Version, Preliminary Build:
+1. Contained code for player& camera movement, player and world time reverse, audio reverse, button and piston logic, velocity, solenoid impulse, standing on the object, and watch on object.
+2. Contained 3D model for Giuseppe, Animation of Moving, Jumping, Grabbing, Model of the Captain, Model of Objects including burner, sink, can, pan, crate,button, pipe. 
 3. the Game concept is based on the puzzle-platformer game, in which the player needs to get through rooms to find the Captain and lead him to the Navigation Room before the ship hits an iceberg. 
-4. Player will manipulate the self and world time to solve the puzzle. 
-5. "W A S D" controls player movement and "Space" for a jump.
+4. Player will manipulate the self and world time to solve the puzzles. 
+5. "A & D" / Left and Rigbt Arrows control player left and right movement
+6. Spacebar and Up Arrow control jump
+7. Press "C" or Right Click for world time reverse
+8. Press "X" or Left Click for self time reverse
+9. Press "Z" to Grab an item
 
