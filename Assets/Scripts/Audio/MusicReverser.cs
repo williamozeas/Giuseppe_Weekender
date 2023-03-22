@@ -77,6 +77,7 @@ public class MusicReverser : MonoBehaviour
         source.Stop();
         Debug.Log("Here");
         source.clip = clip;
+        source.timeSamples = 0;
         source.Play();
     }
 
