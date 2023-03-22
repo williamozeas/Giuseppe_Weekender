@@ -5022,6 +5022,11 @@ PrefabInstance:
       propertyPath: events.Array.data[0].time
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6883279772832838574, guid: 4e5b724bf98874ae193b4ef8d05cea83,
+        type: 3}
+      propertyPath: events.Array.data[0].force.y
+      value: -1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7004132061926141486, guid: 4e5b724bf98874ae193b4ef8d05cea83,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5181,6 +5186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883279772832838574, guid: 4e5b724bf98874ae193b4ef8d05cea83,
+        type: 3}
+      propertyPath: events.Array.data[0].force.y
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7004132061926141486, guid: 4e5b724bf98874ae193b4ef8d05cea83,
         type: 3}
