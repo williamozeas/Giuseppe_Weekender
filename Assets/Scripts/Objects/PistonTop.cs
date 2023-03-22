@@ -25,17 +25,17 @@ public class PistonTop : MonoBehaviour
     void FixedUpdate()
     {
         if (movingOut) {
-            if  (transform.localPosition.y < 1f) {
+            if  (transform.localPosition.y < 0f) {
                 transform.localPosition += Vector3.up * 3 * speed;
             } else {
-                transform.localPosition = new Vector3(0f, 1f, 0f);
+                transform.localPosition = new Vector3(0f, 0f, 0f);
                 movingOut = false;
             }
         } else if (movingIn) {
-            if  (transform.localPosition.y > 0f) {
+            if  (transform.localPosition.y > -20f) {
                 transform.localPosition -= Vector3.up * speed;
             } else {
-                transform.localPosition = new Vector3(0f, 0f, 0f);
+                transform.localPosition = new Vector3(0f, -20f, 0f);
                 movingIn = false;
             }
         }
