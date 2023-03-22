@@ -123,7 +123,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.31, y: 3.07, z: 0.11}
   m_LocalScale: {x: 0.050810773, y: 0.050810773, z: 0.050810773}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 637702661629896721}
   - {fileID: 5106114056157824444}
@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 6528568533405241965}
   - component: {fileID: 3409426538614182074}
   - component: {fileID: 3505464816886811566}
+  - component: {fileID: 2312760095947047797}
   m_Layer: 0
   m_Name: burner_BurnerpCube4_Burner
   m_TagString: Untagged
@@ -216,6 +217,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2312760095947047797
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161857381580118052}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 112.51119, y: 125.479034, z: 95.14399}
+  m_Center: {x: 0.38363346, y: -73.90413, z: -13.43147}
 --- !u!1 &6702068820669506594
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,4 +594,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 106.3, y: 16.7, z: 78.6}
-  m_Center: {x: 235.42502, y: 9.45, z: -77.834496}
+  m_Center: {x: 0, y: 0, z: 0}
