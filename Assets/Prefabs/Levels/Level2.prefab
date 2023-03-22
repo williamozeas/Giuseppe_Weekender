@@ -645,8 +645,8 @@ Transform:
   m_GameObject: {fileID: 7170581645295514626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.024, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6048, y: 0.2, z: 0.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2993117639662421943}
   - {fileID: 2615795310423097846}
@@ -992,7 +992,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Button
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &668176569001457736 stripped
 Transform:
@@ -1162,7 +1163,8 @@ PrefabInstance:
       propertyPath: currentPistonState
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &598927349406302888 stripped
 Transform:
@@ -1170,6 +1172,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 142743871292431446}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4885221752521845037 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4769570967857706363, guid: ea7fc12873dfee3479d258011ea4b813,
+    type: 3}
+  m_PrefabInstance: {fileID: 142743871292431446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1870625592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885221752521845037}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15, y: 7, z: 15}
+  m_Center: {x: 0, y: 35, z: 0}
+--- !u!114 &1870625591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885221752521845037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89e2361031484b9192df4e5eea086df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pistonTop: {fileID: 2953708896673861746}
+  currentPistonState: 1
 --- !u!1001 &172538865156887215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1517,7 +1552,8 @@ PrefabInstance:
       propertyPath: pistonTop
       value: 
       objectReference: {fileID: 7734100838120695276}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &82040623961290851 stripped
 Transform:
@@ -1717,6 +1753,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piston (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
 --- !u!4 &1793222218830589020 stripped
@@ -1803,11 +1844,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piston
       objectReference: {fileID: 0}
+    - target: {fileID: 4187907187372934849, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: force
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4187907187372934849, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4187907187372934849, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: state
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
 --- !u!4 &1746096189660667571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1278666991026599244, guid: 2bb4e81467ea9a8488e046be447bf152,
+    type: 3}
+  m_PrefabInstance: {fileID: 686198477525052415}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2953708896673861746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2411804553891773325, guid: 2bb4e81467ea9a8488e046be447bf152,
     type: 3}
   m_PrefabInstance: {fileID: 686198477525052415}
   m_PrefabAsset: {fileID: 0}
@@ -2168,6 +2235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piston (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
@@ -3619,7 +3691,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5421577309189785514, guid: 6f3a7d5cebf7e6143afe4877586d9442, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6f3a7d5cebf7e6143afe4877586d9442, type: 3}
 --- !u!4 &255986419712642862 stripped
 Transform:
@@ -3909,7 +3982,8 @@ PrefabInstance:
       propertyPath: currentPistonState
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &4397754977701202702 stripped
 Transform:
@@ -3994,7 +4068,8 @@ PrefabInstance:
       propertyPath: pistonTop
       value: 
       objectReference: {fileID: 8101940736120911100}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &4327211795432055598 stripped
 Transform:
@@ -4273,6 +4348,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piston
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
@@ -4674,7 +4754,8 @@ PrefabInstance:
       propertyPath: pistonTop
       value: 
       objectReference: {fileID: 4045886448951117758}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &3939793192962925697 stripped
 Transform:
@@ -4843,6 +4924,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piston
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
@@ -5340,7 +5426,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Button (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &5351747932407141739 stripped
 Transform:
@@ -5540,6 +5627,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piston (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
 --- !u!4 &6104815254521520947 stripped
@@ -5625,7 +5717,8 @@ PrefabInstance:
       propertyPath: pistonTop
       value: 
       objectReference: {fileID: 9117403518806493769}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4962143867635894311, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7fc12873dfee3479d258011ea4b813, type: 3}
 --- !u!4 &5737262626352014338 stripped
 Transform:
@@ -5825,6 +5918,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piston (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
 --- !u!4 &6351826018583691540 stripped
@@ -5904,6 +6002,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piston
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
@@ -6070,6 +6173,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piston (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
@@ -6296,6 +6404,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piston
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
@@ -7178,6 +7291,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piston (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}
 --- !u!4 &9070881670825393656 stripped
@@ -7762,6 +7880,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piston (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458144731152130580, guid: 2bb4e81467ea9a8488e046be447bf152,
+        type: 3}
+      propertyPath: trackVelocity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4e81467ea9a8488e046be447bf152, type: 3}

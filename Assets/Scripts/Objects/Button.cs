@@ -17,7 +17,7 @@ public class Button : MonoBehaviour
     void Start()
     {
         pistonTopScript = pistonTop.GetComponent<PistonTop>();
-        buttonChild = transform.GetChild(0);
+        buttonChild = transform.GetChild(1);
         startPistonState = pistonTopScript.state;
         currentPistonState = startPistonState;
 
@@ -25,7 +25,7 @@ public class Button : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "ButtonPusher"){
+        if (other.tag == "ButtonPusher" || other.tag == "Player"){
             buttonChild.position -= new Vector3(0f, 0.18f, 0f);
             pistonTopScript.StateChange(!startPistonState);
             currentPistonState = !startPistonState;
@@ -34,7 +34,7 @@ public class Button : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "ButtonPusher"){
+        if (other.tag == "ButtonPusher" || other.tag == "Player"){
             buttonChild.position += new Vector3(0f, 0.18f, 0f);
             pistonTopScript.StateChange(startPistonState);
             currentPistonState = startPistonState;
