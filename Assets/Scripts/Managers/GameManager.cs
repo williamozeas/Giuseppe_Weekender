@@ -52,7 +52,7 @@ public class GameManager : Singleton<GameManager>
     //References (Should set themselves in their Awake() functions)
     private Player _player;
     public Player Player => _player;
-    private RewindManager _rewindManager;
+    [SerializeField] private RewindManager _rewindManager;
     public RewindManager RewindManager => _rewindManager;
     
     private WorldTimer _timer;
@@ -61,8 +61,6 @@ public class GameManager : Singleton<GameManager>
     
     public override void Awake()
     {
-        _rewindManager = GetComponent<RewindManager>();
-        _timer = GetComponent<WorldTimer>();
         base.Awake();
     }
     
@@ -132,5 +130,11 @@ public class GameManager : Singleton<GameManager>
     public static void RunOutOfTime()
     {
         OnRunOutOfTime?.Invoke();
+    }
+
+    public void SetRewindManager(RewindManager rewindManager)
+    {
+        _rewindManager = rewindManager;
+        _timer = rewindManager.GetComponent<WorldTimer>();
     }
 }
