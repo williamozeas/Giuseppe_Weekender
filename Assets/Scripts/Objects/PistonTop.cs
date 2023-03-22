@@ -60,11 +60,11 @@ public class PistonTop : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1.5f);
         foreach (Collider hit in hitColliders)
         {
-            Debug.Log(hit.name);
+            //Debug.Log(hit.name);
             Rigidbody rb = hit.GetComponent<Rigidbody>();
 
             if (rb != null && hit.tag != "Unmovable"){
-                Debug.Log("hey");
+                //Debug.Log("hey");
                 rb.transform.position += Vector3.up * 0.5f;
                 rb.AddForce(Vector3.up * force, ForceMode.Impulse);
             }
