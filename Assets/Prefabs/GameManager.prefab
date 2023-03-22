@@ -212,6 +212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4d3d18a8eae451c9f8a242c2fb99df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuMusic: {fileID: 8300000, guid: bb40a862b30fa4d8ab75601c319bbcaa, type: 3}
+  KitchenMusic: {fileID: 8300000, guid: 35e07cf02af674e6e8130deb4449272a, type: 3}
+  EngineMusic: {fileID: 8300000, guid: e02c31076771f49a69d1da08defc1259, type: 3}
+  CaptainMusic: {fileID: 8300000, guid: e02c31076771f49a69d1da08defc1259, type: 3}
 --- !u!82 &1306059514705751764
 AudioSource:
   m_ObjectHideFlags: 0

@@ -11,10 +11,7 @@ public class ButtonInteractions : MonoBehaviour
     public GameObject HowToPlayPage;
 
     public void startGame() { // start from landing page
-        SceneManager.LoadScene("Kitchen"); 
-        Background.gameObject.SetActive(false);
-        LandingPage.gameObject.SetActive(false);
-        HowToPlayPage.gameObject.SetActive(false);
+        GameManager.Instance.CurrentScene = SceneNum.Kitchen;
     }
 
     public void seeHowToPlay() {
@@ -24,10 +21,7 @@ public class ButtonInteractions : MonoBehaviour
     }
 
     public void clickStartFromInstructions() {
-        SceneManager.LoadScene("Kitchen"); 
-        Background.gameObject.SetActive(false);
-        LandingPage.gameObject.SetActive(false);
-        HowToPlayPage.gameObject.SetActive(false);
+        GameManager.Instance.CurrentScene = SceneNum.Kitchen;
     }
 
     public void clickBackFromInstructions() {

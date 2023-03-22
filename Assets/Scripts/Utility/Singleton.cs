@@ -36,7 +36,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
             }
             else if(_instance != this)
             {
-                Destroy(gameObject);
+                Debug.Log("Destroying extra GameManager");
+                DestroyImmediate(gameObject);
             }
         }
     }

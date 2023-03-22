@@ -41,12 +41,6 @@ public class GameManager : Singleton<GameManager>
         set { LoadLevel(value); }
         get { return _currentScene; }
     }
-
-    [Header("Scenes")] 
-    [SerializeField] private Scene MainMenuScene;
-    [SerializeField] private Scene KitchenScene;
-    [SerializeField] private Scene EngineScene;
-    [SerializeField] private Scene CaptainScene;
     
     //Events
     public static event Action OnGamePlay;
@@ -69,6 +63,7 @@ public class GameManager : Singleton<GameManager>
     {
         _rewindManager = GetComponent<RewindManager>();
         _timer = GetComponent<WorldTimer>();
+        base.Awake();
     }
     
     public void SetGameState(GameState newGameState)
@@ -101,22 +96,22 @@ public class GameManager : Singleton<GameManager>
         {
             case (SceneNum.MainMenu):
             {
-                SceneManager.LoadScene(MainMenuScene.buildIndex);
+                SceneManager.LoadScene("Menu");
                 break;
             }
             case (SceneNum.Kitchen):
             {
-                SceneManager.LoadScene(KitchenScene.buildIndex);
+                SceneManager.LoadScene("Kitchen");
                 break;
             }
             case (SceneNum.Engine):
             {
-                SceneManager.LoadScene(EngineScene.buildIndex);
+                SceneManager.LoadScene("Engine");
                 break;
             }
             case (SceneNum.Captain):
             {
-                SceneManager.LoadScene(CaptainScene.buildIndex);
+                SceneManager.LoadScene("Captain");
                 break;
             }
         }

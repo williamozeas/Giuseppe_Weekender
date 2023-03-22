@@ -9,7 +9,7 @@ public class PlayerSquishCollider : MonoBehaviour
     {
         //because squishing is caused by objects running into the player, the player should rewind world time
         //hence we use the same code as running out of time
-        if(!RewindManager.IsBeingRewinded)
+        if(!RewindManager.IsBeingRewinded && !collider.TryGetComponent<DeathCollider>(out var coll))
             GameManager.RunOutOfTime();
     }
 }

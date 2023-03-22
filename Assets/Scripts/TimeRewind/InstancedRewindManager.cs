@@ -100,7 +100,6 @@ public class InstancedRewindManager : MonoBehaviour
         rewindSeconds = seconds;
         TrackingStateCall?.Invoke(false);
         IsBeingRewinded = true;
-        StartRewind?.Invoke();
         StopTime?.Invoke();
         if(waitingCoroutine != null) StopCoroutine(waitingCoroutine);
         waitingCoroutine = StartCoroutine(WaitForRewind());
