@@ -25,6 +25,7 @@ public class TimeFX : MonoBehaviour
     [Header("Audio")] 
     [SerializeField] private AudioClip startRewindClip;
     [SerializeField] private AudioClip endRewindClip;
+    [SerializeField] private AudioSource tickTockSource;
     [Header("B&W Shader")]
     [SerializeField] private UniversalRendererData balancedRendererData;
     [SerializeField] private UniversalRendererData highFidelityRendererData;
@@ -46,7 +47,6 @@ public class TimeFX : MonoBehaviour
     private void Start() {
         Init();
         audioSource = GetComponent<AudioSource>();
-        Debug.Log(startRewindClip.name);
     }
 
     private void OnEnable()
@@ -92,8 +92,15 @@ public class TimeFX : MonoBehaviour
     }
 
     public void StartRewind() {
-        Debug.Log(startRewindClip);
-        audioSource.PlayOneShot(startRewindClip);
+        if (startRewindClip)
+        {
+            audioSource.PlayOneShot(startRewindClip, 1.2f);
+        }
+
+        if (tickTockSource)
+        {
+            StartCoroutine(AudioHelper.FadeIn(tickTockSource, 1f, 0.5f));
+        }
         if (blitFeature)
         {
             if (currentTransition != null)
@@ -110,7 +117,15 @@ public class TimeFX : MonoBehaviour
     }
     
     public void StopRewind() {
-        audioSource.PlayOneShot(endRewindClip);
+        if (endRewindClip)
+        {
+            audioSource.PlayOneShot(endRewindClip, 1.2f);
+        }
+
+        if (tickTockSource)
+        {
+            StartCoroutine(AudioHelper.FadeOut(tickTockSource, 0.5f));
+        }
         if (blitFeature)
         {
             if (currentTransition != null)
