@@ -195,6 +195,12 @@ MonoBehaviour:
   KitchenMusic: {fileID: 8300000, guid: 35e07cf02af674e6e8130deb4449272a, type: 3}
   EngineMusic: {fileID: 8300000, guid: e02c31076771f49a69d1da08defc1259, type: 3}
   CaptainMusic: {fileID: 8300000, guid: e02c31076771f49a69d1da08defc1259, type: 3}
+  ReversedMenuMusic: {fileID: 8300000, guid: bb40a862b30fa4d8ab75601c319bbcaa, type: 3}
+  ReversedKitchenMusic: {fileID: 8300000, guid: e75c38a540b9942f28fb91d30c812ed7,
+    type: 3}
+  ReversedEngineMusic: {fileID: 8300000, guid: edd8b303d4eb84662a3ca68f1149173f, type: 3}
+  ReversedCaptainMusic: {fileID: 8300000, guid: e75c38a540b9942f28fb91d30c812ed7,
+    type: 3}
 --- !u!82 &1306059514705751764
 AudioSource:
   m_ObjectHideFlags: 0
@@ -209,7 +215,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
