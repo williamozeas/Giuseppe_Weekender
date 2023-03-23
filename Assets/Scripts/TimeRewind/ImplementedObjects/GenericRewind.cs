@@ -18,10 +18,6 @@ public class GenericRewind : RewindAbstract
     protected override void Rewind(float seconds)
     {
         _seconds = seconds;
-        if (gameObject.name == "CAN")
-        {
-            Debug.Log("Rewind to: " + seconds);
-        }
         if (trackPositionRotation)
         {
             if (trackVelocity)

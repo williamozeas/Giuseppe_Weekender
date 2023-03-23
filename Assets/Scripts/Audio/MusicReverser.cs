@@ -100,7 +100,6 @@ public class MusicReverser : MonoBehaviour
     public void SetMusic(AudioClip clip)
     {
         source.Stop();
-        Debug.Log("Here");
         source.clip = clip;
         source.timeSamples = 0;
         source.Play();

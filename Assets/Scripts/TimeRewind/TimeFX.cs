@@ -22,13 +22,17 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 public class TimeFX : MonoBehaviour
 {
-
+    [Header("Audio")] 
+    [SerializeField] private AudioClip startRewindClip;
+    [SerializeField] private AudioClip endRewindClip;
+    [Header("B&W Shader")]
     [SerializeField] private UniversalRendererData balancedRendererData;
     [SerializeField] private UniversalRendererData highFidelityRendererData;
     private UniversalRendererData rendererData = null;
     [SerializeField] private string featureName;
     [FormerlySerializedAs("transitionPeriod")] [SerializeField] private float transitionTime = 0.8f;
 
+    private AudioSource audioSource;
     private Cyan.Blit blitFeature;
     private WorldRewindRenderFeature rewindFeature;
     private Material satMat;
@@ -41,6 +45,8 @@ public class TimeFX : MonoBehaviour
 
     private void Start() {
         Init();
+        audioSource = GetComponent<AudioSource>();
+        Debug.Log(startRewindClip.name);
     }
 
     private void OnEnable()
@@ -86,6 +92,8 @@ public class TimeFX : MonoBehaviour
     }
 
     public void StartRewind() {
+        Debug.Log(startRewindClip);
+        audioSource.PlayOneShot(startRewindClip);
         if (blitFeature)
         {
             if (currentTransition != null)
@@ -102,6 +110,7 @@ public class TimeFX : MonoBehaviour
     }
     
     public void StopRewind() {
+        audioSource.PlayOneShot(endRewindClip);
         if (blitFeature)
         {
             if (currentTransition != null)
