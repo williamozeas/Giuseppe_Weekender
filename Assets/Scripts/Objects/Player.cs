@@ -38,6 +38,11 @@ public class Player : MonoBehaviour
     private IGrabbable grabbedObject;
 
     private Watchable watchedObject;
+
+    public Transform camTrans;
+    Vector3 pos1 = new Vector3(0f, 0f, 0f);
+    Vector3 pos2 = new Vector3(5.89f, 3.9f, -9.47f);
+
     
     //Awake is called before Start
     private void Awake()
@@ -75,6 +80,8 @@ public class Player : MonoBehaviour
         HandleGrabbing();
 
         HandleWatching();
+
+        HandleCameraPos();
     }
 
     void FixedUpdate()
@@ -249,5 +256,11 @@ public class Player : MonoBehaviour
                 watchedObject = null;
             }
         }
+    }
+
+    private void HandleCameraPos()
+    {
+        float t =  (Mathf.Clamp(transform.position.x, 127f, 129f) - 127f) / 2f;
+        camTrans.position = transform.position + Vector3.Slerp(pos1, pos2, t);
     }
 }

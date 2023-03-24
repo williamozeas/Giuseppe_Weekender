@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewindRampIncrease: 0.003
+  camChildTrans: {fileID: 0}
 --- !u!136 &415022589407351951
 CapsuleCollider:
   m_ObjectHideFlags: 8
@@ -210,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startRewindClip: {fileID: 0}
   endRewindClip: {fileID: 0}
+  tickTockSource: {fileID: 0}
   balancedRendererData: {fileID: 11400000, guid: e634585d5c4544dd297acaee93dc2beb,
     type: 2}
   highFidelityRendererData: {fileID: 11400000, guid: c40be3174f62c4acf8c1216858c64956,

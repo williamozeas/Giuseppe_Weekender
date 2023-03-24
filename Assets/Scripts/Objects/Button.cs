@@ -15,6 +15,8 @@ public class Button : MonoBehaviour
 
     bool inContact;
 
+    public bool big;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,29 +32,56 @@ public class Button : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "ButtonPusher" || other.tag == "Player"){
-            StateChange(true);
-            buttonPressed = true;
-            inContact = true;
+        if (big) {
+            if (other.tag == "ButtonPusher"){
+                StateChange(true);
+                buttonPressed = true;
+                inContact = true;
+            }
+        } else {
+            if (other.tag == "ButtonPusher" || other.tag == "Player"){
+                StateChange(true);
+                buttonPressed = true;
+                inContact = true;
+            }
         }
+        
     }
 
     void OnTriggerStay (Collider other)
     {
-        if (other.tag == "ButtonPusher" || other.tag == "Player"){
-            if (!buttonPressed) {
-                StateChange(true);
-                buttonPressed = true;
+        if (big) {
+            if (other.tag == "ButtonPusher"){
+                if (!buttonPressed) {
+                    StateChange(true);
+                    buttonPressed = true;
+                }
+            }
+        } else {
+            if (other.tag == "ButtonPusher" || other.tag == "Player"){
+                if (!buttonPressed) {
+                    StateChange(true);
+                    buttonPressed = true;
+                }
             }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "ButtonPusher" || other.tag == "Player"){
-            StateChange(false);
-            buttonPressed = false;
-            inContact = false;
+        if (big) {
+            if (other.tag == "ButtonPusher"){
+                if (!buttonPressed) {
+                    StateChange(true);
+                    buttonPressed = true;
+                }
+            }
+        } else {
+            if (other.tag == "ButtonPusher" || other.tag == "Player"){
+                StateChange(false);
+                buttonPressed = false;
+                inContact = false;
+            }
         }
     }
 

@@ -69,14 +69,14 @@ public class PistonTop : MonoBehaviour
             if (startingState) {
                 if (movingIn) {
                     if  (transform.localPosition.y < 20f) {
-                        transform.localPosition += Vector3.up * 3 * speed;
+                        transform.localPosition += Vector3.up * speed;
                     } else {
                         transform.localPosition = new Vector3(0f, 20f, 0f);
                         movingOut = false;
                     }
                 } else if (movingOut) {
                     if  (transform.localPosition.y > 0f) {
-                        transform.localPosition -= Vector3.up * speed;
+                        transform.localPosition -= Vector3.up * 3 * speed;
                     } else {
                         transform.localPosition = new Vector3(0f, 0f, 0f);
                         movingIn = false;
@@ -85,14 +85,14 @@ public class PistonTop : MonoBehaviour
             } else {
                 if (movingIn) {
                     if  (transform.localPosition.y < 0f) {
-                        transform.localPosition += Vector3.up * 3 * speed;
+                        transform.localPosition += Vector3.up * speed;
                     } else {
                         transform.localPosition = new Vector3(0f, 00f, 0f);
                         movingOut = false;
                     }
                 } else if (movingOut) {
                     if  (transform.localPosition.y > -20f) {
-                        transform.localPosition -= Vector3.up * speed;
+                        transform.localPosition -= Vector3.up * 3 * speed;
                     } else {
                         transform.localPosition = new Vector3(0f, -20f, 0f);
                         movingIn = false;
