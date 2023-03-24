@@ -193,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173603469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.468876, y: -17.696178, z: -15}
+  m_LocalPosition: {x: -18.469727, y: -17.696178, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -502,6 +502,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1741376682825618808}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1806500514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1806500515}
+  m_Layer: 0
+  m_Name: CamTrans
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1806500515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806500514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.064846, y: -2.6490352, z: -17.430471}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2051764441
 GameObject:
   m_ObjectHideFlags: 3
@@ -751,6 +782,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7091475896383879922, guid: 8539645d334314b07a9ac3108727a0a4,
+        type: 3}
+      propertyPath: camTrans
+      value: 
+      objectReference: {fileID: 1806500515}
     - target: {fileID: 7091475896383879923, guid: 8539645d334314b07a9ac3108727a0a4,
         type: 3}
       propertyPath: animator
@@ -803,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 3502798275728379692, guid: 7562f59d86b2a4f3288c564db512c4d9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.468876
+      value: -18.469727
       objectReference: {fileID: 0}
     - target: {fileID: 3502798275728379692, guid: 7562f59d86b2a4f3288c564db512c4d9,
         type: 3}
