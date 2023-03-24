@@ -6,11 +6,18 @@ using UnityEngine;
 public class MusicReverser : MonoBehaviour
 {
     private AudioSource source;
+    private SceneNum currentScene;
 
     [SerializeField] private AudioClip MenuMusic;
     [SerializeField] private AudioClip KitchenMusic;
     [SerializeField] private AudioClip EngineMusic;
     [SerializeField] private AudioClip CaptainMusic;
+    
+    [Header("Reversed")]
+    [SerializeField] private AudioClip ReversedMenuMusic;
+    [SerializeField] private AudioClip ReversedKitchenMusic;
+    [SerializeField] private AudioClip ReversedEngineMusic;
+    [SerializeField] private AudioClip ReversedCaptainMusic;
 
     private void Awake()
     {
@@ -27,7 +34,11 @@ public class MusicReverser : MonoBehaviour
     {
         if (RewindManager.IsBeingRewinded && Input.GetButton("Rewind World"))
         {
+#if UNITY_WEBGL
+            source.pitch = GameManager.Instance.Player.RewindRampWorld;
+#else
             source.pitch = GameManager.Instance.Player.RewindRampWorld * -1;
+#endif
         }
     }
 
@@ -50,6 +61,7 @@ public class MusicReverser : MonoBehaviour
     private void OnLoadScene(SceneNum newScene)
     {
         SetMusic(GetSceneMusic(newScene));
+        currentScene = newScene;
     }
 
     private void OnStopTime()
@@ -59,11 +71,24 @@ public class MusicReverser : MonoBehaviour
 
     private void OnStartRewind()
     {
+#if UNITY_WEBGL
+        source.Stop();
+        source.clip = GetSceneMusicReversed(currentScene);
+        float time = 30f - GameManager.Instance.Time;
+        source.timeSamples = Math.Max(0, (int)(time * 44100));
+        Debug.Log("Setting to " + time);
+        source.Play();
+#else
         source.pitch = -1;
+        Debug.Log("Incorrect");
+#endif
     }
 
     private void OnStopRewind()
     {
+#if UNITY_WEBGL
+        source.clip = GetSceneMusic(currentScene);
+#endif
         source.timeSamples = Math.Max(0, (int)(GameManager.Instance.Time * 44100));
         source.pitch = 1;
         if (!source.isPlaying)
@@ -75,8 +100,8 @@ public class MusicReverser : MonoBehaviour
     public void SetMusic(AudioClip clip)
     {
         source.Stop();
-        Debug.Log("Here");
         source.clip = clip;
+        source.timeSamples = 0;
         source.Play();
     }
 
@@ -100,6 +125,30 @@ public class MusicReverser : MonoBehaviour
             case (SceneNum.Captain):
             {
                 return CaptainMusic;
+            }
+        }
+    }
+    
+    public AudioClip GetSceneMusicReversed(SceneNum scene)
+    {
+        switch (scene)
+        {
+            case (SceneNum.MainMenu):
+            {
+                return ReversedMenuMusic;
+            }
+            default:
+            case (SceneNum.Kitchen):
+            {
+                return ReversedKitchenMusic;
+            }
+            case (SceneNum.Engine):
+            {
+                return ReversedEngineMusic;
+            }
+            case (SceneNum.Captain):
+            {
+                return ReversedCaptainMusic;
             }
         }
     }

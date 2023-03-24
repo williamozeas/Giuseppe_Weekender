@@ -14,7 +14,7 @@ public abstract class RewindAbstract : MonoBehaviour
     protected AudioSource audioSource;
 
 
-    protected void Awake()
+    protected virtual void Awake()
     {
 
         rewindManager = FindObjectOfType<RewindManager>();

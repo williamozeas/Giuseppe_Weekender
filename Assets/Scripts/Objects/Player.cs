@@ -213,7 +213,7 @@ public class Player : MonoBehaviour
 
     private void HandleGrabbing()
     {
-        if (Input.GetKeyDown("g")) {
+        if (Input.GetButtonDown("Grab")) {
             //Grab pressed
             if (grabbedObject == null) {
                 var colliders = Physics.OverlapSphere(transform.position, 1.8f);
