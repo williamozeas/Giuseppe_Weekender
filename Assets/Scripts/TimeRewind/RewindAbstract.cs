@@ -17,7 +17,7 @@ public abstract class RewindAbstract : MonoBehaviour
     protected virtual void Awake()
     {
 
-        rewindManager = FindObjectOfType<RewindManager>();
+        rewindManager = GameManager.Instance.RewindManager;
         if (rewindManager != null)
         {
             body = GetComponent<Rigidbody>();
@@ -44,6 +44,7 @@ public abstract class RewindAbstract : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        Debug.Log(IsTracking);
         if (IsTracking)
             Track();
     }

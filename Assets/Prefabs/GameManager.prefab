@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4173639413895388911}
   - component: {fileID: 2177524633919074827}
-  - component: {fileID: 4116088286909055814}
   - component: {fileID: 8333471174720102947}
   - component: {fileID: 7007754703750923375}
   - component: {fileID: 5350962965549797456}
@@ -53,18 +52,6 @@ MonoBehaviour:
   DontDestroy: 1
   maxTime: 30
   _rewindManager: {fileID: 0}
---- !u!114 &4116088286909055814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707440061656712884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77256470e83154da087ca26b32632903, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8333471174720102947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +198,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5149109288015472460}
-  - component: {fileID: 5572894769698108971}
   - component: {fileID: 6185948782518480458}
   - component: {fileID: 1306059514705751764}
   m_Layer: 0
@@ -236,27 +222,6 @@ Transform:
   m_Father: {fileID: 4173639413895388911}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5572894769698108971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2400159819095042892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1853014c10a6eb46a8363fdc11758e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackPositionRotation: 0
-  trackVelocity: 0
-  trackAnimator: 0
-  trackAudio: 0
-  trackParticles: 0
-  particleSettings:
-    particleLimiter: 0
-    particleResetTo: 0
-    particlesData: []
 --- !u!114 &6185948782518480458
 MonoBehaviour:
   m_ObjectHideFlags: 0
