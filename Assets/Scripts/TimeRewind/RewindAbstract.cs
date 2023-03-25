@@ -44,7 +44,6 @@ public abstract class RewindAbstract : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        Debug.Log(IsTracking);
         if (IsTracking)
             Track();
     }

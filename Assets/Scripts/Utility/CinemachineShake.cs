@@ -28,7 +28,6 @@ public class CinemachineShake : RewindAbstract
         cinemachineBasicMultiChannelPerlin =
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         trackedState = new CircularBuffer<ShakeState>();
-        ShakeCamera(0.1f, 0.1f);
     }
 
     public void ShakeCamera(float intensity, float time)
@@ -45,7 +44,7 @@ public class CinemachineShake : RewindAbstract
         {
             shakeTimer -= Time.deltaTime;
             cinemachineBasicMultiChannelPerlin.m_AmplitudeGain =
-                Mathf.Lerp(startingIntensity, 0f, 1 - (shakeTimer / totalTime));
+                EasingFunction.EaseOutQuad(startingIntensity, 0f, 1 - (shakeTimer / totalTime));
         }
         else
         {
@@ -63,7 +62,6 @@ public class CinemachineShake : RewindAbstract
         state.startingIntensity = startingIntensity;
         state.totalTime = totalTime;
         trackedState.WriteLastValue(state);
-        Debug.Log("storing " + state.startingIntensity);
     }
 
     //In this method define, what will be restored on time rewinding. In our case we want to restore Particles, Audio and custom implemented Timer
