@@ -499,9 +499,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 390477303418124647}
   clock: {fileID: 1474244031027110337}
-  clockScene1: {fileID: 21300000, guid: 9252b8357bb9642c0be579ce682bc2fc, type: 3}
+  clockScene1: {fileID: 21300000, guid: e253ff9ee95e840d396e60fe79b93381, type: 3}
   clockScene2: {fileID: 21300000, guid: 4c13e5777d3dc4c2cafdc5b53690fb55, type: 3}
-  clockScene3: {fileID: 21300000, guid: ad9806ae0c1eb48dcb69e3679b165b40, type: 3}
+  clockScene3: {fileID: 21300000, guid: c08e044583fb643a4b65e92fad7a1918, type: 3}
   hitTime: 5
 --- !u!114 &4034152918924668848
 MonoBehaviour:
@@ -659,7 +659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9252b8357bb9642c0be579ce682bc2fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e253ff9ee95e840d396e60fe79b93381, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
