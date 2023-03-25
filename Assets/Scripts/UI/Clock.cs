@@ -7,9 +7,13 @@ using UnityEngine.UI;
 public class Clock : MonoBehaviour
 {
     public GameObject hand;
+    public Image clock;
+    public Sprite clockScene1;
+    public Sprite clockScene2;
+    public Sprite clockScene3;
     string oldTime;
     public int hitTime = 5;
-    // public TextMeshProUGUI clockText;
+    // public TextMeshProUGUI clockText; 
  
     // Start is called before the first frame update
     void Start()
@@ -19,6 +23,28 @@ public class Clock : MonoBehaviour
 
     void Update() 
     {
+        SceneNum scene = GameManager.Instance.CurrentScene;
+        switch (scene)
+        {
+            case (SceneNum.Kitchen):
+            {
+                clock.sprite = clockScene1;
+                break;
+            }
+            case (SceneNum.Engine):
+            {
+                clock.sprite = clockScene2;
+                break;
+            }
+            case (SceneNum.Captain):
+            {
+                clock.sprite = clockScene3;
+                break;
+            }
+            default:
+                break;
+        }
+
         string time = ((int)GameManager.Instance.Time).ToString();
         int timeInt = ((int)GameManager.Instance.Time);
 
