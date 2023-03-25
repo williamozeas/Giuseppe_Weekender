@@ -26,6 +26,7 @@ public class MusicReverser : MonoBehaviour
 
     void Start()
     {
+        currentScene = GameManager.Instance.CurrentScene;
         SetMusic(GetSceneMusic(GameManager.Instance.CurrentScene));
         source.Play();
     }

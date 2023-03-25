@@ -86,7 +86,6 @@ public class SoundEffectTracker : MonoBehaviour
                     else
                     {
                         sfx.SetSpeed(-GameManager.Instance.Player.RewindRampWorld);
-                        Debug.Log(-GameManager.Instance.Player.RewindRampWorld);
                     }
                 }
                 else

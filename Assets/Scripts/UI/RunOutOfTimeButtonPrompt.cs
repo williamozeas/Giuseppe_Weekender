@@ -11,7 +11,7 @@ public class RunOutOfTimeButtonPrompt : MonoBehaviour
     void Start()
     {
         RewindTimePrompt.gameObject.SetActive(false);
-        RewindManager.StartRewind += OnStartRewind;
+        // RewindManager.StartRewind += OnStartRewind;
     }
     
     private void OnEnable()
