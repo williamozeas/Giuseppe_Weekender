@@ -14,7 +14,7 @@ Final Version, Preliminary Build:
 5. Each level of the game presents a series of puzzles that must be solved within 30 seconds. Players can however rewind the level as many times as they want.
 6. "A & D" / Left and Rigbt Arrows control player left and right movement
 7. Spacebar and Up Arrow control jump
-8. Press "C" or Right Click for time reverse
-9. Press "X" or Left Click for rewinding yourself when you die
+8. Press "X" or Right Click for time reverse
+9. Press "C" or Left Click for rewinding yourself when you die
 10. Press "Z" to Grab an item
 
