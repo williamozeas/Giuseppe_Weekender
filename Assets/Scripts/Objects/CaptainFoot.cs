@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -151,7 +152,7 @@ public class CaptainFoot : RewindAbstract
         {
             RaycastHit hit;
             Ray ray = new Ray(raycastOrigins[i].position, Vector3.down);
-            Physics.Raycast(ray, out hit, 100, collidableLayers);
+            Physics.Raycast(ray, out hit, 200, collidableLayers, QueryTriggerInteraction.Ignore);
             hits[i] = hit;
             Debug.Log(distanceToStomp);
         }

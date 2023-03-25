@@ -478,12 +478,14 @@ public class KCharacterController : MonoBehaviour, ICharacterController
     {
     }
 
-    public void AddVelocity(Vector3 velocity)
+    public void AddExpVel(Vector3 velocity)
     {
         switch (CurrentCharacterState)
         {
             case CharacterState.Default:
                 {
+                    Debug.Log("Adding");
+                    Motor.ForceUnground();
                     _internalVelocityAdd += velocity;
                     break;
                 }
