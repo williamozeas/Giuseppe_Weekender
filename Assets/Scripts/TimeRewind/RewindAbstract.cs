@@ -121,6 +121,7 @@ public abstract class RewindAbstract : MonoBehaviour
         }
         else
         {
+            Debug.Log(gameObject.name);
             Debug.LogError("Cannot find Rigidbody on the object, while TrackVelocity() is being called!!!");
         }
     }

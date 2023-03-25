@@ -7,6 +7,7 @@ TagManager:
   - Interaction Collider
   - ButtonPusher
   - Unmovable
+  - Foot
   layers:
   - Default
   - TransparentFX
