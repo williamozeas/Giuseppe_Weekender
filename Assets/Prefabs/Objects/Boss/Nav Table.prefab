@@ -1167,6 +1167,7 @@ GameObject:
   - component: {fileID: 8057779220391500848}
   - component: {fileID: 1978301148517676656}
   - component: {fileID: 553276732974464107}
+  - component: {fileID: 3108575132113019614}
   m_Layer: 0
   m_Name: NavStation_table_NavStation
   m_TagString: Untagged
@@ -1239,3 +1240,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3108575132113019614
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016668935024419987}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 202.14723, y: 115.96755, z: 114.68365}
+  m_Center: {x: 0, y: 0.6419487, z: 0}
