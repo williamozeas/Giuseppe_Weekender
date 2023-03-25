@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1598873882389400162}
   - component: {fileID: 8997813915459461120}
   - component: {fileID: 5524152350942244269}
+  - component: {fileID: 1541712635415225436}
   m_Layer: 0
   m_Name: plank
   m_TagString: Untagged
@@ -136,6 +137,23 @@ MonoBehaviour:
     particleLimiter: 0
     particleResetTo: 0
     particlesData: []
+--- !u!114 &1541712635415225436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2439123122561917336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b61b84a3a5664d86ad9db23fedfcab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  characterController: {fileID: 0}
+  turningccw: 0
+  turningcw: 0
+  currentRot: 0
 --- !u!1 &2626405605343864365
 GameObject:
   m_ObjectHideFlags: 0
