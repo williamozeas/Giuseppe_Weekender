@@ -53,10 +53,7 @@ public class ButtonInteractions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Background.gameObject.SetActive(true);
-        LandingPage.gameObject.SetActive(true);
-        HowToPlayPage.gameObject.SetActive(false);
-        StoryPage.gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame
