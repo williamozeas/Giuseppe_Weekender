@@ -20,10 +20,15 @@ public class PistonTop : MonoBehaviour
 
     public GameObject player;
 
+    private AudioSource source;
+    public AudioClip InClip;
+    public AudioClip OutClip;
+
     void Start()
     {
         movingOut = false;
         movingIn = false;
+        source = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -42,9 +47,29 @@ public class PistonTop : MonoBehaviour
         if (newState) {
             movingIn = false;
             movingOut = true;
+            if (!RewindManager.IsBeingRewinded)
+            {
+                ReversibleSoundEffect sfx = new ReversibleSoundEffect(() =>
+                {
+                    source.time = 0;
+                    source.clip = OutClip;
+                    source.Play();
+                }, source, Timeline.World, OutClip.length);
+                sfx.Play();
+            }
         } else {
             movingIn = true;
             movingOut = false;
+            if (!RewindManager.IsBeingRewinded)
+            {
+                ReversibleSoundEffect sfx = new ReversibleSoundEffect(() =>
+                {
+                    source.time = 0;
+                    source.clip = InClip;
+                    source.Play();
+                }, source, Timeline.World, InClip.length);
+                sfx.Play();
+            }
         }
     }
 

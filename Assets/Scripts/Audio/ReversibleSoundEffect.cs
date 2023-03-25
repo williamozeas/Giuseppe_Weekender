@@ -62,6 +62,7 @@ public class ReversibleSoundEffect
 
     public void OnReverse()
     {
+        _sfxAction();
         _source.timeSamples = _source.clip.samples - 1;
         switch (_timeline)
         {
@@ -78,7 +79,6 @@ public class ReversibleSoundEffect
                 break;
             }
         }
-        _sfxAction();
     }
 
     public void SetSpeed(float speed)

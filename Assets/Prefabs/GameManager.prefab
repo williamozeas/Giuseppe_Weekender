@@ -238,7 +238,7 @@ MonoBehaviour:
   MenuMusic: {fileID: 8300000, guid: bb40a862b30fa4d8ab75601c319bbcaa, type: 3}
   KitchenMusic: {fileID: 8300000, guid: 35e07cf02af674e6e8130deb4449272a, type: 3}
   EngineMusic: {fileID: 8300000, guid: e02c31076771f49a69d1da08defc1259, type: 3}
-  CaptainMusic: {fileID: 8300000, guid: e02c31076771f49a69d1da08defc1259, type: 3}
+  CaptainMusic: {fileID: 8300000, guid: 35e07cf02af674e6e8130deb4449272a, type: 3}
   ReversedMenuMusic: {fileID: 8300000, guid: bb40a862b30fa4d8ab75601c319bbcaa, type: 3}
   ReversedKitchenMusic: {fileID: 8300000, guid: e75c38a540b9942f28fb91d30c812ed7,
     type: 3}
