@@ -23,6 +23,7 @@ public enum SceneNum
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private SceneNum startingScene;
     [Header("Game Params")]
     [SerializeField] private float maxTime = 30f;
 
@@ -62,6 +63,7 @@ public class GameManager : Singleton<GameManager>
     public override void Awake()
     {
         base.Awake();
+        _currentScene = startingScene;
     }
     
     public void SetGameState(GameState newGameState)

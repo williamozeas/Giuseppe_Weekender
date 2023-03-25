@@ -17,6 +17,7 @@ public class ReversibleSoundEffect
     private Action _sfxAction;
     private InstancedRewindManager _manager = null;
     private AudioSource _source;
+    public AudioSource Source => _source;
     private Timeline _timeline;
     
     public ReversibleSoundEffect(Action sfxAction, AudioSource source, Timeline timeline, float length = -1f)
@@ -78,6 +79,11 @@ public class ReversibleSoundEffect
     public void SetSpeed(float speed)
     {
         _source.pitch = speed;
+    }
+
+    public void SetTimeSamples(int samples)
+    {
+        _source.timeSamples = samples;
     }
 
     public static int Compare(ReversibleSoundEffect a, ReversibleSoundEffect b, bool isReversing)

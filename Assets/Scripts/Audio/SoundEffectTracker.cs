@@ -53,7 +53,6 @@ public class SoundEffectTracker : MonoBehaviour
                 ReversibleSoundEffect peek = _sfx[_sfx.Count - 1 - _playingSFX.Count];
                 if (GameManager.Instance.Time < peek.times.Item2)
                 {
-                    //TODO: right now if you start to reverse, then go forwards, then reverse again it will not play
                     if (!_justRewinded)
                     {
                         peek.OnReverse();
@@ -62,7 +61,6 @@ public class SoundEffectTracker : MonoBehaviour
                     _playingSFX.Add(peek);
                 }
             }
-
             for (int i = _playingSFX.Count - 1; i >= 0; i--)
             {
                 ReversibleSoundEffect sfx = _playingSFX[i];
@@ -81,7 +79,15 @@ public class SoundEffectTracker : MonoBehaviour
 
                 if (RewindManager.IsBeingRewinded)
                 {
-                    sfx.SetSpeed(-GameManager.Instance.Player.RewindRampWorld);
+                    if (RewindManager.RewindSeconds == 0)
+                    {
+                        sfx.SetSpeed(0);
+                    }
+                    else
+                    {
+                        sfx.SetSpeed(-GameManager.Instance.Player.RewindRampWorld);
+                        Debug.Log(-GameManager.Instance.Player.RewindRampWorld);
+                    }
                 }
                 else
                 {
@@ -103,15 +109,13 @@ public class SoundEffectTracker : MonoBehaviour
 
     private void OnStopRewind()
     {
-        // _reversedSfxToAdd.RemoveAll(sfx =>
-        // {
-        //     return sfx.times.Item1 > GameManager.Instance.Time;
-        // });
-        // _reversedSfxToAdd.Sort((a,b) => ReversibleSoundEffect.Compare(a,b,RewindManager.IsBeingRewinded));
-        // _reversedSfxToAdd.ForEach(effect =>
-        // {
-        //     
-        // });
+        for (int i = _playingSFX.Count - 1; i >= 0; i--)
+        {
+            ReversibleSoundEffect sfx = _playingSFX[i];
+            // if(sf)
+            // sfx.SetTimeSamples((int)(GameManager.Instance.Time - sfx.times.Item1) * 44100);
+            // Debug.Log("Name" + sfx.Source.clip.name + " Start: " + sfx.times.Item1 + "Current Time: " + GameManager.Instance.Time);
+        }
     }
 
     public void AddSfx(ReversibleSoundEffect newSfx)

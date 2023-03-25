@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DontDestroy: 1
+  startingScene: 0
   maxTime: 30
   _rewindManager: {fileID: 0}
 --- !u!114 &8333471174720102947
