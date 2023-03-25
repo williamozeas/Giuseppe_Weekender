@@ -19,6 +19,7 @@ public class ReversibleSoundEffect
     private AudioSource _source;
     public AudioSource Source => _source;
     private Timeline _timeline;
+    private float _length;
     
     public ReversibleSoundEffect(Action sfxAction, AudioSource source, Timeline timeline, float length = -1f)
     {
@@ -27,14 +28,18 @@ public class ReversibleSoundEffect
         _timeline = timeline;
         if (length < 0)
         {
-            length = source.clip.length;
+            if (source.loop)
+            {
+                _length = 31f;
+            }
+            _length = source.clip.length;
         }
-        times = (GameManager.Instance.Time, GameManager.Instance.Time + length);
         
     }
 
     public void Play()
     {
+        times = (GameManager.Instance.Time, GameManager.Instance.Time + _length);
         _source.pitch = 1;
         _source.timeSamples = 0;
         _sfxAction();
@@ -79,6 +84,12 @@ public class ReversibleSoundEffect
     public void SetSpeed(float speed)
     {
         _source.pitch = speed;
+    }
+
+    public void Stop()
+    {
+        _source.Stop();
+        times.Item2 = GameManager.Instance.Time;
     }
 
     public void SetTimeSamples(int samples)
