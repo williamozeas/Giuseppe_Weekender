@@ -46,10 +46,12 @@ public class ScriptedGravityTrigger : ScriptedAbstract<ScriptedGravity>
     protected void GravityOn()
     {
         rb.useGravity = true;
+        rb.isKinematic = false;
     }
 
     protected void GravityOff()
     {
         rb.useGravity = false;
+        rb.isKinematic = false;
     }
 }

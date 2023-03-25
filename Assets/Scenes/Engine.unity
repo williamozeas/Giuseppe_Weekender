@@ -1048,6 +1048,11 @@ PrefabInstance:
       propertyPath: Loop
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2177524633919074827, guid: 5fda9886d27e84cf0bb02b7477d619eb,
+        type: 3}
+      propertyPath: startingScene
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4173639413895388911, guid: 5fda9886d27e84cf0bb02b7477d619eb,
         type: 3}
       propertyPath: m_RootOrder
