@@ -7,20 +7,29 @@ public class PlankSeeSaw : MonoBehaviour
 
     public GameObject player;
     KCharacterController characterController;
+    SeesawRewind seesawRewind;
 
     bool turningccw;
     bool turningcw;
     float currentRot;
 
+    bool rewinding;
+
     // Start is called before the first frame update
     void Start()
     {
+        rewinding = false;
+
         transform.rotation = Quaternion.Euler(10f, 90f, 0f);
         characterController = player.GetComponent<KCharacterController>();
         
         turningccw = false;
         turningcw = false;
         currentRot = 10f;
+
+
+        seesawRewind = gameObject.GetComponent<SeesawRewind>();
+        seesawRewind.SerCurrRot(currentRot);
     }
 
     // Update is called once per frame
@@ -30,17 +39,21 @@ public class PlankSeeSaw : MonoBehaviour
             if (currentRot > -10f) {
                 currentRot -= 2f;
                 transform.rotation = Quaternion.Euler(currentRot, 90f, 0f);
+                seesawRewind.SerCurrRot(currentRot);
             } else {
                 currentRot = -10f;
+                seesawRewind.SerCurrRot(currentRot);
                 turningccw = false;
             }
         }
         if (turningcw) {
             if (currentRot < 10f) {
                 currentRot += 2f;
+                seesawRewind.SerCurrRot(currentRot);
                 transform.rotation = Quaternion.Euler(currentRot, 90f, 0f);
             } else {
                 currentRot = 10f;
+                seesawRewind.SerCurrRot(currentRot);
                 turningcw = false;
             }
         }
@@ -49,7 +62,7 @@ public class PlankSeeSaw : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("coll");
-        if (collision.collider.tag == "Foot") {
+        if (collision.collider.tag == "Foot" && !rewinding) {
             //Captain hit plank
             if (collision.collider.transform.position.x < transform.position.x - .5f) {
                 //hit left
@@ -60,7 +73,7 @@ public class PlankSeeSaw : MonoBehaviour
                         && player.transform.position.y > transform.position.y + .5f
                         && player.transform.position.y < transform.position.y + 4.5f) {
                             //player in pos
-                        characterController.AddExpVel(new Vector3(0f, 30f, 0f));
+                        characterController.AddExpVel(new Vector3(0f, 35f, 0f));
                     }
                     turningccw = true;
                 }
@@ -73,7 +86,7 @@ public class PlankSeeSaw : MonoBehaviour
                         && player.transform.position.y > transform.position.y + .5f
                         && player.transform.position.y < transform.position.y + 4.5f) {
                             //player in pos
-                        characterController.AddExpVel(new Vector3(0f, 30f, 0f));
+                        characterController.AddExpVel(new Vector3(0f, 35f, 0f));
                     }
                     turningcw = true;
                 }
@@ -81,5 +94,20 @@ public class PlankSeeSaw : MonoBehaviour
                 //hit mid
             }
         }
+    }
+
+    public float GetCurrRot()
+    {
+        return currentRot;
+    }
+
+    public void SetCurrRot(float rot)
+    {
+        currentRot = rot;
+    }
+
+    public void SetRewinding(bool rew)
+    {
+        rewinding = rew;
     }
 }
