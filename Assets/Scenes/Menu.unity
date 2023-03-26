@@ -209,7 +209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 12850783}
         m_TargetAssemblyTypeName: ButtonInteractions, Assembly-CSharp
-        m_MethodName: clickStartFromHtp
+        m_MethodName: startFromHtp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4294,7 +4294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1893494969
 RectTransform:
   m_ObjectHideFlags: 0
