@@ -261,7 +261,7 @@ public class Player : MonoBehaviour
     private void HandleCameraPos()
     {
         if (transform.position.x < 135f) {
-            float t =  (Mathf.Clamp(transform.position.x, 127f, 129f) - 127f) / 2f;
+            float t =  (Mathf.Clamp(transform.position.x, 126f, 131f) - 126f) / 5f;
             camTrans.position = transform.position + Vector3.Slerp(pos1, pos2, t);
             return;
         }

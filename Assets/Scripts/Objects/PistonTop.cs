@@ -80,9 +80,10 @@ public class PistonTop : MonoBehaviour
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
 
-            if (rb != null && hit.tag != "Unmovable"){
+            if (rb != null && hit.tag == "ButtonPusher"){
                 rb.transform.position += transform.up * 0.5f;
                 rb.AddForce(transform.up * force, ForceMode.Impulse);
+                rb.AddTorque(0f, 0f, -100f);
             }
         }
     }
