@@ -146,8 +146,8 @@ public class CaptainFoot : RewindAbstract
     {
         timer = 0;
         phase = StompPhase.Stomp;
-        RaycastHit[] hits = new RaycastHit[3];
-        for (int i = 0; i < 3; i++)
+        RaycastHit[] hits = new RaycastHit[raycastOrigins.Count];
+        for (int i = 0; i < raycastOrigins.Count; i++)
         {
             RaycastHit hit;
             Ray ray = new Ray(raycastOrigins[i].position, Vector3.down);
@@ -156,7 +156,17 @@ public class CaptainFoot : RewindAbstract
             hits[i] = hit;
         }
 
-        RaycastHit shortest = hits.Aggregate(((a, b) =>  a.distance < b.distance ? a : b ));
+        RaycastHit shortest = hits.Aggregate(((a, b) =>
+        {
+            if (a.transform == null)
+            {
+                return b;
+            } else if (b.transform == null)
+            {
+                return a;
+            }
+            return a.distance < b.distance ? a : b;
+        }));
         distanceToStomp = shortest.distance;
         Debug.Log(distanceToStomp);
         stompStartHeight = transform.position.y;

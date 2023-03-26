@@ -40,6 +40,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 51003782570162234}
     m_Modifications:
+    - target: {fileID: 2761756501457925959, guid: 37a5b053602fa554a94ee969cbe6c057,
+        type: 3}
+      propertyPath: windupTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4308830132244704637, guid: 37a5b053602fa554a94ee969cbe6c057,
         type: 3}
       propertyPath: m_Name
@@ -49,6 +54,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4308830132244704637, guid: 37a5b053602fa554a94ee969cbe6c057,
+        type: 3}
+      propertyPath: m_TagString
+      value: Foot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227455714532349369, guid: 37a5b053602fa554a94ee969cbe6c057,
+        type: 3}
+      propertyPath: m_TagString
+      value: Foot
       objectReference: {fileID: 0}
     - target: {fileID: 7576472662465222519, guid: 37a5b053602fa554a94ee969cbe6c057,
         type: 3}
@@ -169,6 +184,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BossLeg
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957970559885131714, guid: 43da36daa92530643ae457b90c3062e0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Foot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345741892273112744, guid: 43da36daa92530643ae457b90c3062e0,
+        type: 3}
+      propertyPath: windupTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408204922280614207, guid: 43da36daa92530643ae457b90c3062e0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Foot
       objectReference: {fileID: 0}
     - target: {fileID: 5985979078631469676, guid: 43da36daa92530643ae457b90c3062e0,
         type: 3}

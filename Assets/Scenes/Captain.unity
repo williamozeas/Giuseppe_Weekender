@@ -499,6 +499,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 4393857999773763240, guid: 7cddc8c5a309a4bf08a36b9bb586d3cb,
+        type: 3}
+      propertyPath: windupTime
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cddc8c5a309a4bf08a36b9bb586d3cb, type: 3}
 --- !u!1 &832575517

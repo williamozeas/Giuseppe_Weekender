@@ -28,7 +28,7 @@ public class Nail : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Player") {
+        if (collision.collider.tag == "Foot") {
             movingDown = true;
         }
     }
