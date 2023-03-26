@@ -15,10 +15,13 @@ public class PlankSeeSaw : MonoBehaviour
 
     bool rewinding;
 
+    private AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
         rewinding = false;
+        source = GetComponent<AudioSource>();
 
         transform.rotation = Quaternion.Euler(10f, 90f, 0f);
         characterController = player.GetComponent<KCharacterController>();
@@ -93,6 +96,9 @@ public class PlankSeeSaw : MonoBehaviour
             } else {
                 //hit mid
             }
+
+            ReversibleSoundEffect sfx = new ReversibleSoundEffect(() => source.Play(), source, Timeline.World);
+            sfx.Play();
         }
     }
 
