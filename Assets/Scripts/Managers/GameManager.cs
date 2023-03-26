@@ -84,6 +84,7 @@ public class GameManager : Singleton<GameManager>
             case (GameState.GameEnd):
             {
                 OnGameOver?.Invoke();
+                LoadLevel(SceneNum.MainMenu);
                 break;
             }
         }
