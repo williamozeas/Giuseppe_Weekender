@@ -103,7 +103,6 @@ public class CaptainFoot : RewindAbstract
 
                     float newPosY = EasingFunction.EaseInQuad(stompStartHeight, originalHeight - distanceToStomp,
                         timer / stompTime);
-                    Debug.Log(newPosY);
                     rb.MovePosition(new Vector3(transform.position.x, newPosY, transform.position.z));
                     break;
                 }
@@ -152,13 +151,14 @@ public class CaptainFoot : RewindAbstract
         {
             RaycastHit hit;
             Ray ray = new Ray(raycastOrigins[i].position, Vector3.down);
-            Physics.Raycast(ray, out hit, 200, collidableLayers, QueryTriggerInteraction.Ignore);
+            Debug.DrawRay(raycastOrigins[i].position, Vector3.down * 2000, Color.red, 10f);
+            Physics.Raycast(ray, out hit, 2000, collidableLayers, QueryTriggerInteraction.Ignore);
             hits[i] = hit;
-            Debug.Log(distanceToStomp);
         }
 
         RaycastHit shortest = hits.Aggregate(((a, b) =>  a.distance < b.distance ? a : b ));
         distanceToStomp = shortest.distance;
+        Debug.Log(distanceToStomp);
         stompStartHeight = transform.position.y;
     }
 

@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3a42cfd5af14333925437990d3547f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackingTime: 4.5
+  trackingTime: 4
   windupTime: 0.8
   restTime: 1
   recoveryTime: 1
