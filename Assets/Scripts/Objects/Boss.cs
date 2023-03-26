@@ -11,13 +11,14 @@ public class Boss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        leg.SetActive(true);
-        arm.SetActive(false);
+        leg.GetComponentInChildren<CaptainFoot>().enabled = true;
+        arm.GetComponentInChildren<CaptainFoot>().enabled = false;
     }
 
     public void SwitchToArm()
     {
-        arm.SetActive(true);
+        
+        arm.GetComponentInChildren<CaptainFoot>().enabled = true;
         //move leg away
         StartCoroutine(GoAwayLeg());
     }

@@ -211,6 +211,7 @@ public class CaptainFoot : RewindAbstract
         state.phase = phase;
         state.timer = timer;
         trackedState.WriteLastValue(state);
+        Debug.Log("tracking");
     }
 
 
