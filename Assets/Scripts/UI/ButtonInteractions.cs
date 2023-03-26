@@ -10,12 +10,14 @@ public class ButtonInteractions : MonoBehaviour
     public GameObject LandingPage;
     public GameObject HowToPlayPage;
     public GameObject StoryPage;
+    public GameObject EndingPage;
 
     public void startGame() { // from landing page to story
         Background.gameObject.SetActive(false);
         LandingPage.gameObject.SetActive(false);
         HowToPlayPage.gameObject.SetActive(false);
         StoryPage.gameObject.SetActive(true);
+        EndingPage.gameObject.SetActive(false);
     }
 
     public void playGame() { // from story to gameplay
@@ -27,6 +29,7 @@ public class ButtonInteractions : MonoBehaviour
         LandingPage.gameObject.SetActive(true);
         HowToPlayPage.gameObject.SetActive(false);
         StoryPage.gameObject.SetActive(false);
+        EndingPage.gameObject.SetActive(false);
     }
 
     public void seeHowToPlay() { // from landing to htp
@@ -34,6 +37,7 @@ public class ButtonInteractions : MonoBehaviour
         LandingPage.gameObject.SetActive(false);
         HowToPlayPage.gameObject.SetActive(true);
         StoryPage.gameObject.SetActive(false);
+        EndingPage.gameObject.SetActive(false);
     }
 
     public void startFromHtp() {
@@ -41,6 +45,7 @@ public class ButtonInteractions : MonoBehaviour
         LandingPage.gameObject.SetActive(false);
         HowToPlayPage.gameObject.SetActive(false);
         StoryPage.gameObject.SetActive(true);
+        EndingPage.gameObject.SetActive(false);
     }
 
     public void backFromHtp() {
@@ -48,6 +53,19 @@ public class ButtonInteractions : MonoBehaviour
         LandingPage.gameObject.SetActive(true);
         HowToPlayPage.gameObject.SetActive(false);
         StoryPage.gameObject.SetActive(false);
+        EndingPage.gameObject.SetActive(false);
+    }
+
+    public void playAgain() {
+        GameManager.Instance.CurrentScene = SceneNum.Kitchen;
+    }
+
+    public void exitGame() {
+        Background.gameObject.SetActive(true);
+        LandingPage.gameObject.SetActive(true);
+        HowToPlayPage.gameObject.SetActive(false);
+        StoryPage.gameObject.SetActive(false);
+        EndingPage.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
