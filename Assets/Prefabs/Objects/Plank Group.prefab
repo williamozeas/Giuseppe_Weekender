@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7603671921184935311}
+  - component: {fileID: 622146400562716036}
   m_Layer: 0
-  m_Name: Seesaw Group
+  m_Name: Plank Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5860491148482036086}
   - {fileID: 7603671923113366109}
   - {fileID: 7603671922630661676}
   - {fileID: 7603671922390610771}
@@ -38,6 +38,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &622146400562716036
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7603671921184935310}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38.902374, y: 1.3521416, z: 3.469881}
+  m_Center: {x: -9.916786, y: 0.9794625, z: 0.25228095}
 --- !u!1 &7603671922133384350
 GameObject:
   m_ObjectHideFlags: 0
@@ -49,7 +62,6 @@ GameObject:
   - component: {fileID: 7603671922133384351}
   - component: {fileID: 7603671922133384338}
   - component: {fileID: 7603671922133384349}
-  - component: {fileID: 7603671922133384339}
   m_Layer: 0
   m_Name: plank (6)
   m_TagString: Untagged
@@ -70,7 +82,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7603671921184935311}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7603671922133384338
 MeshFilter:
@@ -122,19 +134,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7603671922133384339
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7603671922133384350}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 23.092485, y: 8.75461, z: 92.839806}
-  m_Center: {x: -0.0000023469333, y: 6.497657, z: -0.0000076293945}
 --- !u!1 &7603671922390610770
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +165,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7603671921184935311}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7603671922390610774
 MeshFilter:
@@ -229,7 +228,6 @@ GameObject:
   - component: {fileID: 7603671922440376978}
   - component: {fileID: 7603671922440376977}
   - component: {fileID: 7603671922440376976}
-  - component: {fileID: 7603671922440376982}
   m_Layer: 0
   m_Name: plank (5)
   m_TagString: Untagged
@@ -245,12 +243,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7603671922440376989}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 19.71, y: 0, z: 0.06}
+  m_LocalPosition: {x: -0.19, y: 0, z: 0.1}
   m_LocalScale: {x: 0.19690001, y: 0.14999999, z: 0.20892002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7603671921184935311}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7603671922440376977
 MeshFilter:
@@ -302,19 +300,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7603671922440376982
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7603671922440376989}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 23.092485, y: 8.75461, z: 92.839806}
-  m_Center: {x: -0.0000024139886, y: 6.497657, z: -7.918986e-21}
 --- !u!1 &7603671922630661679
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +331,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7603671921184935311}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7603671922630661667
 MeshFilter:
@@ -429,7 +414,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7603671921184935311}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7603671922689154512
 MeshFilter:
@@ -512,7 +497,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7603671921184935311}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7603671923113366096
 MeshFilter:
@@ -564,78 +549,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &7603671922160828434
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 7603671921184935311}
-    m_Modifications:
-    - target: {fileID: 2626405605343864365, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_Name
-      value: Plank(SeeSaw)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e4a0ec76282d73c408c138d4171916c3, type: 3}
---- !u!4 &5860491148482036086 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4094069985974272356, guid: e4a0ec76282d73c408c138d4171916c3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7603671922160828434}
-  m_PrefabAsset: {fileID: 0}

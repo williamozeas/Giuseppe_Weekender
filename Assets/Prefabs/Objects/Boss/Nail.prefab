@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 1122610931344468266}
   - component: {fileID: 4888939981588862278}
   - component: {fileID: 227247903588339629}
+  - component: {fileID: 6375314802212901345}
   m_Layer: 0
   m_Name: nail
   m_TagString: Untagged
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackPositionRotation: 1
-  trackVelocity: 1
+  trackVelocity: 0
   trackAnimator: 0
   trackAudio: 0
   trackParticles: 0
@@ -166,5 +167,17 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 13.511894, y: 20.557936, z: 13.511906}
-  m_Center: {x: 0, y: -3.5738957, z: -0.0000059604645}
+  m_Size: {x: 5.670437, y: 20.557936, z: 13.511906}
+  m_Center: {x: -0.00000011920929, y: -3.5738962, z: -0.000005722046}
+--- !u!114 &6375314802212901345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860697398899984479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec279f08ae39e4c47a347ff50d553ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -6,11 +6,11 @@ public class PlankSeeSaw : MonoBehaviour
 {
 
     public GameObject player;
-    public KCharacterController characterController;
+    KCharacterController characterController;
 
-    public bool turningccw;
-    public bool turningcw;
-    public float currentRot;
+    bool turningccw;
+    bool turningcw;
+    float currentRot;
 
     // Start is called before the first frame update
     void Start()
