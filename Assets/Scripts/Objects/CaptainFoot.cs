@@ -168,7 +168,7 @@ public class CaptainFoot : RewindAbstract
             return a.distance < b.distance ? a : b;
         }));
         distanceToStomp = shortest.distance;
-        Debug.Log(distanceToStomp);
+        Debug.Log(shortest.transform.name);
         stompStartHeight = transform.position.y;
     }
 
