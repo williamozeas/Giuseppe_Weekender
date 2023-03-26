@@ -921,6 +921,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nail
       objectReference: {fileID: 0}
+    - target: {fileID: 4888939981588862278, guid: 9888257ca68e55d40a26492810c53536,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888939981588862278, guid: 9888257ca68e55d40a26492810c53536,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6729848816081010916, guid: 9888257ca68e55d40a26492810c53536,
         type: 3}
       propertyPath: m_RootOrder

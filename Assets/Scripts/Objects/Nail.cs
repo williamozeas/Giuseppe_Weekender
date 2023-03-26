@@ -17,6 +17,7 @@ public class Nail : MonoBehaviour
     void FixedUpdate()
     {
         if (movingDown) {
+            Debug.Log("meow");
             if (transform.localPosition.y > -15.6f) {
                 transform.localPosition -= new Vector3(0f, 1.2f, 0f);
             } else {
