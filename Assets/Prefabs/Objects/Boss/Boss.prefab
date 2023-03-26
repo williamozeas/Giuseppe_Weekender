@@ -40,11 +40,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 51003782570162234}
     m_Modifications:
-    - target: {fileID: 2761756501457925959, guid: 37a5b053602fa554a94ee969cbe6c057,
-        type: 3}
-      propertyPath: windupTime
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4308830132244704637, guid: 37a5b053602fa554a94ee969cbe6c057,
         type: 3}
       propertyPath: m_Name

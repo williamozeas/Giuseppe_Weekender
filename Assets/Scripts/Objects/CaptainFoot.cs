@@ -45,6 +45,12 @@ public class CaptainFoot : RewindAbstract
     private float recoveryStartPos;
     private Player player;
     private Rigidbody rb;
+    private bool owCue = false;
+
+    [Header("AudioSources")] public AudioSource raiseSource;
+    public AudioSource downSource;
+    public AudioSource owSource;
+    public AudioSource bangSource;
 
     // Start is called before the first frame update
     void Start()
@@ -140,6 +146,8 @@ public class CaptainFoot : RewindAbstract
         timer = 0;
         phase = StompPhase.Windup;
         originalHeight = transform.position.y;
+        ReversibleSoundEffect sfx = new ReversibleSoundEffect(() => raiseSource.Play(), raiseSource, Timeline.World);
+        sfx.Play();
     }
 
     private void StartStomp()
@@ -168,14 +176,27 @@ public class CaptainFoot : RewindAbstract
             return a.distance < b.distance ? a : b;
         }));
         distanceToStomp = shortest.distance;
-        Debug.Log(shortest.transform.name);
+        if (shortest.transform.name == "nail") //this is bad form but we have <5 hours till due
+        {
+            owCue = true;
+        }
         stompStartHeight = transform.position.y;
+        ReversibleSoundEffect sfx = new ReversibleSoundEffect(() => downSource.Play(), downSource, Timeline.World);
+        sfx.Play();
     }
 
     private void StartRest()
     {
         timer = 0;
         phase = StompPhase.Rest;
+        ReversibleSoundEffect sfx = new ReversibleSoundEffect(() => bangSource.Play(), bangSource, Timeline.World);
+        sfx.Play();
+        if (owCue)
+        {
+            ReversibleSoundEffect ow = new ReversibleSoundEffect(() => owSource.Play(), owSource, Timeline.World);
+            ow.Play();
+            owCue = false;
+        }
     }
 
     private void StartRecover()
@@ -211,7 +232,6 @@ public class CaptainFoot : RewindAbstract
         state.phase = phase;
         state.timer = timer;
         trackedState.WriteLastValue(state);
-        Debug.Log("tracking");
     }
 
 
