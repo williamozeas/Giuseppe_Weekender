@@ -68,6 +68,9 @@ MonoBehaviour:
   DontDestroy: 0
   _worldSfxTracker: {fileID: 7007754703750923375}
   _playerSfxTracker: {fileID: 5350962965549797456}
+  jumpSFX:
+  - {fileID: 8300000, guid: e7571137691d542a1bf6f4757ee510e1, type: 3}
+  - {fileID: 8300000, guid: 601c21949cf69465ea8516a9a2b2d399, type: 3}
 --- !u!114 &7007754703750923375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +109,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

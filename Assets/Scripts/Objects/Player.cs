@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
     Vector3 pos1 = new Vector3(0f, 0f, 0f);
     Vector3 pos2 = new Vector3(5.89f, 3.9f, -9.47f);
     Vector3 pos3 = new Vector3(0f, 0f, 0f);
-
     
     //Awake is called before Start
     private void Awake()
