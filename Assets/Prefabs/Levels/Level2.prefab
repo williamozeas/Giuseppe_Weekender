@@ -21404,6 +21404,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pipe_Straight (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073134853220827650, guid: 210318fd6d221aa4ab7513a0b7ba71f7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 210318fd6d221aa4ab7513a0b7ba71f7, type: 3}
 --- !u!1 &1472116340726897817 stripped
@@ -21441,7 +21446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   events:
-  - time: 3
+  - time: 15
     on: 1
 --- !u!114 &8377828044739010509
 MonoBehaviour:
@@ -28284,7 +28289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   events:
-  - time: 25
+  - time: 24
     on: 1
 --- !u!114 &6354387462696977245
 MonoBehaviour:
