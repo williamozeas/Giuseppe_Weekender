@@ -61,6 +61,7 @@ public class ButtonInteractions : MonoBehaviour
     }
 
     public void exitGame() {
+        GameManager.Instance.GameState = GameState.Menu;
         Background.gameObject.SetActive(true);
         LandingPage.gameObject.SetActive(true);
         HowToPlayPage.gameObject.SetActive(false);
