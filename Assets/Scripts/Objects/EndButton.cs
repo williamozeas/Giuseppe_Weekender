@@ -11,6 +11,7 @@ public class EndButton : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Foot"))
         {
+            GameManager.Instance.GameState = GameState.GameEnd;
             GameManager.Instance.CurrentScene = scene;
         }
     }
@@ -19,6 +20,7 @@ public class EndButton : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Foot"))
         {
+            GameManager.Instance.GameState = GameState.GameEnd;
             GameManager.Instance.CurrentScene = scene;
         }
     }
