@@ -38,9 +38,4 @@ public class GrabbableGear : MonoBehaviour, IGrabbable
         transform.parent = null;
         rewindScript.Dropped(transform.position);
     }
-
-    public void Prompt()
-    {
-        Debug.Log("aa");
-    }
 }

@@ -5,11 +5,20 @@ using UnityEngine;
 
 public class ButtonPrompt : MonoBehaviour
 {
+    public GameObject sign;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            transform.parent.GetComponent<GrabbableGear>().Prompt();
+            sign.SetActive(true);
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            sign.SetActive(false);
         }
     }
 }
