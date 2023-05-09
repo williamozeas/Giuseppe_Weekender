@@ -38,6 +38,11 @@ public class Player : MonoBehaviour
     private IGrabbable grabbedObject;
 
     private Watchable watchedObject;
+
+    public Transform camTrans;
+    Vector3 pos1 = new Vector3(0f, 0f, 0f);
+    Vector3 pos2 = new Vector3(5.89f, 3.9f, -9.47f);
+    Vector3 pos3 = new Vector3(0f, 0f, 0f);
     
     //Awake is called before Start
     private void Awake()
@@ -75,6 +80,8 @@ public class Player : MonoBehaviour
         HandleGrabbing();
 
         HandleWatching();
+
+        HandleCameraPos();
     }
 
     void FixedUpdate()
@@ -213,7 +220,7 @@ public class Player : MonoBehaviour
 
     private void HandleGrabbing()
     {
-        if (Input.GetKeyDown("g")) {
+        if (Input.GetButtonDown("Grab")) {
             //Grab pressed
             if (grabbedObject == null) {
                 var colliders = Physics.OverlapSphere(transform.position, 1.8f);
@@ -249,5 +256,16 @@ public class Player : MonoBehaviour
                 watchedObject = null;
             }
         }
+    }
+
+    private void HandleCameraPos()
+    {
+        if (transform.position.x < 135f) {
+            float t =  (Mathf.Clamp(transform.position.x, 126f, 131f) - 126f) / 5f;
+            camTrans.position = transform.position + Vector3.Slerp(pos1, pos2, t);
+            return;
+        }
+        float t2 =  (Mathf.Clamp(transform.position.x, 205f, 215f) - 205f) / 10f;
+        camTrans.position = transform.position + Vector3.Slerp(pos2, pos3, t2);
     }
 }

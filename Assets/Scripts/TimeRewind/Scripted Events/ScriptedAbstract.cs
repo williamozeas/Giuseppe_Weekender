@@ -26,14 +26,6 @@ public abstract class ScriptedAbstract<T> : MonoBehaviour where T : ScriptedEven
         events.Sort((a, b) => a.time.CompareTo(b.time));
     }
 
-    void Update()
-    {
-        // if (!IsInFixedUpdate)
-        // {
-        //     CheckForEventTrigger();
-        // }
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {

@@ -18,6 +18,7 @@ public class SoundEffectTracker : MonoBehaviour
         {
             RewindManager.StopRewind += OnStopRewind;
         }
+        GameManager.OnLoadScene += OnLoadScene;
     }
 
     private void OnDisable()
@@ -26,6 +27,14 @@ public class SoundEffectTracker : MonoBehaviour
         {
             RewindManager.StopRewind -= OnStopRewind;
         }
+        GameManager.OnLoadScene -= OnLoadScene;
+    }
+
+    private void OnLoadScene(SceneNum newScene)
+    {
+        _justRewinded = false;
+        _sfx.Clear();
+        _playingSFX.Clear();
     }
 
     void FixedUpdate()
@@ -34,70 +43,78 @@ public class SoundEffectTracker : MonoBehaviour
         //replaying sounds
         //TODO: currently this doesn't work with player time sounds because there is no "player timer"
         // ReversibleSoundEffect peek;
-        if (((Timeline == Timeline.World && RewindManager.IsBeingRewinded) //world rewound
-             || (Timeline == Timeline.Player && GameManager.Instance.Player.PlayerRewinder.IsBeingRewinded)) //or player rewound
-            && _sfx.Count > _playingSFX.Count) //and we're at the correct time
+        if (GameManager.Instance.CurrentScene != SceneNum.MainMenu)
         {
-            ReversibleSoundEffect peek = _sfx[_sfx.Count - 1 - _playingSFX.Count];
-            if (GameManager.Instance.Time < peek.times.Item2)
+            if (((Timeline == Timeline.World && RewindManager.IsBeingRewinded) //world rewound
+                 || (Timeline == Timeline.Player &&
+                     GameManager.Instance.Player.PlayerRewinder.IsBeingRewinded)) //or player rewound
+                && _sfx.Count > _playingSFX.Count) //and we're at the correct time
             {
-                //TODO: right now if you start to reverse, then go forwards, then reverse again it will not play
-                if (!_justRewinded)
+                ReversibleSoundEffect peek = _sfx[_sfx.Count - 1 - _playingSFX.Count];
+                if (GameManager.Instance.Time < peek.times.Item2)
                 {
-                    peek.OnReverse();
+                    if (!_justRewinded)
+                    {
+                        peek.OnReverse();
+                    }
+
+                    _playingSFX.Add(peek);
                 }
-                _playingSFX.Add(peek);
             }
-        }
-
-        for (int i = _playingSFX.Count - 1; i >= 0; i--)
-        {
-            ReversibleSoundEffect sfx = _playingSFX[i];
-            if (sfx.times.Item2 < GameManager.Instance.Time)
+            for (int i = _playingSFX.Count - 1; i >= 0; i--)
             {
-                _playingSFX.RemoveAt(i);
-                continue;
+                ReversibleSoundEffect sfx = _playingSFX[i];
+                if (sfx.times.Item2 < GameManager.Instance.Time)
+                {
+                    _playingSFX.RemoveAt(i);
+                    continue;
+                }
+
+                if (sfx.times.Item1 > GameManager.Instance.Time)
+                {
+                    _playingSFX.RemoveAt(i);
+                    _sfx.Remove(sfx);
+                    continue;
+                }
+
+                if (RewindManager.IsBeingRewinded)
+                {
+                    if (RewindManager.RewindSeconds == 0)
+                    {
+                        sfx.SetSpeed(0);
+                    }
+                    else
+                    {
+                        sfx.SetSpeed(-GameManager.Instance.Player.RewindRampWorld);
+                    }
+                }
+                else
+                {
+                    sfx.SetSpeed(1);
+                }
             }
 
-            if (sfx.times.Item1 > GameManager.Instance.Time)
-            {
-                _playingSFX.RemoveAt(i);
-                _sfx.Remove(sfx);
-                continue;
-            }
-
+            //_justRewinded is only true on the first frame you rewind, to stop already playing clips from resetting
             if (RewindManager.IsBeingRewinded)
             {
-                sfx.SetSpeed(-GameManager.Instance.Player.RewindRampWorld);
+                _justRewinded = false;
             }
             else
             {
-                sfx.SetSpeed(1);
+                _justRewinded = true;
             }
-        }
-
-        //_justRewinded is only true on the first frame you rewind, to stop already playing clips from resetting
-        if (RewindManager.IsBeingRewinded)
-        {
-            _justRewinded = false;
-        }
-        else
-        {
-            _justRewinded = true;
         }
     }
 
     private void OnStopRewind()
     {
-        // _reversedSfxToAdd.RemoveAll(sfx =>
-        // {
-        //     return sfx.times.Item1 > GameManager.Instance.Time;
-        // });
-        // _reversedSfxToAdd.Sort((a,b) => ReversibleSoundEffect.Compare(a,b,RewindManager.IsBeingRewinded));
-        // _reversedSfxToAdd.ForEach(effect =>
-        // {
-        //     
-        // });
+        for (int i = _playingSFX.Count - 1; i >= 0; i--)
+        {
+            ReversibleSoundEffect sfx = _playingSFX[i];
+            // if(sf)
+            // sfx.SetTimeSamples((int)(GameManager.Instance.Time - sfx.times.Item1) * 44100);
+            // Debug.Log("Name" + sfx.Source.clip.name + " Start: " + sfx.times.Item1 + "Current Time: " + GameManager.Instance.Time);
+        }
     }
 
     public void AddSfx(ReversibleSoundEffect newSfx)

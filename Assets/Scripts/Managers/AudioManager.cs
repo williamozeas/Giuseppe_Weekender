@@ -10,21 +10,26 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private SoundEffectTracker _playerSfxTracker;
     public SoundEffectTracker PlayerSfxTracker => _playerSfxTracker;
     
+    
+    [SerializeField] private List<AudioClip> jumpSFX;
+    
     public override void Awake()
     {
         base.Awake();
         musicReverser = GetComponent<MusicReverser>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void JumpSFX(AudioSource source)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int rand = Random.Range(0, jumpSFX.Count + 1);
+        if (rand < jumpSFX.Count)
+        {
+            source.Stop();
+            source.clip = jumpSFX[rand];
+            source.pitch = 1 + Random.Range(-0.2f, 0.2f);
+            source.volume = 0.4f;
+            source.Play();
+            
+        }
     }
 }

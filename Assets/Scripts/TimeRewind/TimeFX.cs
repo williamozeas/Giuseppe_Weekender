@@ -22,13 +22,18 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 public class TimeFX : MonoBehaviour
 {
-
+    [Header("Audio")] 
+    [SerializeField] private AudioClip startRewindClip;
+    [SerializeField] private AudioClip endRewindClip;
+    [SerializeField] private AudioSource tickTockSource;
+    [Header("B&W Shader")]
     [SerializeField] private UniversalRendererData balancedRendererData;
     [SerializeField] private UniversalRendererData highFidelityRendererData;
     private UniversalRendererData rendererData = null;
     [SerializeField] private string featureName;
     [FormerlySerializedAs("transitionPeriod")] [SerializeField] private float transitionTime = 0.8f;
 
+    private AudioSource audioSource;
     private Cyan.Blit blitFeature;
     private WorldRewindRenderFeature rewindFeature;
     private Material satMat;
@@ -41,6 +46,7 @@ public class TimeFX : MonoBehaviour
 
     private void Start() {
         Init();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -86,6 +92,15 @@ public class TimeFX : MonoBehaviour
     }
 
     public void StartRewind() {
+        if (startRewindClip)
+        {
+            audioSource.PlayOneShot(startRewindClip, 1.2f);
+        }
+
+        if (tickTockSource)
+        {
+            StartCoroutine(AudioHelper.FadeIn(tickTockSource, 1f, 0.5f));
+        }
         if (blitFeature)
         {
             if (currentTransition != null)
@@ -102,6 +117,15 @@ public class TimeFX : MonoBehaviour
     }
     
     public void StopRewind() {
+        if (endRewindClip)
+        {
+            audioSource.PlayOneShot(endRewindClip, 1.2f);
+        }
+
+        if (tickTockSource)
+        {
+            StartCoroutine(AudioHelper.FadeOut(tickTockSource, 0.5f));
+        }
         if (blitFeature)
         {
             if (currentTransition != null)

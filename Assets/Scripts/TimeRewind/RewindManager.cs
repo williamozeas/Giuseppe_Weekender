@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RewindManager : MonoBehaviour
 {
-    [SerializeField] private TimeFX timeFX;
+    [HideInInspector] public TimeFX timeFX;
     /// <summary>
     /// Action is not meant to be used by users. It shares data between classes. You probably want to use prepared methods like: RewindTimeBySeconds(), StartRewindTimeBySeconds(), SetTimeSecondsInRewind(), StopRewindTimeBySeconds()
     /// </summary>
@@ -52,6 +52,8 @@ public class RewindManager : MonoBehaviour
         {
             Debug.LogError("RewindManager cannot be more than once in each scene. Remove the other RewindManager!!!");
         }
+        GameManager.Instance.SetRewindManager(this);
+        timeFX = GetComponent<TimeFX>();
     }
 
 

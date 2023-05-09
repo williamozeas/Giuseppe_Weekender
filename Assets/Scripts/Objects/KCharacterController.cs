@@ -88,6 +88,8 @@ public class KCharacterController : MonoBehaviour, ICharacterController
     private Vector3 lastInnerNormal = Vector3.zero;
     private Vector3 lastOuterNormal = Vector3.zero;
 
+    private AudioSource jumpSource;
+
     private void Awake()
     {
         // Handle initial state
@@ -95,6 +97,8 @@ public class KCharacterController : MonoBehaviour, ICharacterController
 
         // Assign the characterController to the motor
         Motor.CharacterController = this;
+
+        jumpSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -363,6 +367,9 @@ public class KCharacterController : MonoBehaviour, ICharacterController
                             
                             //animation
                             animator.SetTrigger("Jump");
+                            
+                            //SFX
+                            AudioManager.Instance.JumpSFX(jumpSource);
                         }
                     }
 
@@ -478,12 +485,14 @@ public class KCharacterController : MonoBehaviour, ICharacterController
     {
     }
 
-    public void AddVelocity(Vector3 velocity)
+    public void AddExpVel(Vector3 velocity)
     {
         switch (CurrentCharacterState)
         {
             case CharacterState.Default:
                 {
+                    Debug.Log("Adding");
+                    Motor.ForceUnground();
                     _internalVelocityAdd += velocity;
                     break;
                 }

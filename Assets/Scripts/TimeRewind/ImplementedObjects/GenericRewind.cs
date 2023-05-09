@@ -65,6 +65,7 @@ public class GenericRewind : RewindAbstract
     private void Start()
     {
         InitializeParticles(particleSettings);
+        Track();
     }
 
     protected override void OnEnable()
@@ -75,8 +76,8 @@ public class GenericRewind : RewindAbstract
     
     protected override void OnDisable()
     {
-        base.OnEnable();
-        RewindManager.StopRewind += OnStopRewind;
+        base.OnDisable();
+        RewindManager.StopRewind -= OnStopRewind;
     }
 
     private void OnStopRewind()

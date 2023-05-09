@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -15,13 +16,14 @@ public enum GameState
 public enum SceneNum
 {
     MainMenu,
-    Level1,
-    Level2,
-    Level3
+    Kitchen,
+    Engine,
+    Captain
 }
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private SceneNum startingScene;
     [Header("Game Params")]
     [SerializeField] private float maxTime = 30f;
 
@@ -42,15 +44,16 @@ public class GameManager : Singleton<GameManager>
     }
     
     //Events
-    public static event Action OnGameStart;
+    public static event Action OnGamePlay;
     public static event Action OnGameOver;
+    public static event Action<SceneNum> OnLoadScene;
     public static event Action OnDie;
     public static event Action OnRunOutOfTime;
     
     //References (Should set themselves in their Awake() functions)
     private Player _player;
     public Player Player => _player;
-    private RewindManager _rewindManager;
+    [SerializeField] private RewindManager _rewindManager;
     public RewindManager RewindManager => _rewindManager;
     
     private WorldTimer _timer;
@@ -59,8 +62,8 @@ public class GameManager : Singleton<GameManager>
     
     public override void Awake()
     {
-        _rewindManager = GetComponent<RewindManager>();
-        _timer = GetComponent<WorldTimer>();
+        base.Awake();
+        _currentScene = startingScene;
     }
     
     public void SetGameState(GameState newGameState)
@@ -75,12 +78,13 @@ public class GameManager : Singleton<GameManager>
             }
             case (GameState.Playing):
             {
-                OnGameStart?.Invoke();
+                OnGamePlay?.Invoke();
                 break;
             }
             case (GameState.GameEnd):
             {
                 OnGameOver?.Invoke();
+                LoadLevel(SceneNum.MainMenu);
                 break;
             }
         }
@@ -93,26 +97,27 @@ public class GameManager : Singleton<GameManager>
         {
             case (SceneNum.MainMenu):
             {
-                //load scene level
+                SceneManager.LoadScene("Menu");
                 break;
             }
-            case (SceneNum.Level1):
+            case (SceneNum.Kitchen):
             {
-                //load level 1
+                SceneManager.LoadScene("Kitchen");
                 break;
             }
-            case (SceneNum.Level2):
+            case (SceneNum.Engine):
             {
-                //load level 2
+                SceneManager.LoadScene("Engine");
                 break;
             }
-            case (SceneNum.Level3):
+            case (SceneNum.Captain):
             {
-                //load level 3
+                SceneManager.LoadScene("Captain");
                 break;
             }
         }
         _currentScene = newScene;
+        OnLoadScene?.Invoke(newScene);
     }
 
     public void SetPlayer(Player newPlayer)
@@ -128,5 +133,11 @@ public class GameManager : Singleton<GameManager>
     public static void RunOutOfTime()
     {
         OnRunOutOfTime?.Invoke();
+    }
+
+    public void SetRewindManager(RewindManager rewindManager)
+    {
+        _rewindManager = rewindManager;
+        _timer = rewindManager.GetComponent<WorldTimer>();
     }
 }

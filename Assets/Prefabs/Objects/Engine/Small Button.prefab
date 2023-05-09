@@ -241,4 +241,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pistonTop: {fileID: 0}
-  currentPistonState: 0

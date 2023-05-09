@@ -42,6 +42,11 @@ public class CircularBuffer <T>
             Debug.LogError("Circular buffer cannot use field initialization (Time.fixedDeltaTime is unknown yet). Initialize Circular buffer in Start() method!");
         }        
     }
+
+    ~CircularBuffer()
+    {
+        RewindManager.RestoreBuffers -= OnBuffersRestore;
+    }
     
     /// <summary>
     /// Write value to the last position of the buffer
@@ -118,5 +123,7 @@ public class CircularBuffer <T>
     {
         MoveLastBufferPosition(seconds);
     }
+    
+    
 
 }

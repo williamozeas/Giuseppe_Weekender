@@ -33,10 +33,14 @@ public class Singleton<T> : MonoBehaviour where T : Component
             {
                 _instance = this as T;
                 DontDestroyOnLoad(gameObject);
+            } else if (_instance == this)
+            {
+                DontDestroyOnLoad(gameObject);
             }
             else if(_instance != this)
             {
-                Destroy(gameObject);
+                Debug.Log("Destroying extra GameManager");
+                DestroyImmediate(gameObject);
             }
         }
     }
